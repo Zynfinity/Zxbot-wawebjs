@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@open-wa/wa-automate": "^4.31.7",
-    "forever": "^4.0.3"
+    "forever": "^4.0.3",
+    "human-readable": "^0.2.1",
+    "performance-now": "^2.1.0"
   }
 }
