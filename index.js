@@ -1,8 +1,6 @@
 const wa = require('@open-wa/wa-automate');
-const djs = require('@discordjs/collection')
 const fs = require('fs')
 const path = require('path')
-djs.commands = new djs.Collection()
 // AUTO UPDATE BY NURUTOMO
 // THX FOR NURUTOMO
 // Cache handler and check for file change
@@ -10,7 +8,7 @@ require('./index.js')
 nocache('./index.js', module => console.log(`'${module}' Updated!`))
 wa.create({
     sessionId: "multidevice",
-    multiDevice: false, //required to enable multiDevice support
+    multiDevice: true, //required to enable multiDevice support
     authTimeout: 60, //wait only 60 seconds to get a connection with the host account device
     blockCrashLogs: true,
     disableSpins: true,
