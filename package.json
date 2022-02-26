@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "@open-wa/wa-automate": "^4.31.7",
-    "chalk": "^5.0.0",
-    "forever": "^4.1.2",
+    "chalk": "^4.1.2",
+    "forever": "^4.0.3",
     "human-readable": "^0.2.1",
     "moment-timezone": "^0.5.34",
     "performance-now": "^2.1.0"
