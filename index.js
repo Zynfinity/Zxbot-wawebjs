@@ -8,7 +8,7 @@ require('./index.js')
 nocache('./index.js', module => console.log(`'${module}' Updated!`))
 wa.create({
     sessionId: "multidevice",
-    multiDevice: true, //required to enable multiDevice support
+    multiDevice: false, //required to enable multiDevice support
     authTimeout: 60, //wait only 60 seconds to get a connection with the host account device
     blockCrashLogs: true,
     disableSpins: true,
