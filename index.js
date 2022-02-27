@@ -1,6 +1,7 @@
 const wa = require('@open-wa/wa-automate');
 const fs = require('fs')
 const path = require('path')
+const syntaxerror = require('syntax-error')
 // AUTO UPDATE BY NURUTOMO
 // THX FOR NURUTOMO
 // Cache handler and check for file change
@@ -8,7 +9,7 @@ require('./index.js')
 nocache('./index.js', module => console.log(`'${module}' Updated!`))
 wa.create({
     sessionId: "multidevice",
-    multiDevice: false, //required to enable multiDevice support
+    multiDevice: true, //required to enable multiDevice support
     authTimeout: 60, //wait only 60 seconds to get a connection with the host account device
     blockCrashLogs: true,
     disableSpins: true,
@@ -31,6 +32,31 @@ for (let filename of fs.readdirSync(pluginFolder).filter(pluginFilter)) {
         console.log(e)
     }
 }
+global.reload = (_event, filename) => {
+    if (pluginFilter(filename)) {
+      let dir = path.join(pluginFolder, filename)
+      if (dir in require.cache) {
+        delete require.cache[dir]
+        if (fs.existsSync(dir)) console.info(`re - require plugin '${filename}'`)
+        else {
+          console.log(`deleted plugin '${filename}'`)
+          return delete global.plugins[filename]
+        }
+      } else console.info(`requiring new plugin '${filename}'`)
+      let err = syntaxerror(fs.readFileSync(dir), filename)
+      if (err) console.log(`syntax error while loading '${filename}'\n${err}`)
+      else
+        try {
+          global.plugins[filename] = require(dir)
+        } catch (e) {
+          console.log(e)
+        } finally {
+          global.plugins = Object.fromEntries(Object.entries(global.plugins).sort(([a], [b]) => a.localeCompare(b)))
+        }
+    }
+  }
+  Object.freeze(global.reload)
+  fs.watch(path.join(__dirname, 'commands'), global.reload)
 
 function start(client) {
     client.onMessage(async message => {

@@ -1,7 +1,9 @@
 module.exports = {
-  name: 'eval',
-  cmd: ['eval', '<'],
-  handler(m, {conn, q}){
+  name: ['eval'].map((v) => v + ' <Your Code>'),
+  cmd: /^(ev|eval)$/i,
+  category: 'owner',
+  owner: true,
+  async handler(m, {conn, q}){
     const util = require('util')
       function _(rem) {
           ren = JSON.stringify(rem, null, 2)

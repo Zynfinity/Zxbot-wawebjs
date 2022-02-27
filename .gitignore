@@ -2,3 +2,13 @@
 node_modules
 # package lock
 package-lock.json
+#session
+_IGNORE_multidevice
+#session2
+multidevice.data.json
+
+# managed
+**.data.json
+**.node-persist**
+**_IGNORE_**
+# end managed
