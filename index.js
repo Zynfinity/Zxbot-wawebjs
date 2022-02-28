@@ -2,23 +2,22 @@ const wa = require('@open-wa/wa-automate');
 const fs = require('fs')
 const path = require('path')
 const syntaxerror = require('syntax-error')
-// AUTO UPDATE BY NURUTOMO
-// THX FOR NURUTOMO
-// Cache handler and check for file change
-require('./index.js')
-nocache('./index.js', module => console.log(`'${module}' Updated!`))
 wa.create({
     sessionId: "multidevice",
     multiDevice: true, //required to enable multiDevice support
     authTimeout: 60, //wait only 60 seconds to get a connection with the host account device
     blockCrashLogs: true,
     disableSpins: true,
+    useChrome: true,
     headless: true,
     hostNotificationLang: 'PT_BR',
     logConsole: false,
     popup: false,
     qrTimeout: 0, //0 means it will wait forever for you to scan the qr code
-}).then(client => start(client));
+}).then(async client => {
+  await require('./lib/database/database').connectToDatabase()
+  start(client)
+});
 
 
 //read command
@@ -68,25 +67,10 @@ function start(client) {
     });
 }
 
-function nocache(module, cb = () => {}) {
-    console.log('Module', `'${module}'`, 'is now being watched for changes')
-    fs.watchFile(require.resolve(module), async () => {
-        await uncache(require.resolve(module))
-        cb(module)
-    })
-}
-
-/**
- * Uncache a module
- * @param {string} module Module name or path
- */
-function uncache(module = '.') {
-    return new Promise((resolve, reject) => {
-        try {
-            delete require.cache[require.resolve(module)]
-            resolve()
-        } catch (e) {
-            reject(e)
-        }
-    })
-}
+let file = require.resolve(__filename)
+fs.watchFile(file, () => {
+  fs.unwatchFile(file)
+  console.log("Update 'index.js'")
+  delete require.cache[file]
+  if (global.reload) console.log(global.reload())
+})
