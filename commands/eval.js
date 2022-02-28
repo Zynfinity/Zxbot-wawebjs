@@ -2,6 +2,7 @@ module.exports = {
   name: ['eval'].map((v) => v + ' <Your Code>'),
   cmd: /^(ev|eval)$/i,
   category: 'owner',
+  desc: ['Untuk Mengeksekusi kode javascript', '.eval < code >'],
   owner: true,
   async handler(m, {conn, q}){
     const util = require('util')

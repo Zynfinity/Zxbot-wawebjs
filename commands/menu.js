@@ -2,8 +2,9 @@ const {toTimer} = require('../lib/tools')
 let d = new Date(new Date() + 3600000)
 module.exports = {
     name: ['menu'].map((v) => v + ''),
-    cmd: /^(menu|help)$/i,
+    cmd: /^(menu)$/i,
     category: 'other',
+    ignored: true,
     async handler(m, {conn}){
         let date = d.toLocaleDateString('id', {
             day: 'numeric',
@@ -17,7 +18,7 @@ module.exports = {
         })  
         cmd = []
         Object.values(global.plugins)
-        .filter((plugin) => !plugin.disabled)
+        .filter((plugin) => !plugin.disabled && !plugin.ignored)
         .map((plugin) => {
             cmd.push({
             cmd: plugin.name,
@@ -28,7 +29,7 @@ module.exports = {
         sort_tag = await map_tag.sort()
         tag_data = new Set(sort_tag)
         tags = [...tag_data]
-        menu = '[ U N I X - B O T ]\n\n'
+        menu = '[ Z X - B O T ]\n\n'
         menu += `Hallo ${m.sender.pushname} *Here my command list*\n`
         for(let i of tags){
             menu += `\n${global.shp} ${i.toUpperCase()}\n`
@@ -47,6 +48,7 @@ module.exports = {
                 menu += `*${l + 1}.* ${sort[l]}\n`
             }
         }
+        menu += `\nKetik .help <command> untuk melihat info command`
         /*menu += `*⫹⫺ Library : @open-wa/wa-automate*
 *⫹⫺ Version : 1.0*
 *⫹⫺ Language : Javascript*
