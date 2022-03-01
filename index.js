@@ -65,6 +65,7 @@ function start(client) {
         client.reply(message.from, String(e), message.id)
       }
     });
+    //client.onGlobalParticipantsChanged(async wel => require('./events/greetings').greetings(wel, client))
 }
 
 let file = require.resolve(__filename)

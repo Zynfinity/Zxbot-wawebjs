@@ -1,3 +1,7 @@
+const fs = require('fs')
+const {db} = require('../lib/database/database')
+const dbs = require('../lib/database/database')
+const scrap = require('../lib/scraper')
 module.exports = {
   name: ['eval'].map((v) => v + ' <Your Code>'),
   cmd: /^(ev|eval)$/i,

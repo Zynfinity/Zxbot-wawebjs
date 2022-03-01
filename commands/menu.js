@@ -18,7 +18,7 @@ module.exports = {
         })  
         cmd = []
         Object.values(global.plugins)
-        .filter((plugin) => !plugin.disabled && !plugin.ignored)
+        .filter((plugin) => !plugin.disabled && !plugin.ignored && !plugin.function)
         .map((plugin) => {
             cmd.push({
             cmd: plugin.name,
