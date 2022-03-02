@@ -14,11 +14,11 @@ module.exports = {
             helpt += `${global.shp} Trigger Command : ${q}\n`
             helpt += `${global.shp} Category : ${plugin.category}\n\n`
             helpt += '*Command Atribute*\n'
-            helpt += `${global.shp} isOwner : ${plugin.owner ? true : false}\n`
-            helpt += `${global.shp} isAdmin : ${plugin.admin ? true : false}\n`
-            helpt += `${global.shp} isBotAdmin : ${plugin.botadmin ? true : false}\n`
-            helpt += `${global.shp} isPrivate : ${plugin.private ? true : false}\n`
-            helpt += `${global.shp} isGroup : ${plugin.group ? true : false}\n`
+            helpt += `${global.shp} isOwner : ${plugin.owner ? '✅' : '❌'}\n`
+            helpt += `${global.shp} isAdmin : ${plugin.admin ? '✅' : '❌'}\n`
+            helpt += `${global.shp} isBotAdmin : ${plugin.botadmin ? '✅' : '❌'}\n`
+            helpt += `${global.shp} isPrivate : ${plugin.private ? '✅' : '❌'}\n`
+            helpt += `${global.shp} isGroup : ${plugin.group ? '✅' : '❌'}\n`
             if(plugin.desc){
                 helpt += '\n*Command Description*\n'
                 helpt += `${global.shp} ${plugin.desc[0]}\n\n`
