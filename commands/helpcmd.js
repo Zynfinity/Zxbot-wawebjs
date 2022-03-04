@@ -24,8 +24,8 @@ module.exports = {
                 helpt += `${global.shp} ${plugin.desc[0]}\n\n`
                 helpt += `${global.shp} Usage : ${plugin.desc[1]}`
             }
-            return conn.reply(m.from, helpt, m.id)
+            return m.reply(helpt)
         }
-        conn.reply(m.from, `Command ${q} tidak tercantum di menu!`, m.id)
+        m.reply(`Command ${q} tidak tercantum di menu!`)
     }
 }

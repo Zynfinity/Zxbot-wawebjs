@@ -105,6 +105,6 @@ ${cpus
     : ""
 }
                 `.trim();
-		conn.reply(m.from, respon, m.id);
+		m.reply(respon);
 	}
 }

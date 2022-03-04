@@ -13,7 +13,7 @@ module.exports = {
             else if(quotedMsg.type == 'image') {
                 const mediaData = await conn.decryptMedia(quotedMsg, uao)
                 const imageBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
-                conn.sendImage(m.from, imageBase64, '', quotedMsg.caption, m.id)
+                conn.sendImage(m.from, imageBase64, '', quotedMsg.caption)
             }
     }
 }

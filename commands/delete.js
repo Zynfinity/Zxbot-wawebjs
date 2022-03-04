@@ -3,9 +3,9 @@ module.exports = {
     cmd: /^(delete|del)$/i,
     category: 'other',
     desc: ['Menghapus pesan yang dikirim bot', '.delete <reply chat bot>'],
-    async handler(m, {conn, quotedMsg}){
-        if(!quotedMsg) return m.reply('Reply pesan bot yang akan dihapus!')
-        if(quotedMsg.sender.id != (await conn.getMe()).me._serialized) return m.reply('Reply pesan bot yang akan dihapus!')
-            conn.deleteMessage(m.from, quotedMsg.id, false)
+    async handler(m, {conn, zx, hasQuotedMsg, quotedMsg, botNumber}){
+        if(!hasQuotedMsg) return m.reply('Reply pesan bot yang akan dihapus!')
+        if(quotedMsg.sender != botNumber) return m.reply('Reply pesan bot yang akan dihapus!')
+        m.getQuotedMessage().then(s => s.delete(true))
     }
 }

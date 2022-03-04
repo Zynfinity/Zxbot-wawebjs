@@ -1,25 +1,18 @@
-const wa = require('@open-wa/wa-automate');
 const fs = require('fs')
 const path = require('path')
 const syntaxerror = require('syntax-error')
-wa.create({
-    sessionId: "multidevice",
-    multiDevice: true, //required to enable multiDevice support
-    authTimeout: 60, //wait only 60 seconds to get a connection with the host account device
-    blockCrashLogs: true,
-    disableSpins: true,
-    useChrome: true,
-    headless: true,
-    hostNotificationLang: 'PT_BR',
-    logConsole: false,
-    popup: false,
-    qrTimeout: 0, //0 means it will wait forever for you to scan the qr code
-}).then(async client => {
-  await require('./lib/database/database').connectToDatabase()
-  start(client)
+const { Client, LocalAuth } = require('whatsapp-web.js');
+const client = new Client({
+  authStrategy: new LocalAuth(),
+  puppeteer: { headless: true, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }
 });
-
-
+client.on('qr', () => {
+    // Generate and scan this code with your phone
+    console.log('QR RECEIVED');
+});
+client.on('ready', () => {
+    console.log('Client is ready!');
+});
 //read command
 let pluginFolder = path.join(__dirname, 'commands')
 let pluginFilter = (filename) => /\.js$/.test(filename)
@@ -57,16 +50,12 @@ global.reload = (_event, filename) => {
   Object.freeze(global.reload)
   fs.watch(path.join(__dirname, 'commands'), global.reload)
 
-function start(client) {
-    client.onMessage(async message => {
-      try{
-        require('./lib/handler').handler(message, client)
-      }catch(e){
-        client.reply(message.from, String(e), message.id)
-      }
-    });
-    //client.onGlobalParticipantsChanged(async wel => require('./events/greetings').greetings(wel, client))
-}
+client.on('message', msg => {
+  require('./lib/handler').handler(msg, client)
+});
+client.on('message_revoke_everyone', async (after, before) => {
+});
+client.initialize();
 
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {

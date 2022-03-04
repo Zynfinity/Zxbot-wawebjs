@@ -1,6 +1,6 @@
 const scrap = require('../lib/scraper')
 module.exports = {
-    name: ['tiktok'].map((v) => v + ' <link tiktok>'),
+    name: ['tiktok'].map((v) => v + ' <link>'),
     cmd: /^(tiktok|tiktoknowm)$/i,
     category: 'downloader',
     desc: ['Mendownload video dari tiktok', '.tiktok <link> <WithWatermark>/.tiktoknowm <link> <NoWatermark>'],
@@ -10,7 +10,7 @@ module.exports = {
         m.reply(global.mess.wait)
         try{
             data = await scrap.ggtiktok(text)
-            conn.sendFileFromUrl(m.from, data.data.videoWM, 'tiktok', '*Tiktok Downloader*', m.id)
+            conn.sendFileFromUrl(m.from, data.data.video, {caption: '*Tiktok Downloader*', quotedMessageId: m.msgId})
         }catch{
             m.reply(global.mess.error)
         }

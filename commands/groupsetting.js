@@ -6,15 +6,14 @@ module.exports = {
     admin: true,
     botAdmin: true,
     group: true,
-    disabled: true,
-    async handler(m, {conn, args}){
+    async handler(m, {conn, zx, args}){
         if(args[0] == 'open'){
-            conn.setGroupToAdminsOnly(m.from, false)
-            conn.reply(m.from, 'Berhasil membuka group!\nsekarang semua member bisa mengirim pesan!', m.id)
+            await zx.setMessagesAdminsOnly(false)
+            m.reply('Berhasil membuka group!\nsekarang semua member bisa mengirim pesan!')
         }
         else if(args[0] == 'close'){
-            conn.setGroupToAdminsOnly(m.from, true)
-            conn.reply(m.from, 'Berhasil menutup group!\nsekarang hanya admin yang bisa mengirim pesan!', m.id)
+            await zx.setMessagesAdminsOnly(true)
+            m.reply('Berhasil menutup group!\nsekarang hanya admin yang bisa mengirim pesan!')
         }
     }
 }

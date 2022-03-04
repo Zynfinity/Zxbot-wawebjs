@@ -1,3 +1,4 @@
+const { MessageMedia } = require('whatsapp-web.js')
 const {toTimer} = require('../lib/tools')
 let d = new Date(new Date() + 3600000)
 module.exports = {
@@ -17,6 +18,7 @@ module.exports = {
             second: 'numeric',
         })  
         cmd = []
+        total = []
         Object.values(global.plugins)
         .filter((plugin) => !plugin.disabled && !plugin.ignored && !plugin.function)
         .map((plugin) => {
@@ -29,16 +31,25 @@ module.exports = {
         sort_tag = await map_tag.sort()
         tag_data = new Set(sort_tag)
         tags = [...tag_data]
+        cmd.map(mk => mk.cmd).map(mkk => {
+            mkk.map(pe => {
+                total.push(pe)
+            })
+        })
         menu = '[ Z X - B O T ]\n\n'
-        menu += `Hallo ${m.sender.pushname} *Here my command list*\n`
+        menu += `${global.shp} Library : Whatsapp-Web.js\n`
+        menu += `${global.shp} Runtime  : ${await toTimer(process.uptime())}\n`
+        menu += `${global.shp} Command Total : ${total.length}\n\n`
+        menu += `Hallo ${m._data.notifyName} *Here my command list*\n`
         for(let i of tags){
+            helps = []
             menu += `\n${global.shp} ${i.toUpperCase()}\n`
             filt_cmd = cmd.filter((mek) => mek.tag == i)
             map_cmd = await filt_cmd.map((mek) => mek.cmd)
-            helps = []
             for(let j of map_cmd){
                 for(let k of j){
                     helps.push(k)
+                    total.push(k)
                 }
             }
             sort = await helps.sort(function (a, b) {
@@ -49,15 +60,7 @@ module.exports = {
             }
         }
         menu += `\nKetik .help <command> untuk melihat info command`
-        /*menu += `*⫹⫺ Library : @open-wa/wa-automate*
-*⫹⫺ Version : 1.0*
-*⫹⫺ Language : Javascript*
-*⫹⫺ Runtime : ${await toTimer(process.uptime())}*
-*⫹⫺ User : ${m.sender.pushname}*
-*⫹⫺ Tanggal : ${date}*
-*⫹⫺ Waktu : ${time}*
-*⫹⫺ Author : All Contributor*
-*⫹⫺ All Command : ${cmd.length - 1}*\n`*/
-        conn.reply(m.from, menu, m.id)
+        media = await MessageMedia.fromFilePath('./lib/media/thumb.mp4')
+        conn.sendMessage(m.from, media, {caption: menu, sendVideoAsGif: true, quotedMessageId: m.msgId})
     }
 }
