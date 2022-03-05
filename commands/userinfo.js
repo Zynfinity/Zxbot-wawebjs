@@ -1,5 +1,3 @@
-const { handler } = require("./groupsetting");
-
 module.exports = {
     name: ['me'].map((v) => v + ''),
     cmd: /^(me)$/i,
