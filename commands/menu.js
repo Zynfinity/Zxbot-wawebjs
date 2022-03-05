@@ -39,7 +39,9 @@ module.exports = {
         menu = '[ Z X - B O T ]\n\n'
         menu += `${global.shp} Library : Whatsapp-Web.js\n`
         menu += `${global.shp} Runtime  : ${await toTimer(process.uptime())}\n`
-        menu += `${global.shp} Command Total : ${total.length}\n\n`
+        menu += `${global.shp} Command Total : ${total.length}\n`
+        menu += `${global.shp} Date : ${date}\n`
+        menu += `${global.shp} Time : ${time}\n\n`
         menu += `Hallo ${m._data.notifyName} *Here my command list*\n`
         for(let i of tags){
             helps = []
