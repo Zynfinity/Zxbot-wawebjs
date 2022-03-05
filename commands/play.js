@@ -20,7 +20,7 @@ module.exports = {
             teks += `${global.shp} Upload Date : ${filt.ago == undefined ? '-' : filt.ago}\n`
             teks += `${global.shp} Type : ${command == 'play' ? 'Mp3' : 'Mp4'}\n`
             teks += `${global.shp} Size : ${command == 'play' ? down.size_mp3 : down.size}\n`
-            if(command == 'play' ? !down.size_mp3.endsWith('KB') && down.size.split(' MB')[0] > 50 : !down.size.endsWith('KB') && down.size.split(' MB')[0] > 50){
+            if(command == 'play' ? !down.size_mp3.endsWith('KB') && down.size.split(' MB')[0] > 50 : !down.size.endsWith('KB') && down.size.split(' MB')[0] > 10){
                 teks += command == 'play' ? `${global.shp} Download : ` + await tiny(down.mp3) : `${global.shp} Download : ` + await tiny(down.link) + '\n\n'
                 teks += `\n\n${global.mess.oversize}`
                 return conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: m.msgId})
@@ -28,8 +28,8 @@ module.exports = {
             teks += `\nTunggu sebentar...\n${command == 'play' ? 'Audio' : 'Video'} sedang dikirim`
             await conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: m.msgId})
             conn.sendFileFromUrl(m.from, command == 'play' ? down.mp3 : down.link, {quotedMessageId: m.msgId})
-        }catch{
-            m.reply(global.mess.error)
+        }catch(e){
+            global.error(global.command, e, m)
         }
     }
 }

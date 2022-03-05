@@ -17,7 +17,7 @@ module.exports = {
             teks += `${global.shp} Id : ${down.id}\n`
             teks += `${global.shp} Type : ${command == 'ytmp3' ? 'Mp3' : 'Mp4'}\n`
             teks += `${global.shp} Size : ${command == 'ytmp3' ? down.size_mp3 : down.size}\n`
-            if(command == 'ytmp3' ? !down.size_mp3.endsWith('KB') && down.size.split(' MB')[0] > 50 : !down.size.endsWith('KB') && down.size.split(' MB')[0] > 50){
+            if(command == 'ytmp3' ? !down.size_mp3.endsWith('KB') && down.size.split(' MB')[0] > 50 : !down.size.endsWith('KB') && down.size.split(' MB')[0] > 10){
                 teks += command == 'ytmp3' ? `${global.shp} Download : ` + await tiny(down.mp3) : `${global.shp} Download : ` + await tiny(down.link) + '\n\n'
                 teks += `\n\n${global.mess.oversize}`
                 return conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: m.msgId})
@@ -25,8 +25,8 @@ module.exports = {
             teks += `\nTunggu sebentar...\n${command == 'ytmp3' ? 'Audio' : 'Video'} sedang dikirim`
             await conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: m.msgId})
             conn.sendFileFromUrl(m.from, command == 'ytmp3' ? down.mp3 : down.link, {quotedMessageId: m.msgId})
-        }catch{
-            m.reply(global.mess.error)
-        }
+        }catch(e){
+global.error(global.command, e)
+}
     }
 }

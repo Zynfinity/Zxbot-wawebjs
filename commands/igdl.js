@@ -10,7 +10,7 @@ module.exports = {
         m.reply(global.mess.wait)
         scrap.igdl(text).then(async res => {
             res.map(s => {
-                conn.sendFileFromUrl(m.from, s, {caption: '*Instagram Downloader*'})
+                conn.sendFileFromUrl(m.from, s, {caption: '*Instagram Downloader*', quotedMessageId: m.msgId})
             })
         })
     }

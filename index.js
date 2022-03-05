@@ -6,6 +6,7 @@ const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: { headless: true, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }
 });
+require('./lib/database/database').connectToDatabase()
 client.on('qr', () => {
     // Generate and scan this code with your phone
     console.log('QR RECEIVED');

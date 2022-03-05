@@ -5,7 +5,7 @@ module.exports = {
     category: 'group',
     desc: ['Untuk melihat orang yang sudah membaca pesan bot', '.sider <reply pesan bot>'],
     admin: true,
-    disabed: true,
+    disabled: true,
     async handler(m, {conn, quotedMsg, botNumber}){
         if(!quotedMsg) return m.reply('reply pesan dari bot')
         if(quotedMsg.sender != botNumber) return m.reply('reply pesan dari bot!')

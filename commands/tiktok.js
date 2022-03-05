@@ -11,8 +11,8 @@ module.exports = {
         try{
             data = await scrap.ggtiktok(text)
             conn.sendFileFromUrl(m.from, data.data.video, {caption: '*Tiktok Downloader*', quotedMessageId: m.msgId})
-        }catch{
-            m.reply(global.mess.error)
+        }catch(e){
+            global.error(global.command, e, m)
         }
     }
     
