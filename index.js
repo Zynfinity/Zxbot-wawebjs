@@ -56,6 +56,16 @@ client.on('message', msg => {
 });
 client.on('message_revoke_everyone', async (after, before) => {
 });
+client.on('group_update', upt => {
+  //console.log(upt)
+  require('./events/group_update')(upt, client)
+})
+client.on('group_join', upt => {
+  //console.log(upt)
+})
+client.on('group_leave', upt => {
+  //console.log(upt)
+})
 client.initialize();
 
 let file = require.resolve(__filename)

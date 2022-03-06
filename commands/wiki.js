@@ -1,7 +1,7 @@
 const {wikisearch} = require('../lib/scraper')
 module.exports = {
     name: ['wiki'].map((v) => v + ' <query>'),
-    cmd: /^(wiki(pedia)?)$/i,
+    cmd: /^(wikipedia|wiki)$/i,
     category: 'search',
     desc: ['Mencari artikel di wikipedia', '.wiki <query>'],
     async handler(m, {conn, text}){

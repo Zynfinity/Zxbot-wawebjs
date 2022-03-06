@@ -9,6 +9,5 @@ module.exports = {
     async handler(m, {conn, zx, text}){
         if(!text) return m.reply('Mau diganti jadi apa?')
         await zx.setSubject(text)
-        m.reply('Berhasil mengubah nama group menjadi : ' + text)
     }
 }

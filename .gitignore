@@ -5,10 +5,11 @@ package-lock.json
 #session
 .wwebjs_auth
 #session2
-multidevice.data.json
+store
 
 # managed
 **.data.json
+**.mp3
 **.node-persist**
 **_IGNORE_**
 # end managed
