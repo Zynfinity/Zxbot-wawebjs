@@ -7,12 +7,12 @@ module.exports = {
     async handler(m, {conn, zx, hasMedia, type, quotedMsg, command}){
         if(hasMedia && type == 'image' || hasMedia && type == 'video'){
             const media = await m.downloadMedia()
-            conn.sendSticker(m.from, media, stickerMetadata.pack, stickerMetadata.author)
+            conn.sendSticker(zx, media, stickerMetadata.pack, stickerMetadata.author, {quotedMessageId: m.msgId})
         }
         else if(quotedMsg && quotedMsg.type == 'image' || quotedMsg && quotedMsg.type == 'video'){
             const quot = await m.getQuotedMessage()
             const media = await quot.downloadMedia()
-            conn.sendSticker(m.from, media, stickerMetadata.pack, stickerMetadata.author)
+            conn.sendSticker(zx, media, stickerMetadata.pack, stickerMetadata.author, {quotedMessageId: m.msgId})
         }
         else m.reply(`reply/send image dengan caption .${command}`)
 

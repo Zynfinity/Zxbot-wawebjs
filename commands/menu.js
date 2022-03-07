@@ -1,12 +1,12 @@
 const { MessageMedia } = require('whatsapp-web.js')
 const {toTimer} = require('../lib/tools')
-let d = new Date(new Date() + 3600000)
 module.exports = {
     name: ['menu'].map((v) => v + ''),
     cmd: /^(menu)$/i,
     category: 'other',
     ignored: true,
     async handler(m, {conn}){
+let d = new Date(new Date() + 3600000)
         let date = d.toLocaleDateString('id', {
             day: 'numeric',
             month: 'long',
@@ -58,7 +58,7 @@ module.exports = {
                 return a.length - b.length
               })
             for (let l = 0; l<sort.length; l++) {
-                menu += `*${l + 1}.* ${sort[l]}\n`
+                menu += `┗━ *${l + 1}.* ${sort[l]}\n`
             }
         }
         menu += `\nKetik .help <command> untuk melihat info command`

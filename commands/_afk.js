@@ -11,7 +11,7 @@ module.exports = {
       eafk = `_Anda telah kembali dari mode afk_\n\n`;
       if (afkdata.reason != "nothing") eafk += `_Setelah :_ *_${afkdata.reason}*_\n`
       eafk += `_Selama :_ *_${waktuafk.hours} Jam  ${waktuafk.minutes} Menit  ${waktuafk.seconds} Detik Yang lalu_*`
-      data.deleteOne({ id: m.author }).then((s) => m.reply(eafk));
+      data.deleteOne({ id: m.author }).then((s) => conn.mentions(m.from, eafk, {quotedMessageId: m.msgId}));
     }
     if (quotedMsg) {
       afkdata = await data.findOne({ id: quotedMsg.sender });
@@ -19,7 +19,7 @@ module.exports = {
         cekafk = await ms(Date.now() - afkdata.time)
         ini_txt = `_@${afkdata.id.split('@')[0]} Sedang AFK..._\n\n`
         ini_txt += `${global.shp} _Reason :_ *_${afkdata.reason}_*\n${global.shp} _Since :_ *_${cekafk.hours} Jam  ${cekafk.minutes} Menit  ${cekafk.seconds} Detik  Yang lalu_*`
-        m.reply(ini_txt)
+        conn.mentions(m.from, ini_txt, {quotedMessageId: m.msgId})
     }
     } else if (mentionedIds != "") {
       mentionedIds.map(async (res) => {
@@ -27,7 +27,7 @@ module.exports = {
         if (afkdata != null) {
             ini_txt = `_@${afkdata.id.split('@')[0]} Sedang AFK..._\n\n`
             ini_txt += `${global.shp} _Reason :_ *_${afkdata.reason}_*\n${global.shp} _Since :_ *_${cekafk.hours} Jam  ${cekafk.minutes} Menit  ${cekafk.seconds} Detik  Yang lalu_*`
-            m.reply(ini_txt)
+            conn.mentions(m.from, ini_txt, {quotedMessageId: m.msgId})
         }
       });
     }

@@ -1,6 +1,6 @@
 const scrap = require('../lib/scraper')
 module.exports = {
-    name: ['igdl'].map((v) => v + ' <link>'),
+    name: ['instagram'].map((v) => v + ' <link>'),
     cmd: /^(igdl|instagram|ig)$/i,
     category: 'downloader',
     desc: ['Mendownload media dari instagram', '.igdl <link>'],
