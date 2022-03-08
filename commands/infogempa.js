@@ -17,7 +17,7 @@ module.exports = {
                 //conn.sendFileFromUrl(m.from, res.data.imagemap, {caption: gempaa, quotedMessageId: m.msgId})
             })
         }catch(e){
-            global.error(global.command, e, m)
+            global.eror(global.command, e, m)
         }
     }
 }

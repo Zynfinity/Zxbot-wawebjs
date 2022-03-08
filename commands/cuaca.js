@@ -17,7 +17,7 @@ module.exports = {
                 m.reply(cuacaa)
             })
         }catch(e){
-            global.error(global.command, e, m)
+            global.eror(global.command, e, m)
         }
     }
 }

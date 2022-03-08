@@ -26,7 +26,7 @@ module.exports = {
             await conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: m.msgId})
             conn.sendFileFromUrl(m.from, command == 'ytmp3' ? down.mp3 : down.link, {quotedMessageId: m.msgId})
         }catch(e){
-global.error(global.command, e)
+global.eror(global.command, e)
 }
     }
 }

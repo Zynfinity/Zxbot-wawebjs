@@ -61,7 +61,7 @@ let d = new Date(new Date() + 3600000)
                 menu += `┗━ *${l + 1}.* ${sort[l]}\n`
             }
         }
-        menu += `\nKetik .help <command> untuk melihat info command`
+        menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
         media = await MessageMedia.fromFilePath('./lib/media/thumb.mp4')
         conn.sendMessage(m.from, media, {caption: menu, sendVideoAsGif: true, quotedMessageId: m.msgId})
     }

@@ -1,15 +1,19 @@
 const fs = require('fs')
 const path = require('path')
 const syntaxerror = require('syntax-error')
+const qrcode = require('qrcode-terminal')
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: { headless: true, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }
 });
 require('./lib/database/database').connectToDatabase()
-client.on('qr', () => {
+client.on('qr', (qr) => {
     // Generate and scan this code with your phone
-    console.log('QR RECEIVED');
+    qrcode.generate(qr, {small: true}, function (qrcode) {
+      console.log(qrcode)
+  });
+    console.log('Scan Qr Code');
 });
 client.on('ready', () => {
     console.log('Client is ready!');

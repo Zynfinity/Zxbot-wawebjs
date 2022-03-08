@@ -17,7 +17,7 @@ module.exports = {
             tx = '*T I K T O K  D O W N L O A D E R*'
             await conn.sendFileFromUrl(m.from, data.video.link1, {caption: tx, quotedMessageId: m.msgId}, {mimetype: 'video/mp4'})
         }catch(e){
-            global.error(global.command, e, m)
+            global.eror(global.command, e, m)
         }
     }
     

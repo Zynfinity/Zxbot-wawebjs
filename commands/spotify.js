@@ -28,7 +28,7 @@ module.exports = {
                 fs.unlinkSync(`./lib/media/audio/${data.judul}.mp3`)
             })
         }catch(e){
-            global.error(global.command, e, m)
+            global.eror(global.command, e, m)
         }
     }
 }

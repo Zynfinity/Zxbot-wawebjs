@@ -12,7 +12,7 @@ module.exports = {
             wikit = `*W I K I P E D I A*\n${global.shp} Query : ${text}\n\n${wiki[0].wiki}`
             await m.reply(wikit)
         }catch(e){
-            global.error(global.command, e, m)
+            global.eror(global.command, e, m)
         }
     }
 }

@@ -18,7 +18,7 @@ module.exports = {
             stalkt += `${global.shp} Url : https://www.instagram.com/${stalk.username}/`
             await conn.sendFileFromUrl(m.from, stalk.thumbnail, {caption: stalkt, quotedMessageId: m.msgId})
         }catch(e){
-            global.error(global.command, e, m)
+            global.eror(global.command, e, m)
         }
     }
 }
