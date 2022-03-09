@@ -42,7 +42,7 @@ let d = new Date(new Date() + 3600000)
         menu += `${global.shp} Command Total : ${total.length}\n`
         menu += `${global.shp} Date : ${date}\n`
         menu += `${global.shp} Time : ${time}\n\n`
-        menu += `Hallo ${m._data.notifyName} *Here my command list*\n`
+        menu += `Hallo ${m._data.notifyName} Here my command list\n`
         for(let i of tags){
             helps = []
             menu += `\n${global.shp} ${i.toUpperCase()}\n`
@@ -58,7 +58,7 @@ let d = new Date(new Date() + 3600000)
                 return a.length - b.length
               })
             for (let l = 0; l<sort.length; l++) {
-                menu += `┗━ *${l + 1}.* ${sort[l]}\n`
+                menu += `┗━ ${l + 1}. _${sort[l]}_\n`
             }
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
