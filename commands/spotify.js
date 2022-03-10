@@ -21,11 +21,9 @@ module.exports = {
             spoti += `${global.shp} Judul : ${data.judul}\n`
             spoti += `${global.shp} Artists : ${artis}\n`
             spoti += `${global.shp} Release Date : ${data.release_date}\n\nTunggu sebentar..\nAudio sedang dikirim`
-            conn.sendFileFromUrl(m.from, data.thumbnail, {caption: spoti, quotedMessageId: m.msgId})
+            await conn.sendFileFromUrl(m.from, data.thumbnail, {caption: spoti, quotedMessageId: m.msgId})
             spotify.downloadTrack(data.track).then(async res => {
-                await fs.writeFileSync(`./lib/media/audio/${data.judul}.mp3`, res)
-                await conn.sendFileFromPath(m.from, `./lib/media/audio/${data.judul}.mp3`, {quotedMessageId: m.msgId})
-                fs.unlinkSync(`./lib/media/audio/${data.judul}.mp3`)
+                await conn.sendFileFromBuffer(m.from, res, 'audio/mpeg', {quotedMessageId: m.msgId})
             })
         }catch(e){
             global.eror(global.command, e, m)

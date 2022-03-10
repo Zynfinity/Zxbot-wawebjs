@@ -1,7 +1,9 @@
 const fs = require('fs')
+const tools = require('../lib/tools')
 const {db} = require('../lib/database/database')
 const dbs = require('../lib/database/database')
 const scrap = require('../lib/scraper')
+const textmaker = require('../lib/textmaker')
 const {MessageMedia} = require('whatsapp-web.js')
 module.exports = {
   name: ['eval'].map((v) => v + ' <Your Code>'),

@@ -27,7 +27,7 @@ module.exports = {
             }
             teks += `\nTunggu sebentar...\n${command == 'play' ? 'Audio' : 'Video'} sedang dikirim`
             await conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: m.msgId})
-            conn.sendFileFromUrl(m.from, command == 'play' ? down.mp3 : down.link, {quotedMessageId: m.msgId})
+            await conn.sendFileFromUrl(m.from, command == 'play' ? down.mp3 : down.link, {quotedMessageId: m.msgId})
         }catch(e){
             global.eror(global.command, e, m)
         }

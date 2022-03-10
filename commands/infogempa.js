@@ -1,4 +1,5 @@
 const {gempa} = require('../lib/scraper')
+const { getBuffer } = require('../lib/tools')
 module.exports = {
     name: ['infogempa'].map((v) => v + ''),
     cmd: /^(infogempa|gempa)$/i,
@@ -13,8 +14,8 @@ module.exports = {
                 for(let i of array){
                     if(i[0] != 'imagemap') gempaa += `${global.shp} ${i[0].toUpperCase()} : ${i[1]}\n`
                 }
-                m.reply(gempaa)
-                //conn.sendFileFromUrl(m.from, res.data.imagemap, {caption: gempaa, quotedMessageId: m.msgId})
+                buff = await getBuffer(res.data.imagemap)
+                conn.sendFileFromBuffer(m.from, buff, 'image/jpeg', {caption: gempaa, quotedMessageId: m.msgId})
             })
         }catch(e){
             global.eror(global.command, e, m)

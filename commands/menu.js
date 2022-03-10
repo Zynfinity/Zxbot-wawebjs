@@ -5,7 +5,7 @@ module.exports = {
     cmd: /^(menu)$/i,
     category: 'other',
     ignored: true,
-    async handler(m, {conn}){
+    async handler(m, {conn, prefix}){
 let d = new Date(new Date() + 3600000)
         let date = d.toLocaleDateString('id', {
             day: 'numeric',
@@ -40,6 +40,7 @@ let d = new Date(new Date() + 3600000)
         menu += `${global.shp} Library : Whatsapp-Web.js\n`
         menu += `${global.shp} Runtime  : ${await toTimer(process.uptime())}\n`
         menu += `${global.shp} Command Total : ${total.length}\n`
+        menu += `${global.shp} Prefix : [ ${prefix} ]\n`
         menu += `${global.shp} Date : ${date}\n`
         menu += `${global.shp} Time : ${time}\n\n`
         menu += `Hallo ${m._data.notifyName} Here my command list\n`

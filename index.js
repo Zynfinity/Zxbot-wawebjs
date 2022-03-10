@@ -65,10 +65,11 @@ client.on('group_update', upt => {
   require('./events/group_update')(upt, client)
 })
 client.on('group_join', upt => {
-  //console.log(upt)
+  console.log(upt)
+  //require('./events/greetings').welcome(upt, client)
 })
 client.on('group_leave', upt => {
-  //console.log(upt)
+  console.log(upt)
 })
 client.initialize();
 

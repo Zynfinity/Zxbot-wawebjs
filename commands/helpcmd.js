@@ -10,7 +10,7 @@ module.exports = {
             let isAccept = plugin.cmd instanceof RegExp ? plugin.cmd.test(q) : Array.isArray(plugin.cmd) ? plugin.cmd.some((cmd) => (cmd instanceof RegExp ? cmd.test(q) : cmd === q)) : typeof plugin.cmd === 'string' ? plugin.cmd === q : false
             if (!isAccept) continue
             helpt = '*Helper*\n'
-            helpt += `${global.shp} Command : ${plugin.name}\n`
+            helpt += `${global.shp} Command : ${q.toUpperCase()}\n`
             helpt += `${global.shp} Trigger Command : ${q}\n`
             helpt += `${global.shp} Category : ${plugin.category}\n\n`
             helpt += '*Command Atribute*\n'
@@ -22,7 +22,7 @@ module.exports = {
             if(plugin.desc){
                 helpt += '\n*Command Description*\n'
                 helpt += `${global.shp} ${plugin.desc[0]}\n\n`
-                helpt += `${global.shp} Usage : ${plugin.desc[1]}`
+                helpt += `${global.shp} Usage : ${plugin.desc[1].replace(/@command/g, q)}`
             }
             return m.reply(helpt)
         }
