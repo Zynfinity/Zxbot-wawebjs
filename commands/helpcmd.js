@@ -4,7 +4,8 @@ module.exports = {
     category: 'other',
     desc: ['Melihat informasi dari command', '.help <command>'],
     ignored: true,
-    async handler(m, {conn, q}){
+    async handler(m, {conn, q, prefix}){
+        if(!q) return global.plugins['menu.js'].handler(m, {conn, prefix})
         for(name in global.plugins){
             plugin = global.plugins[name]
             let isAccept = plugin.cmd instanceof RegExp ? plugin.cmd.test(q) : Array.isArray(plugin.cmd) ? plugin.cmd.some((cmd) => (cmd instanceof RegExp ? cmd.test(q) : cmd === q)) : typeof plugin.cmd === 'string' ? plugin.cmd === q : false

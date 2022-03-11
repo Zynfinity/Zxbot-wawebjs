@@ -56,6 +56,7 @@ global.reload = (_event, filename) => {
   fs.watch(path.join(__dirname, 'commands'), global.reload)
 
 client.on('message', msg => {
+  exports.m = msg
   require('./lib/handler').handler(msg, client)
 });
 client.on('message_revoke_everyone', async (after, before) => {
@@ -65,11 +66,12 @@ client.on('group_update', upt => {
   require('./events/group_update')(upt, client)
 })
 client.on('group_join', upt => {
-  console.log(upt)
-  //require('./events/greetings').welcome(upt, client)
+  //console.log(upt)
+  require('./events/greetings').welcome(upt, client)
 })
 client.on('group_leave', upt => {
-  console.log(upt)
+  //console.log(upt)
+  require('./events/greetings').left(upt, client)
 })
 client.initialize();
 
