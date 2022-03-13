@@ -7,8 +7,8 @@ module.exports = {
     admin: true,
     disabled: true,
     async handler(m, {conn, quotedMsg, botNumber}){
-        if(!quotedMsg) return m.reply('reply pesan dari bot')
-        if(quotedMsg.sender != botNumber) return m.reply('reply pesan dari bot!')
+        if(!quotedMsg) return conn.reply(m, 'reply pesan dari bot')
+        if(quotedMsg.sender != botNumber) return conn.reply(m, 'reply pesan dari bot!')
         quot = await m.getQuotedMessage()
         data = await quot.getInfo()
         teks = `⬣ Telah dibaca oleh\n\n`
@@ -16,6 +16,6 @@ module.exports = {
 			teks += global.shp + ' ' + '@' + res.id.split('@')[0] + '\n'
 			teks += `┗━ ${global.shp} Waktu : ` + moment(`${res.t}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss') + '\n'
         })
-        m.reply(teks)
+        conn.reply(m, teks)
     }
 }

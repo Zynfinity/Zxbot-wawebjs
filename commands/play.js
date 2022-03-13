@@ -8,8 +8,8 @@ module.exports = {
     desc: ['Mendownload video/audio dari youtube berdasarkan kata kunci!', '.play <query>'],
     async handler(m, {conn, text, command}){
         try{
-            if(!text) return m.reply('Kata kuncinya mana?')
-            m.reply(global.mess.wait)
+            if(!text) return conn.reply(m, 'Kata kuncinya mana?')
+            conn.reply(m, global.mess.wait)
             cari = await yts(text)
             filt = cari.all.filter(res => res.type == 'video')[0]
             down = await youtube(filt.url)

@@ -15,8 +15,7 @@ module.exports = {
             if(args[0] == 'on'){
                 data = command == 'welcome' ? await dbwelkom.findOne({id: m.from}) : await dbleft.findOne({id: m.from})
                 if(data != null){
-                    if(data.status) return m.reply(dbl)
-                    console.log('p')
+                    if(data.status) return conn.reply(m, dbl)
                     command == 'welcome' ? await dbwelkom.updateOne({
                         id: m.from
                     },
@@ -42,12 +41,12 @@ module.exports = {
                         status: true
                     })
                 }
-                m.reply(succsess)
+                conn.reply(m, succsess)
             }
             else if(args[0] == 'off'){
                 data = command == 'welcome' ? await dbwelkom.findOne({id: m.from}) : await dbleft.findOne({id: m.from})
-                if(data == null) return m.reply(dbl)
-                if(!data.status) return m.reply(dbl)
+                if(data == null) return conn.reply(m, dbl)
+                if(!data.status) return conn.reply(m, dbl)
                 command == 'welcome' ? await dbwelkom.updateOne({
                     id: m.from
                 },
@@ -63,7 +62,7 @@ module.exports = {
                         status: false
                     }
                 })
-                m.reply(succsess)
+                conn.reply(m, succsess)
             }
         }catch(e){
             global.eror(global.command, e, m)

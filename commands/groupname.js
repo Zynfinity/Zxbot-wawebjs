@@ -7,7 +7,7 @@ module.exports = {
     admin: true,
     botAdmin: true,
     async handler(m, {conn, zx, text}){
-        if(!text) return m.reply('Mau diganti jadi apa?')
+        if(!text) return conn.reply(m, 'Mau diganti jadi apa?')
         await zx.setSubject(text)
     }
 }

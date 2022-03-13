@@ -6,7 +6,7 @@ module.exports = {
     desc: ['Mencari video di Youtube', '.ytsearch <query>'],
     async handler(m, {conn, text}){
         try{
-        if(!text) return m.reply('Mau cari apa?')
+        if(!text) return conn.reply(m, 'Mau cari apa?')
         ys = await yts(text)
         ytss = ys.all.filter(s => s.type == 'video')
         yss = `*Y O U T U B E  S E A R C H*\n${global.shp} Query : ${text}\n\n`

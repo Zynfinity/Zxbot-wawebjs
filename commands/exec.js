@@ -5,10 +5,10 @@ module.exports = {
     category: 'owner',
     owner: true,
     async handler(m, {conn, q}){
-        if(!q) return m.reply('Masukkan Codenya!')
+        if(!q) return conn.reply(m, 'Masukkan Codenya!')
         exec(q, (err, stdout) => {
-            if(err) return m.reply(String(err))
-            m.reply(stdout)
+            if(err) return conn.reply(m, String(err))
+            conn.reply(m, stdout)
         })
     }
 }

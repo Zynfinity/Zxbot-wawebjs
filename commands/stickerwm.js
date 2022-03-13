@@ -15,7 +15,7 @@ module.exports = {
             const media = await quot.downloadMedia()
             conn.sendSticker(zx, media, stcdata.pack, stcdata.author, {quotedMessageId: m.msgId})
         }
-        else m.reply(`reply image/sticker dengan caption .${command} <pack|author>`)
+        else conn.reply(m, `reply image/sticker dengan caption .${command} <pack|author>`)
 
     }
 }

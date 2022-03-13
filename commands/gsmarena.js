@@ -6,8 +6,8 @@ module.exports = {
     desc: ['Menampilkan spesifikasi hp', '.gsmarena <merek hp>'],
     async handler(m, {conn, text}){
         try{
-            if(!text) return m.reply('Mau cari apa?')
-            await m.reply(global.mess.wait)
+            if(!text) return conn.reply(m, 'Mau cari apa?')
+            await conn.reply(m, global.mess.wait)
             const data = await gsmarena(text)
             gsm = '*G S M  A R E N A*\n\n'
             for(let i of Object.entries(data)){

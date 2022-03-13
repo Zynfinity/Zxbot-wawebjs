@@ -6,9 +6,9 @@ module.exports = {
     desc: ['Mendownload media dari twitter', '.twitter <link>'],
     async handler(m, {conn, zx, text}){
         try{
-            if(!text) return m.reply('Linknya mana?')
-            if(!m.isUrl(text)) return m.reply(global.mess.errorlink)
-            await m.reply(global.mess.wait)
+            if(!text) return conn.reply(m, 'Linknya mana?')
+            if(!m.isUrl(text)) return conn.reply(m, global.mess.errorlink)
+            await conn.reply(m, global.mess.wait)
             twitterdl(text).then(async res => {
                 twitter = '*T W I T T E R  D O W N L O A D E R*\n\n'
                 twitter += `${global.shp} Username : ${res.data.username}\n`

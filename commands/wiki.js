@@ -6,12 +6,12 @@ module.exports = {
     desc: ['Mencari artikel di wikipedia', '.wiki <query>'],
     async handler(m, {conn, text}){
         try{
-            if(!text) return m.reply('Mau cari apa di wiki?')
-            await m.reply(global.mess.wait)
+            if(!text) return conn.reply(m, 'Mau cari apa di wiki?')
+            await conn.reply(m, global.mess.wait)
             wiki = await wikisearch(text)
-            if(!wiki[0].wiki) return m.reply(`${text} tidak ditemukan di wikipedia`)
-            wikit = `W I K I P E D I A\n${global.shp} Query : ${text}\n\n${wiki[0].wiki}`
-            await m.reply(wikit)
+            if(!wiki[0].wiki) return conn.reply(m, `${text} tidak ditemukan di wikipedia`)
+            wikit = `${global.shp} W I K I P E D I A\n└ Query : ${text}\n\n${wiki[0].wiki}`
+            await conn.reply(m, wikit)
         }catch(e){
             global.eror(global.command, e, m)
         }

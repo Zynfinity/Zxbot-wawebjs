@@ -13,8 +13,8 @@ module.exports = {
     desc: ['Mendownload lagu dari spotify berdasarkan kata kunci', '.spotify <query>'],
     async handler(m, {conn, text}){
         try{
-            if(!text) return m.reply('Mau cari apa?')
-            await m.reply(global.mess.wait)
+            if(!text) return conn.reply(m, 'Mau cari apa?')
+            await conn.reply(m, global.mess.wait)
             data = await spotifysearch(text)
             artis = data.artist.map(s => s.name).join(' && ')
             spoti = '*S P O T I F Y  P L A Y*\n\n'

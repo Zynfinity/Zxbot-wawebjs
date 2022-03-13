@@ -8,14 +8,14 @@ module.exports = {
     group: true,
     async handler(m, {conn, zx, args}){
         if(args[0] == 'open'){
-            if(!zx.groupMetadata.announce) return m.reply('Group sudah dibuka sebelumnya')
+            if(!zx.groupMetadata.announce) return conn.reply(m, 'Group sudah dibuka sebelumnya')
             await zx.setMessagesAdminsOnly(false)
-            //m.reply('Berhasil membuka group!\nsekarang semua member bisa mengirim pesan!')
+            //conn.reply(m, 'Berhasil membuka group!\nsekarang semua member bisa mengirim pesan!')
         }
         else if(args[0] == 'close'){
-            if(zx.groupMetadata.announce) return m.reply('Group sudah ditutup sebelumnya')
+            if(zx.groupMetadata.announce) return conn.reply(m, 'Group sudah ditutup sebelumnya')
             await zx.setMessagesAdminsOnly(true)
-            //m.reply('Berhasil menutup group!\nsekarang hanya admin yang bisa mengirim pesan!')
+            //conn.reply(m, 'Berhasil menutup group!\nsekarang hanya admin yang bisa mengirim pesan!')
         }
     }
 }

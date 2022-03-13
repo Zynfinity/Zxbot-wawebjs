@@ -8,9 +8,9 @@ module.exports = {
     desc: ['Menambahkan teks ke dalam gambar', '.meme/smeme <teks1|teks2>'],
     async handler(m, {conn, zx, text, command, hasQuotedMsg, hasMedia, quotedMsg}){
         try{
-            if(!text) return m.reply(`Masukkan teksnya dengan format text1|teks2\nExample : .${command} test|oke`)
+            if(!text) return conn.reply(m, `Masukkan teksnya dengan format text1|teks2\nExample : .${command} test|oke`)
             if(hasMedia && m.type == 'image' || (hasQuotedMsg && quotedMsg.type == 'image' || quotedMsg.type == 'sticker')){
-                await m.reply(global.mess.wait)
+                await conn.reply(m, global.mess.wait)
                 quot = hasMedia ? '' : await m.getQuotedMessage()
                 down = hasMedia ? await m.downloadMedia() : await quot.downloadMedia()
                 buff = await Buffer.from(down.data, 'base64')
@@ -26,7 +26,7 @@ module.exports = {
                 })
                 fs.unlinkSync(filepath)
             }
-            else m.reply('reply gambar/sticker dengan caption .' + command)
+            else conn.reply(m, 'reply gambar/sticker dengan caption .' + command)
         }catch(e){
             global.eror(global.command, e, m)
         }

@@ -7,7 +7,7 @@ module.exports = {
     desc: ['Menampilkan informasi gempa terkini', '.infogempa'],
     async handler(m, {conn, text}){
         try{
-            await m.reply(global.mess.wait)
+            await conn.reply(m, global.mess.wait)
             gempa().then(async res => {
                 array = Object.entries(res.data)
                 gempaa = '*I N F O  G E M P A*\n\n'

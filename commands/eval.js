@@ -16,14 +16,14 @@ module.exports = {
       function _(rem) {
           ren = JSON.stringify(rem, null, 2)
           pes = util.format(ren)
-          m.reply(pes)
+          conn.reply(m, pes)
         }
         try {
           q
-          m.reply(require('util').format(eval(`(async () => { ${q} })()`)))
+          conn.reply(m, require('util').format(eval(`(async () => { ${q} })()`)))
         } catch (err) {
           e = String(err)
-          m.reply(e)
+          conn.reply(m, e)
         }
   }
 }

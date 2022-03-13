@@ -5,8 +5,8 @@ module.exports = {
     category: 'search',
     desc: ['Mencari lirik lagu berdasarkan kata kunci', '.lirik <query>'],
     async handler(m, {conn, text}){
-        if(!text) return m.reply('Mau cari lirik lagu apa?')
-        await m.reply(global.mess.wait)
+        if(!text) return conn.reply(m, 'Mau cari lirik lagu apa?')
+        await conn.reply(m, global.mess.wait)
         try{
             lir = await axios.get('https://some-random-api.ml/lyrics?title=' + text)
             lirik = '*L I R I K  L A G U*\n\n'

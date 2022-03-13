@@ -10,10 +10,10 @@ module.exports = {
         if(await data.findOne({id: m.author}) != null){
             data.updateOne({id: m.author}, {$set : {reason: text ? text : 'Nothing', time: Date.now()}})
             afk = `*Anda telah afk*\n\n${global.shp} Reason : ${text ? text : 'Nothing'}`
-            return m.reply(afk)
+            return conn.reply(m, afk)
         }
         data.insertOne({id: m.author, reason: text ? text : 'Nothing', time: Date.now()})
         afk = `*Anda telah afk*\n\n${global.shp} Reason : ${text ? text : 'Nothing'}`
-        m.reply(afk)
+        conn.reply(m, afk)
     }
 }

@@ -5,14 +5,14 @@ module.exports = {
     desc: ['Bergabung ke group menggunakan tautan group', '.join <link>'],
     owner: true,
     async handler(m, {conn, text}){
-        if(!text) return m.reply('Masukkan linknya!')
-        if(!m.isUrl(text)) return m.reply(global.mess.wait)
+        if(!text) return conn.reply(m, 'Masukkan linknya!')
+        if(!m.isUrl(text)) return conn.reply(m, global.mess.wait)
         try{
             ingfo = await conn.getInviteInfo(text.split('/')[3])
             await conn.acceptInvite(text.split('/')[3])
-            m.reply(`Berhasil join group ${ingfo.subject} ( ${ingfo.id._serialized} )`)
+            conn.reply(m, `Berhasil join group ${ingfo.subject} ( ${ingfo.id._serialized} )`)
         }catch{
-            m.reply(global.mess.errorlink)
+            conn.reply(m, global.mess.errorlink)
         }
     }
 }

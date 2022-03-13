@@ -36,13 +36,14 @@ let d = new Date(new Date() + 3600000)
                 total.push(pe)
             })
         })
-        menu = '[ Z X - B O T ]\n\n'
-        menu += `${global.shp} Library : Whatsapp-Web.js\n`
-        menu += `${global.shp} Runtime  : ${await toTimer(process.uptime())}\n`
-        menu += `${global.shp} Command Total : ${total.length}\n`
-        menu += `${global.shp} Prefix : [ ${prefix} ]\n`
-        menu += `${global.shp} Date : ${date}\n`
-        menu += `${global.shp} Time : ${time}\n\n`
+        menu = `${global.shp} *[ Z X - B O T ]*\n`
+        menu += `├ Library : Whatsapp-Web.js\n`
+        menu += `├ Runtime  : ${await toTimer(process.uptime())}\n`
+        menu += `├ Command Total : ${total.length}\n`
+        menu += `├ Prefix : [ ${prefix} ]\n`
+        menu += `├ Date : ${date}\n`
+        menu += `├ Time : ${time}\n`
+        menu += `└ \n\n`
         menu += `Hallo ${m._data.notifyName} Here my command list\n`
         for(let i of tags){
             helps = []
@@ -59,8 +60,9 @@ let d = new Date(new Date() + 3600000)
                 return a.length - b.length
               })
             for (let l = 0; l<sort.length; l++) {
-                menu += `┗━ ${l + 1}. _${sort[l]}_\n`
+                menu += `├ ${l + 1}. _${sort[l]}_\n`
             }
+            menu += '└\n'
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
         media = await MessageMedia.fromFilePath('./lib/media/thumb.mp4')

@@ -6,8 +6,8 @@ module.exports = {
 	async handler(m, {conn, command}){
 		conn.mode = conn.mode ? conn.mode : 'public'
 		ready = command == 'self' ? 'Mode Self telah diaktifkan sebelumnya!' : 'Mode Public telah diaktifkan sebelumnya!'
-		if(command == 'self' ? conn.mode == 'self' : conn.mode == 'public') return m.reply(ready)
+		if(command == 'self' ? conn.mode == 'self' : conn.mode == 'public') return conn.reply(m, ready)
 		command == 'self' ? conn.mode = 'self' : conn.mode = 'public'
-		command == 'self' ? m.reply('Self mode active') : m.reply('Public mode active')
+		command == 'self' ? conn.reply(m, 'Self mode active') : conn.reply(m, 'Public mode active')
 	}
 }

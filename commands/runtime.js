@@ -4,6 +4,6 @@ module.exports = {
 	cmd: /^(runtime)$/i,
 	category: 'other',
 	async handler(m, {conn}){
-		m.reply(`Runtime : ${await toTimer(process.uptime())}`)
+		conn.reply(m, `Runtime : ${await toTimer(process.uptime())}`)
 	}
 }
