@@ -13,7 +13,7 @@ module.exports = {
             cari = await yts(text)
             filt = cari.all.filter(res => res.type == 'video')[0]
             down = await youtube(filt.url)
-            teks = command == 'play' ? `*P L A Y  M U S I C*\n\n` : `*P L A Y  V I D E O*\n\n`
+            teks = command == 'play' ? `P L A Y  M U S I C\n\n` : `P L A Y  V I D E O\n\n`
             teks += `${global.shp} Title : ${filt.title}\n`
             teks += `${global.shp} Author : ${filt.author.name}\n`
             teks += `${global.shp} Duration : ${filt.timestamp}\n`
@@ -27,7 +27,8 @@ module.exports = {
             }
             teks += `\nTunggu sebentar...\n${command == 'play' ? 'Audio' : 'Video'} sedang dikirim`
             await conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: m.msgId})
-            await conn.sendFileFromUrl(m.from, command == 'play' ? down.mp3 : down.link, {quotedMessageId: m.msgId})
+            mim = command == 'play' ? 'audio/mpeg' : 'video/mp4'
+            await conn.sendFileFromUrl(m.from, command == 'play' ? down.mp3 : down.link, {quotedMessageId: m.msgId}, {mimetype: mim})
         }catch(e){
             global.eror(global.command, e, m)
         }

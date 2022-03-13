@@ -14,16 +14,34 @@ module.exports = {
             dbl = command == 'welcome' ? args[0] == 'on' ? '_*Welcome sudah diaktifkan sebelumnya diGroup ini!*_' : '_*Welcome sudah dinonaktifkan sebelumnya diGroup ini!*_' : args[0] == 'on' ? '_*Left sudah diaktifkan sebelumnya diGroup ini!*_' : '_*Left sudah dinonaktifkan sebelumnya diGroup ini!*_' 
             if(args[0] == 'on'){
                 data = command == 'welcome' ? await dbwelkom.findOne({id: m.from}) : await dbleft.findOne({id: m.from})
-                if(data != null && data.status) return m.reply(dbl)
-                command == 'welcome' ? await dbwelkom.insertOne({
-                    id: m.from,
-                    status: true,
-                    text: ''
-                }) : await dbleft.insertOne({
-                    id: m.from,
-                    status: true,
-                    text: ''
-                })
+                if(data != null){
+                    if(data.status) return m.reply(dbl)
+                    console.log('p')
+                    command == 'welcome' ? await dbwelkom.updateOne({
+                        id: m.from
+                    },
+                    {
+                        $set: {
+                            status: true
+                        }
+                    }) : await dbleft.updateOne({
+                        id: m.from
+                    },
+                    {
+                        $set: {
+                            status: true
+                        }
+                    })
+                }
+                if(data == null){
+                    command == 'welcome' ? await dbwelkom.insertOne({
+                        id: m.from,
+                        status: true
+                    }) : await dbleft.insertOne({
+                        id: m.from,
+                        status: true
+                    })
+                }
                 m.reply(succsess)
             }
             else if(args[0] == 'off'){
@@ -37,7 +55,7 @@ module.exports = {
                     $set: {
                         status: false
                     }
-                }) : await dbwelkom.updateOne({
+                }) : await dbleft.updateOne({
                     id: m.from
                 },
                 {

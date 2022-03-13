@@ -8,22 +8,31 @@ module.exports = {
     owner: true,
     async handler(m, {conn}){
         chat = await conn.getChats()
-        filchat = command == 'listpc' ? chat.filter(lst => !lst.isGroup) : chat.filter(lst => lst.isGroup)
-        list = command == 'listpc' ? '*L I S T  P C*\n\n' : '*L I S T  G R O U P*\n\n'
+        filchat = command == 'listpc' ? chat.filter(lst => !lst.isGroup) : chat.filter(lst => lst.isGroup && lst.groupMetadata.participants != '')
+        list = command == 'listpc' ? `${global.shp} L I S T  P C\n\n` : `${global.shp} L I S T  G R O U P\n\n`
         num = 1
         mentions = []
         filchat.map(async res => {
             if(command == 'listpc'){
-                list += `*${num}.* @${res.id._serialized.split('@')[0]} ${res.name.startsWith('+') ? '' : `${res.name}`}\n`
-                list += `┗━ ${global.shp} Waktu : ${moment(`${res.timestamp}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n\n`
+                list += `${num}\n`
+                list += `├ *Number* : @${res.id._serialized.split('@')[0]} ${res.name.startsWith('+') ? '' : `${res.name}`}\n`
+                list += `└ *Waktu* : ${moment(`${res.timestamp}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n\n`
                 num += 1
                 contact = await conn.getContactById(res.id._serialized)
                 mentions.push(contact)
             }
             else{
-                list += `*${num}.* ${res.name} ${res.groupMetadata.announce ? '🔐' : ''}\n`
-                list += `┗━ ${global.shp} Waktu : ${moment(`${res.timestamp}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n\n`
+            	admin = await res.groupMetadata.participants.filter(s => s.isAdmin)
+                list += `${num}\n`
+                list += `├ *Nama* : ${res.name} ${res.groupMetadata.announce ? '🔐' : ''}\n`
+                list += `├ *Id* : ${res.groupMetadata.id._serialized}\n`
+                list += `├ *Waktu Dibuat* : ${moment(`${res.groupMetadata.creation}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n`
+                list += `├ *Jumlah Member* : ${res.groupMetadata.participants.length}\n`
+                list += `├ *Jumlah Admin* : ${admin.length}\n`
+                list += `└ *Owner* : @${res.groupMetadata.owner.user}\n\n`
                 num += 1
+                contact = await conn.getContactById(res.groupMetadata.owner._serialized)
+                mentions.push(contact)
             }
         })
         await sleep(3000)

@@ -1,7 +1,7 @@
 const fs = require('fs')
 module.exports = {
     name: ['addcommand'].map((v) => v + ' <reply code command>'),
-    cmd: /^(addcommand|addfitur)$/i,
+    cmd: /^(addcommand|addfitur|addcmd)$/i,
     category: 'owner',
     desc: ['Menambahkan command secara langsung lewat pesan', '.addcommand <reply code command>'],
 owner: true,

@@ -9,7 +9,8 @@ module.exports = {
             if(!text) return m.reply('Mau cari apa di wiki?')
             await m.reply(global.mess.wait)
             wiki = await wikisearch(text)
-            wikit = `*W I K I P E D I A*\n${global.shp} Query : ${text}\n\n${wiki[0].wiki}`
+            if(!wiki[0].wiki) return m.reply(`${text} tidak ditemukan di wikipedia`)
+            wikit = `W I K I P E D I A\n${global.shp} Query : ${text}\n\n${wiki[0].wiki}`
             await m.reply(wikit)
         }catch(e){
             global.eror(global.command, e, m)

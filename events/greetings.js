@@ -46,7 +46,7 @@ async function simulate(action, m, conn){
         },
     }
     if(action == 'welcome') welcome(simul, conn)
-    else if(action == 'welcome') left(simul, conn)
+    else if(action == 'left') left(simul, conn)
 }
 module.exports = {welcome, left, simulate}
 const fs = require('fs')
