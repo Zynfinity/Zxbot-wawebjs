@@ -15,7 +15,7 @@ module.exports = {
             if(args[0] == 'on'){
                 data = command == 'welcome' ? await dbwelkom.findOne({id: m.from}) : await dbleft.findOne({id: m.from})
                 if(data != null){
-                    if(data.status) return conn.reply(m, dbl)
+                    if(data.status) return await conn.reply(m, dbl)
                     command == 'welcome' ? await dbwelkom.updateOne({
                         id: m.from
                     },
@@ -45,8 +45,8 @@ module.exports = {
             }
             else if(args[0] == 'off'){
                 data = command == 'welcome' ? await dbwelkom.findOne({id: m.from}) : await dbleft.findOne({id: m.from})
-                if(data == null) return conn.reply(m, dbl)
-                if(!data.status) return conn.reply(m, dbl)
+                if(data == null) return await conn.reply(m, dbl)
+                if(!data.status) return await conn.reply(m, dbl)
                 command == 'welcome' ? await dbwelkom.updateOne({
                     id: m.from
                 },

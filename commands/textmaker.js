@@ -18,7 +18,7 @@ module.exports = {
                 blackpink: 'https://textpro.me/create-blackpink-logo-style-online-1001.html',
                 sand: 'https://textpro.me/sand-engraved-3d-text-effect-989.html'
             }
-            if(!text) return conn.reply(m, 'teksnya mana?')
+            if(!text) return await conn.reply(m, 'teksnya mana?')
             await conn.reply(m, global.mess.wait)
             pros = await textpro(tema[command], text.replace('-s', ''))
             sticker = text.includes('-s') ? true : false

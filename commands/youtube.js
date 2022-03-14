@@ -8,8 +8,8 @@ module.exports = {
     desc: ['Mendownload video/audio dari youtube berdasarkan url!', '.ytmp3/ytmp4 <link>'],
     async handler(m, {conn, text, command}){
         try{
-            if(!text) return conn.reply(m, 'Masukkan link!')
-            if(!m.isUrl(text)) return conn.reply(m, global.mess.errorlink)
+            if(!text) return await conn.reply(m, 'Masukkan link!')
+            if(!m.isUrl(text)) return await conn.reply(m, global.mess.errorlink)
             conn.reply(m, global.mess.wait)
             down = await youtube(text)
             teks = command == 'ytmp3' ? `*Y T M P 3  D O W N L O A D E R*\n\n` : `*Y T M P 4  D O W N L O A D E R*\n\n`

@@ -8,7 +8,7 @@ module.exports = {
     desc: ['Menambahkan teks ke dalam gambar', '.meme/smeme <teks1|teks2>'],
     async handler(m, {conn, zx, text, command, hasQuotedMsg, hasMedia, quotedMsg}){
         try{
-            if(!text) return conn.reply(m, `Masukkan teksnya dengan format text1|teks2\nExample : .${command} test|oke`)
+            if(!text) return await conn.reply(m, `Masukkan teksnya dengan format text1|teks2\nExample : .${command} test|oke`)
             if(hasMedia && m.type == 'image' || (hasQuotedMsg && quotedMsg.type == 'image' || quotedMsg.type == 'sticker')){
                 await conn.reply(m, global.mess.wait)
                 quot = hasMedia ? '' : await m.getQuotedMessage()

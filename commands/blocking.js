@@ -9,13 +9,13 @@ module.exports = {
         res = command == 'block' ? 'Berhasil block user' : 'Berhasil unblock user!'
         if(hasQuotedMsg){
             userp = await conn.getContactById(quotedMsg.sender)
-            if(command == 'block' ? userp.isBlocked : !userp.isBlocked) return conn.reply(m, isblok)
+            if(command == 'block' ? userp.isBlocked : !userp.isBlocked) return await conn.reply(m, isblok)
             await userp.block()
             conn.reply(m, res)
         }
         else if(!hasQuotedMsg && mentionedIds != ''){
             userp = await conn.getContactById(mentionedIds[0])
-            if(command == 'block' ? userp.isBlocked : !userp.isBlocked) return conn.reply(m, isblok)
+            if(command == 'block' ? userp.isBlocked : !userp.isBlocked) return await conn.reply(m, isblok)
             await userp.block()
             conn.reply(m, res)
         }

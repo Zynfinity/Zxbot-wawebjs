@@ -7,8 +7,8 @@ module.exports = {
     admin: true,
     disabled: true,
     async handler(m, {conn, quotedMsg, botNumber}){
-        if(!quotedMsg) return conn.reply(m, 'reply pesan dari bot')
-        if(quotedMsg.sender != botNumber) return conn.reply(m, 'reply pesan dari bot!')
+        if(!quotedMsg) return await conn.reply(m, 'reply pesan dari bot')
+        if(quotedMsg.sender != botNumber) return await conn.reply(m, 'reply pesan dari bot!')
         quot = await m.getQuotedMessage()
         data = await quot.getInfo()
         teks = `⬣ Telah dibaca oleh\n\n`

@@ -7,7 +7,7 @@ module.exports = {
     category: 'convert',
     desc: ['Mengubah sticker menjadi gambar/video', '.toimg/tovideo <reply sticker>'],
     async handler(m, {conn, hasQuotedMsg, quotedMsg}){
-        if(!hasQuotedMsg) return conn.reply(m, 'reply stickernya!')
+        if(!hasQuotedMsg) return await conn.reply(m, 'reply stickernya!')
         if(quotedMsg.type == 'sticker' && !quotedMsg.isAnimated){
             conn.reply(m, global.mess.wait)
             quot = await m.getQuotedMessage()

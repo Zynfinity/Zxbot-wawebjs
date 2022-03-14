@@ -6,7 +6,7 @@ module.exports = {
     desc: ['Menampilkan profil instagram berdasarkan username', '.igstalk <username>'],
     async handler(m, {conn, text}){
         try{
-            if(!text) return conn.reply(m, 'Usernamenya mana?')
+            if(!text) return await conn.reply(m, 'Usernamenya mana?')
             await conn.reply(m, global.mess.wait)
             stalk = await igstalk(text)
             stalkt = `*I N S T A G R A M  S T A L K*\n\n`

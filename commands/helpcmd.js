@@ -25,7 +25,7 @@ module.exports = {
                 helpt += `${global.shp} ${plugin.desc[0]}\n\n`
                 helpt += `${global.shp} Usage : ${plugin.desc[1].replace(/@command/g, q)}`
             }
-            return conn.reply(m, helpt)
+            return await conn.reply(m, helpt)
         }
         conn.reply(m, `Command ${q} tidak tercantum di menu!`)
     }

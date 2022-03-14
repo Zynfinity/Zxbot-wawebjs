@@ -11,9 +11,10 @@ module.exports = {
     cmd: /^(spotify)$/i,
     category: 'downloader',
     desc: ['Mendownload lagu dari spotify berdasarkan kata kunci', '.spotify <query>'],
+    disabled: true,
     async handler(m, {conn, text}){
         try{
-            if(!text) return conn.reply(m, 'Mau cari apa?')
+            if(!text) return await conn.reply(m, 'Mau cari apa?')
             await conn.reply(m, global.mess.wait)
             data = await spotifysearch(text)
             artis = data.artist.map(s => s.name).join(' && ')

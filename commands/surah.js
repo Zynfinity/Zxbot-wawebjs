@@ -5,9 +5,9 @@ module.exports = {
     category: 'islamic',
     desc: ['Menampilkan surah berdasarkan nomor surah', '.surah <no surah>'],
     async handler(m, {conn, args}){
-        if (!args[0]) return conn.reply(m, "masukkan nomor suratnya!");
-        if (isNaN(args[0])) return conn.reply(m, "Input harus berupa nomor!");
-        if (args[0] > 114) return conn.reply(m, "surat al-quran hanya berjumlah 114!");
+        if (!args[0]) return await conn.reply(m, "masukkan nomor suratnya!");
+        if (isNaN(args[0])) return await conn.reply(m, "Input harus berupa nomor!");
+        if (args[0] > 114) return await conn.reply(m, "surat al-quran hanya berjumlah 114!");
         list = await listsurat();
         filt = await list.filter((res) => res.no == args[0]);
         res = await surat(filt[0].surah);

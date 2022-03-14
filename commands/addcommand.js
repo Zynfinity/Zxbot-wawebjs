@@ -6,7 +6,7 @@ module.exports = {
     desc: ['Menambahkan command secara langsung lewat pesan', '.addcommand <reply code command>'],
 owner: true,
     async handler(m, {conn, quotedMsg, text}){
-        if(!quotedMsg) return conn.reply(m, 'reply codenya!')
+        if(!quotedMsg) return await conn.reply(m, 'reply codenya!')
         await fs.writeFileSync('./commands/'+ text, quotedMsg.body)
 conn.reply(m, 'Sukses menambahkan command ' + text)
     }

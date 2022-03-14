@@ -6,7 +6,7 @@ module.exports = {
     desc: ['Melakukan simulasi fitur welcome/left', '.simulate <welcome/left>'],
     group: true,
     async handler(m, {conn, args}){
-        if(args[0] != 'welcome' && args[0] != 'left') return conn.reply(m, 'Pilih welcome/left')
+        if(args[0] != 'welcome' && args[0] != 'left') return await conn.reply(m, 'Pilih welcome/left')
         await conn.reply(m, 'Simulating ....')
         simulate(args[0], m, conn)
     }

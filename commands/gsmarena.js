@@ -6,7 +6,7 @@ module.exports = {
     desc: ['Menampilkan spesifikasi hp', '.gsmarena <merek hp>'],
     async handler(m, {conn, text}){
         try{
-            if(!text) return conn.reply(m, 'Mau cari apa?')
+            if(!text) return await conn.reply(m, 'Mau cari apa?')
             await conn.reply(m, global.mess.wait)
             const data = await gsmarena(text)
             gsm = '*G S M  A R E N A*\n\n'

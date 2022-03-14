@@ -5,8 +5,8 @@ module.exports = {
     category: 'downloader',
     desc: ['Mendownload video dari tiktok', '.tiktok <link> <WithWatermark>/.tiktoknowm <link> <NoWatermark>'],
     async handler(m, {conn, text, command}){
-        if(!text) return conn.reply(m, 'Masukkan linknya!')
-        if(!m.isUrl(text)) return conn.reply(m, 'Link tidak valid')
+        if(!text) return await conn.reply(m, 'Masukkan linknya!')
+        if(!m.isUrl(text)) return await conn.reply(m, 'Link tidak valid')
         conn.reply(m, global.mess.wait)
         try{
             data = await musicaldown(text)

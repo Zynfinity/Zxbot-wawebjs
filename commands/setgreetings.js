@@ -7,7 +7,7 @@ module.exports = {
     category: 'group',
     desc: ['Mengganti kata kata pada welcome/left', '.@command <text>\n*Note : @user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)'],
     async handler(m, {conn, text}){
-        if(!text) return conn.reply(m, 'textnya mana?')
+        if(!text) return await conn.reply(m, 'textnya mana?')
         try{
             succsess = command == 'setwelcome' ? 'Welcome berhasil diatur\n@user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)' : 'Left berhasil diatur\n@user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)'
             if(command == 'setwelcome' ? await dbwelkom.findOne({id: m.from}) == null : await dbleft.findOne({id: m.from}) == null) {
@@ -20,7 +20,7 @@ module.exports = {
                     status: false,
                     text: text
                 })
-                return conn.reply(m, succsess)
+                return await conn.reply(m, succsess)
             }
             command == 'setwelcome' ? await dbwelkom.updateOne({
                 id: m.from

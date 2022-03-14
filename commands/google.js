@@ -6,7 +6,7 @@ module.exports = {
 	desc: ['Mencari sesuatu berdasarkan query di Google.com', '.google <query>'],
 	async handler(m, {conn, text}){
 		try{
-			if(!text) return conn.reply(m, 'Mau cari apa?')
+			if(!text) return await conn.reply(m, 'Mau cari apa?')
 			await conn.reply(m, global.mess.wait)
 			google = `${global.shp} *GOOGLE SEARCH*\n`
 			data = await ggs({query: text})

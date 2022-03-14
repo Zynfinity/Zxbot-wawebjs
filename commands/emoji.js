@@ -18,7 +18,7 @@ module.exports = {
                 }
                 return arr
               }
-            if(!args[0]) return conn.reply(m, 'Emojinya mana?')
+            if(!args[0]) return await conn.reply(m, 'Emojinya mana?')
             await conn.reply(m, global.mess.wait)
             emoji(await emojiStringToArray(args[0])[0]).then(x => {
                 conn.sendStickerFromUrl(m.from, x.result.whatsapp, args[0], stickerMetadata.stickerAuthor, {quotedMessageId: m.msgId})

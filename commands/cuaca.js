@@ -6,7 +6,7 @@ module.exports = {
     desc: ['Menampilkan prakiraan cuaca berdasarkan tempat/daerah', '.cuaca <tempat>'],
     async handler(m, {conn, text}){
         try{
-            if(!text) return conn.reply(m, 'Masukkan nama derah/tempat!')
+            if(!text) return await conn.reply(m, 'Masukkan nama derah/tempat!')
             await conn.reply(m, global.mess.wait)
             cuaca(text).then(res => {
                 array = Object.entries(res)

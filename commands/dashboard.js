@@ -8,7 +8,7 @@ module.exports = {
 	desc: ['Melihat history command bot', '.dashboard'],
 	async handler(m, {conn, prefix}) {
 		const data = await showhit()
-		if (data == '') return conn.reply(m, 'Masih Kosong :v')
+		if (data == '') return await conn.reply(m, 'Masih Kosong :v')
 		let thit = data.map((total) => total.count)
 		let totalhit = 0
 		for (let i of thit) {

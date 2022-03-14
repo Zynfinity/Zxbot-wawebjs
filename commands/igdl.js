@@ -5,8 +5,8 @@ module.exports = {
     category: 'downloader',
     desc: ['Mendownload media dari instagram', '.igdl <link>'],
     async handler(m, {conn, text}){
-        if(!text) return conn.reply(m, 'masukkan linknya!')
-        if(!m.isUrl(text)) return conn.reply(m, 'Link tidak valid!')
+        if(!text) return await conn.reply(m, 'masukkan linknya!')
+        if(!m.isUrl(text)) return await conn.reply(m, 'Link tidak valid!')
         conn.reply(m, global.mess.wait)
         scrap.igdl(text).then(async res => {
             res.map(s => {

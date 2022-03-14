@@ -6,7 +6,7 @@ module.exports = {
     category: 'search',
     desc: ['Mencari sticker berdasarkan kata kunci', '.findsticker <query>'],
     async handler(m, {conn, text}){
-        if(!text) return conn.reply(m, 'mau cari sticker apa?')
+        if(!text) return await conn.reply(m, 'mau cari sticker apa?')
         conn.reply(m, global.mess.wait)
         stickersearch(text).then(res => {
             for(let i=0; i<10; i++){

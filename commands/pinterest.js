@@ -6,7 +6,7 @@ module.exports = {
     desc: ['Mencari gambar di pinterest', '.pinterest <query>'],
     async handler(m, {conn, text}){
         try{
-            if(!text) return conn.reply(m, 'Mau cari apa di pinterest?')
+            if(!text) return await conn.reply(m, 'Mau cari apa di pinterest?')
             await conn.reply(m, global.mess.wait)
             res = await pinterest(text)
             image = res[Math.floor(Math.random() * res.length)]
