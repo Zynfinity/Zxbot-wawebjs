@@ -5,9 +5,9 @@ module.exports = {
     cmd: /^(asupan)$/i,
     category: 'other',
     disabled: true,
-    async handler(m, {conn, text}){
+    async handler(m, {conn, msgId, text}){
         const dbs = require('../lib/database/database')
-        await conn.reply(m, global.mess.wait)
+        await conn.reply(m, global.mess.wait, msgId)
         try{
             user = await dbs.showdata('asupan')
             userr = user[Math.floor(Math.random() * user.length)].user
@@ -19,7 +19,7 @@ module.exports = {
                     else  asupan += `├ ${await kapitalisasiKata(i[0].split('_')[0])} : ${i[1]}\n`
                 }
                 asupan += '└'
-                getBuffer(res.videourl).then(async x => await conn.sendFileFromBuffer(m.from, x, 'video/mp4', {caption: asupan, quotedMessageId: m.msgId}))
+                getBuffer(res.videourl).then(async x => await conn.sendFileFromBuffer(m.from, x, 'video/mp4', {caption: asupan, quotedMessageId: msgId}))
             })
         }catch(e){
             global.eror(global.command, e, m)

@@ -4,10 +4,10 @@ module.exports = {
     cmd: /^(igstalk)$/i,
     category: 'stalk',
     desc: ['Menampilkan profil instagram berdasarkan username', '.igstalk <username>'],
-    async handler(m, {conn, text}){
+    async handler(m, {conn, msgId, text}){
         try{
-            if(!text) return await conn.reply(m, 'Usernamenya mana?')
-            await conn.reply(m, global.mess.wait)
+            if(!text) return await conn.reply(m, 'Usernamenya mana?', msgId)
+            await conn.reply(m, global.mess.wait, msgId)
             stalk = await igstalk(text)
             stalkt = `*I N S T A G R A M  S T A L K*\n\n`
             stalkt += `${global.shp} Username : ${stalk.username} ${stalk.verified ? '✅' : ''}\n`
@@ -16,7 +16,7 @@ module.exports = {
             stalkt += `${global.shp} Followed : ${stalk.follow}\n`
             stalkt += `${global.shp} Bio : ${stalk.bio}\n`
             stalkt += `${global.shp} Url : https://www.instagram.com/${stalk.username}/`
-            await conn.sendFileFromUrl(m.from, stalk.thumbnail, {caption: stalkt, quotedMessageId: m.msgId})
+            await conn.sendFileFromUrl(m.from, stalk.thumbnail, {caption: stalkt, quotedMessageId: msgId})
         }catch(e){
             global.eror(global.command, e, m)
         }

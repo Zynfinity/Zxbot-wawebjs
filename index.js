@@ -55,22 +55,20 @@ global.reload = (_event, filename) => {
   Object.freeze(global.reload)
   fs.watch(path.join(__dirname, 'commands'), global.reload)
 
-client.on('message', msg => {
+client.on('message', async msg => {
   exports.m = msg
-  require('./lib/handler').handler(msg, client)
+if(msg.type != 'chat' && msg.type != 'image' && msg.type != 'video' && msg.type != 'list_response') return
+  await require('./lib/handler').handler(msg, client)
 });
 client.on('message_revoke_everyone', async (after, before) => {
 });
 client.on('group_update', upt => {
-  //console.log(upt)
   require('./events/group_update')(upt, client)
 })
-client.on('group_join', upt => {
-  //console.log(upt)
-  require('./events/greetings').welcome(upt, client)
+client.on('group_join', async upt => {
+  await require('./events/greetings').welcome(upt, client)
 })
 client.on('group_leave', upt => {
-  //console.log(upt)
   require('./events/greetings').left(upt, client)
 })
 client.initialize();

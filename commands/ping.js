@@ -12,7 +12,7 @@ module.exports = {
 	name: ['ping'].map((v) => v + ''),
 	cmd: /^(p|ping|status)$/i,
 	category: 'other',
-	async handler(m, {conn}) {
+	async handler(m, {conn, msgId}) {
 		const used = process.memoryUsage();
 		const cpus = os.cpus()
 			.map((cpu) => {
@@ -105,6 +105,6 @@ ${cpus
     : ""
 }
                 `.trim();
-		conn.reply(m, respon);
+		conn.reply(m, respon, msgId);
 	}
 }

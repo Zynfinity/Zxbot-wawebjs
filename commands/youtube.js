@@ -6,11 +6,11 @@ module.exports = {
     cmd: /^(ytmp3|ytmp4)$/i,
     category: 'downloader',
     desc: ['Mendownload video/audio dari youtube berdasarkan url!', '.ytmp3/ytmp4 <link>'],
-    async handler(m, {conn, text, command}){
+    async handler(m, {conn, msgId, text, command}){
         try{
-            if(!text) return await conn.reply(m, 'Masukkan link!')
-            if(!m.isUrl(text)) return await conn.reply(m, global.mess.errorlink)
-            conn.reply(m, global.mess.wait)
+            if(!text) return await conn.reply(m, 'Masukkan link!', msgId)
+            if(!m.isUrl(text)) return await conn.reply(m, global.mess.errorlink, msgId)
+            conn.reply(m, global.mess.wait, msgId)
             down = await youtube(text)
             teks = command == 'ytmp3' ? `*Y T M P 3  D O W N L O A D E R*\n\n` : `*Y T M P 4  D O W N L O A D E R*\n\n`
             teks += `${global.shp} Title : ${down.title}\n`
@@ -20,11 +20,11 @@ module.exports = {
             if(command == 'ytmp3' ? !down.size_mp3.endsWith('KB') && down.size.split(' MB')[0] > 50 : !down.size.endsWith('KB') && down.size.split(' MB')[0] > 10){
                 teks += command == 'ytmp3' ? `${global.shp} Download : ` + await tiny(down.mp3) : `${global.shp} Download : ` + await tiny(down.link) + '\n\n'
                 teks += `\n\n${global.mess.oversize}`
-                return conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: m.msgId})
+                return conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: msgId})
             }
             teks += `\nTunggu sebentar...\n${command == 'ytmp3' ? 'Audio' : 'Video'} sedang dikirim`
-            await conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: m.msgId})
-            conn.sendFileFromUrl(m.from, command == 'ytmp3' ? down.mp3 : down.link, {quotedMessageId: m.msgId})
+            await conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: msgId})
+            conn.sendFileFromUrl(m.from, command == 'ytmp3' ? down.mp3 : down.link, {quotedMessageId: msgId})
         }catch(e){
 global.eror(global.command, e)
 }

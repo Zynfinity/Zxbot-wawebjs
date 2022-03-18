@@ -6,13 +6,13 @@ module.exports = {
     cmd: /^(toimg)$/i,
     category: 'convert',
     desc: ['Mengubah sticker menjadi gambar/video', '.toimg/tovideo <reply sticker>'],
-    async handler(m, {conn, hasQuotedMsg, quotedMsg}){
-        if(!hasQuotedMsg) return await conn.reply(m, 'reply stickernya!')
+    async handler(m, {conn, msgId, hasQuotedMsg, quotedMsg}){
+        if(!hasQuotedMsg) return await conn.reply(m, 'reply stickernya!', msgId)
         if(quotedMsg.type == 'sticker' && !quotedMsg.isAnimated){
-            conn.reply(m, global.mess.wait)
+            conn.reply(m, global.mess.wait, msgId)
             quot = await m.getQuotedMessage()
             down = await quot.downloadMedia()
-            conn.sendMessage(m.from, down, {quotedMessageId: m.msgId})
+            conn.sendMessage(m.from, down, {quotedMessageId: msgId})
         }
     }
 }

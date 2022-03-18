@@ -6,9 +6,9 @@ module.exports = {
 	cmd: /^(dashboard)$/i,
 	category: 'other',
 	desc: ['Melihat history command bot', '.dashboard'],
-	async handler(m, {conn, prefix}) {
+	async handler(m, {conn, msgId, prefix}) {
 		const data = await showhit()
-		if (data == '') return await conn.reply(m, 'Masih Kosong :v')
+		if (data == '') return await conn.reply(m, 'Masih Kosong :v', msgId)
 		let thit = data.map((total) => total.count)
 		let totalhit = 0
 		for (let i of thit) {
@@ -64,6 +64,6 @@ module.exports = {
         dash += tu
         dash += `\n\n${global.shp} *MOST COMMAND GLOBAL*\n`
         dash += tg
-        conn.reply(m, dash)
+        conn.reply(m, dash, msgId)
 	}
 }

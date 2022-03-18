@@ -4,8 +4,8 @@ module.exports = {
     category: 'other',
     desc: ['Melihat informasi dari command', '.help <command>'],
     ignored: true,
-    async handler(m, {conn, q, prefix}){
-        if(!q) return global.plugins['menu.js'].handler(m, {conn, prefix})
+    async handler(m, {conn, msgId, q, prefix}){
+        if(!q) return global.plugins['menu.js'].handler(m, {conn, msgId, prefix})
         for(name in global.plugins){
             plugin = global.plugins[name]
             let isAccept = plugin.cmd instanceof RegExp ? plugin.cmd.test(q) : Array.isArray(plugin.cmd) ? plugin.cmd.some((cmd) => (cmd instanceof RegExp ? cmd.test(q) : cmd === q)) : typeof plugin.cmd === 'string' ? plugin.cmd === q : false
@@ -25,8 +25,8 @@ module.exports = {
                 helpt += `${global.shp} ${plugin.desc[0]}\n\n`
                 helpt += `${global.shp} Usage : ${plugin.desc[1].replace(/@command/g, q)}`
             }
-            return await conn.reply(m, helpt)
+            return await conn.reply(m, helpt, msgId)
         }
-        conn.reply(m, `Command ${q} tidak tercantum di menu!`)
+        conn.reply(m, `Command ${q} tidak tercantum di menu!`, msgId)
     }
 }

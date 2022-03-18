@@ -6,8 +6,8 @@ module.exports = {
     group: true,
     admin: true,
     botAdmin: true,
-    async handler(m, {conn, zx, text}){
-        if(!text) return await conn.reply(m, 'Mau diganti jadi apa?')
+    async handler(m, {conn, msgId, zx, text}){
+        if(!text) return await conn.reply(m, 'Mau diganti jadi apa?', msgId)
         await zx.setDescription(text)
     }
 }

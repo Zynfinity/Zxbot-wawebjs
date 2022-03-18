@@ -5,7 +5,7 @@ module.exports = {
     cmd: /^(menu)$/i,
     category: 'other',
     ignored: true,
-    async handler(m, {conn, prefix}){
+    async handler(m, {conn, msgId, prefix}){
 let d = new Date(new Date() + 3600000)
         let date = d.toLocaleDateString('id', {
             day: 'numeric',
@@ -20,11 +20,11 @@ let d = new Date(new Date() + 3600000)
         cmd = []
         total = []
         Object.values(global.plugins)
-        .filter((plugin) => !plugin.disabled && !plugin.ignored && !plugin.function)
+        .filter((plugin) => !plugin.ignored && !plugin.function || plugin.disabled)
         .map((plugin) => {
             cmd.push({
             cmd: plugin.name,
-            tag: plugin.category,
+            tag: plugin.disabled ? 'Disabled' : plugin.category,
             })
         })
         map_tag = cmd.map((mek) => mek.tag)
@@ -66,6 +66,6 @@ let d = new Date(new Date() + 3600000)
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
         media = await MessageMedia.fromFilePath('./lib/media/thumb.mp4')
-        conn.sendMessage(m.from, media, {caption: menu, sendVideoAsGif: true, quotedMessageId: m.msgId})
+        conn.sendMessage(m.from, media, {caption: menu, sendVideoAsGif: true, quotedMessageId: msgId})
     }
 }

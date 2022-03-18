@@ -4,10 +4,10 @@ module.exports = {
 	cmd: /^(google)$/i,
 	category: 'search',
 	desc: ['Mencari sesuatu berdasarkan query di Google.com', '.google <query>'],
-	async handler(m, {conn, text}){
+	async handler(m, {conn, msgId, text}){
 		try{
-			if(!text) return await conn.reply(m, 'Mau cari apa?')
-			await conn.reply(m, global.mess.wait)
+			if(!text) return await conn.reply(m, 'Mau cari apa?', msgId)
+			await conn.reply(m, global.mess.wait, msgId)
 			google = `${global.shp} *GOOGLE SEARCH*\n`
 			data = await ggs({query: text})
 			data.map(res => {
@@ -15,7 +15,7 @@ module.exports = {
 				google += `├ *Link* : ${res.link}\n`
 				google += `└ *Description* : ${res.snippet}\n\n${global.shp}\n`
 			})
-			await conn.reply(m, google)
+			await conn.reply(m, google, msgId)
 		}catch(e){
 			global.eror(global.commands, e, m)
 		}

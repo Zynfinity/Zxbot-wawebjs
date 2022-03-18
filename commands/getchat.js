@@ -6,7 +6,7 @@ module.exports = {
     category: 'owner',
     desc: ['Menampilkan list chat', '.listpc/listgroup'],
     owner: true,
-    async handler(m, {conn}){
+    async handler(m, {conn, msgId}){
         chat = await conn.getChats()
         filchat = command == 'listpc' ? chat.filter(lst => !lst.isGroup) : chat.filter(lst => lst.isGroup && lst.groupMetadata.participants != '')
         list = command == 'listpc' ? `${global.shp} L I S T  P C\n\n` : `${global.shp} L I S T  G R O U P\n\n`
@@ -28,14 +28,14 @@ module.exports = {
                 list += `├ *Id* : ${res.groupMetadata.id._serialized}\n`
                 list += `├ *Waktu Dibuat* : ${moment(`${res.groupMetadata.creation}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n`
                 list += `├ *Jumlah Member* : ${res.groupMetadata.participants.length}\n`
-                list += `├ *Jumlah Admin* : ${admin.length}\n`
-                list += `└ *Owner* : @${res.groupMetadata.owner.user}\n\n`
+                list += `├ *Jumlah Admin* : ${admin.length}\n\n`
+                //list += `└ *Owner* : @${res.groupMetadata.owner.user}\n`
                 num += 1
                 contact = await conn.getContactById(res.groupMetadata.owner._serialized)
                 mentions.push(contact)
             }
         })
         await sleep(3000)
-        conn.sendMessage(m.from, list, {mentions: mentions, quotedMessageId: m.msgId})
+        conn.sendMessage(m.from, list, {mentions: mentions, quotedMessageId: msgId})
     }
 }

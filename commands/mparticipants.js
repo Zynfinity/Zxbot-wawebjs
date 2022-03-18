@@ -6,37 +6,37 @@ module.exports = {
     group: true,
     admin: true,
     botAdmin: true,
-    async handler(m, {conn, zx, hasQuotedMsg, quotedMsg, text, mentionedIds}){
+    async handler(m, {conn, msgId, zx, hasQuotedMsg, quotedMsg, text, mentionedIds}){
         try{
             stop = command == 'add' ? 'Orang tersebut sudah ada didalam group!' : 'Orang tersebut sudah tidak ada didalam group!'
             success = command == 'add' ? `Berhasil menambahkan @${hasQuotedMsg ? quotedMsg.sender.split('@')[0] : mentionedIds != '' ? mentionedIds[0].split('@')[0] : text}` : `Berhasil mengeluarkan @${hasQuotedMsg ? quotedMsg.sender.split('@')[0] : mentionedIds != '' ? mentionedIds[0].split('@')[0] : text}`
             member = zx.participants.map(s => s.id._serialized)
             if(hasQuotedMsg){
-                if(command == 'add' ? member.includes(quotedMsg.sender) : !member.includes(quotedMsg.sender)) return await conn.reply(m, stop)
+                if(command == 'add' ? member.includes(quotedMsg.sender) : !member.includes(quotedMsg.sender)) return await conn.reply(m, stop, msgId)
                 if(command == 'add'){
                     add = await zx.addParticipants([quotedMsg.sender])
                     console.log(add)
-                    conn.mentions(m.from, success, {quotedMessageId: m.msgId})
+                    conn.mentions(m.from, success, {quotedMessageId: msgId})
                 }else{
                     kick = await zx.removeParticipants([quotedMsg.sender])
                     console.log(kick)
-                    conn.mentions(m.from, success, {quotedMessageId: m.msgId})
+                    conn.mentions(m.from, success, {quotedMessageId: msgId})
                 }
             }
             else if(!hasQuotedMsg && mentionedIds != '' || !hasQuotedMsg && text != '' && !isNaN(text)){
                 no = mentionedIds != '' ? mentionedIds[0] : text + '@c.us'
-                if(command == 'add' ? member.includes(no) : !member.includes(no)) return await conn.reply(m, stop)
+                if(command == 'add' ? member.includes(no) : !member.includes(no)) return await conn.reply(m, stop, msgId)
                 if(command == 'add'){
                     add = await zx.addParticipants([no])
                     console.log(add)
-                    conn.mentions(m.from, success, {quotedMessageId: m.msgId})
+                    conn.mentions(m.from, success, {quotedMessageId: msgId})
                 }else{
                     kick = await zx.removeParticipants([no])
                     console.log(kick)
-                    conn.mentions(m.from, success, {quotedMessageId: m.msgId})
+                    conn.mentions(m.from, success, {quotedMessageId: msgId})
                 }
             }
-            else conn.reply(m, 'masukkan nomor/reply chatnya!')
+            else conn.reply(m, 'masukkan nomor/reply chatnya!', msgId)
         }catch(e){
             global.eror(global.command, e, m)
         }

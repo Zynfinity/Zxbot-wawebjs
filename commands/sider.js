@@ -6,9 +6,9 @@ module.exports = {
     desc: ['Untuk melihat orang yang sudah membaca pesan bot', '.sider <reply pesan bot>'],
     admin: true,
     disabled: true,
-    async handler(m, {conn, quotedMsg, botNumber}){
-        if(!quotedMsg) return await conn.reply(m, 'reply pesan dari bot')
-        if(quotedMsg.sender != botNumber) return await conn.reply(m, 'reply pesan dari bot!')
+    async handler(m, {conn, msgId, quotedMsg, botNumber}){
+        if(!quotedMsg) return await conn.reply(m, 'reply pesan dari bot', msgId)
+        if(quotedMsg.sender != botNumber) return await conn.reply(m, 'reply pesan dari bot!', msgId)
         quot = await m.getQuotedMessage()
         data = await quot.getInfo()
         teks = `⬣ Telah dibaca oleh\n\n`
@@ -16,6 +16,6 @@ module.exports = {
 			teks += global.shp + ' ' + '@' + res.id.split('@')[0] + '\n'
 			teks += `┗━ ${global.shp} Waktu : ` + moment(`${res.t}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss') + '\n'
         })
-        conn.reply(m, teks)
+        conn.reply(m, teks, msgId)
     }
 }

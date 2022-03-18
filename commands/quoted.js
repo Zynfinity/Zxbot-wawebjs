@@ -2,8 +2,8 @@ module.exports = {
     name: ['q'].map((v) => v + ' <reply pesan>'),
     cmd: /^(q|quoted)$/i,
     category: 'other',
-    async handler(m, {conn, quotedMsg, hasQuotedMsg}){
-        if(!hasQuotedMsg) return await conn.reply(m, 'reply pesannya!')
+    async handler(m, {conn, msgId, quotedMsg, hasQuotedMsg}){
+        if(!hasQuotedMsg) return await conn.reply(m, 'reply pesannya!', msgId)
         quot = await m.getQuotedMessage()
         quott = await quot.getQuotedMessage()
         await quott.forward(m.from)

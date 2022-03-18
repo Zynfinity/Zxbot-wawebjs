@@ -6,7 +6,7 @@ module.exports = {
     cmd: /^(batman|circuit|neonlight|glitch|graffiti|text3d|blackpink|sand)$/i,
     category: 'textmaker',
     desc: ['Memanipulasi gambar', `.@command <text>\n_Note_ : Tambahkan -s jika ingin mengirim sebagai sticker\nExample : .@command Fajar Ihsana -s`],
-    async handler(m, {conn, command, args, text}){
+    async handler(m, {conn, msgId, command, args, text}){
         try{
             const tema = {
                 batman:'https://textpro.me/make-a-batman-logo-online-free-1066.html',
@@ -18,13 +18,13 @@ module.exports = {
                 blackpink: 'https://textpro.me/create-blackpink-logo-style-online-1001.html',
                 sand: 'https://textpro.me/sand-engraved-3d-text-effect-989.html'
             }
-            if(!text) return await conn.reply(m, 'teksnya mana?')
-            await conn.reply(m, global.mess.wait)
+            if(!text) return await conn.reply(m, 'teksnya mana?', msgId)
+            await conn.reply(m, global.mess.wait, msgId)
             pros = await textpro(tema[command], text.replace('-s', ''))
             sticker = text.includes('-s') ? true : false
             await conn.sendFileFromBuffer(m.from, await getBuffer(pros), 'image/jpeg', {
                 caption: '*Done*',
-                quotedMessageId: m.msgId,
+                quotedMessageId: msgId,
                 sendMediaAsSticker: sticker,
                 ...stickerMetadata
             })

@@ -4,9 +4,9 @@ module.exports = {
     cmd: /^(ytsearch|yts)$/i,
     category: 'search',
     desc: ['Mencari video di Youtube', '.ytsearch <query>'],
-    async handler(m, {conn, text}){
+    async handler(m, {conn, msgId, text}){
         try{
-        if(!text) return await conn.reply(m, 'Mau cari apa?')
+        if(!text) return await conn.reply(m, 'Mau cari apa?', msgId)
         ys = await yts(text)
         ytss = ys.all.filter(s => s.type == 'video')
         yss = `*Y O U T U B E  S E A R C H*\n${global.shp} Query : ${text}\n\n`
@@ -19,7 +19,7 @@ module.exports = {
             yss += `${global.shp} Url Channel : ${i.author.url}\n`;
             yss += `${global.shp} Url : ${i.url}\n\n\n`
         }
-        await conn.sendFileFromUrl(m.from, ytss[0].thumbnail, {caption: yss, quotedMessageId: m.msgId})
+        await conn.sendFileFromUrl(m.from, ytss[0].thumbnail, {caption: yss, quotedMessageId: msgId})
         }catch{
             global.eror(global.command, e, m)
         }

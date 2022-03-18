@@ -4,8 +4,8 @@ module.exports = {
     cmd: /^(surah|surat)$/i,
     category: 'islamic',
     desc: ['Menampilkan surah berdasarkan nomor surah', '.surah <no surah>'],
-    async handler(m, {conn, args}){
-        if (!args[0]) return await conn.reply(m, "masukkan nomor suratnya!");
+    async handler(m, {conn, msgId, args}){
+        if (!args[0]) return await conn.reply(m, "masukkan nomor suratnya!", msgId);
         if (isNaN(args[0])) return await conn.reply(m, "Input harus berupa nomor!");
         if (args[0] > 114) return await conn.reply(m, "surat al-quran hanya berjumlah 114!");
         list = await listsurat();
@@ -18,6 +18,6 @@ module.exports = {
             teks += "_Artinya : " + i.arti + "_\n\n------------------------------\n\n";
             num += 1;
         }
-        conn.reply(m, teks);
+        conn.reply(m, teks, msgId);
     }
 }

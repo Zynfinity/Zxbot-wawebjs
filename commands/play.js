@@ -6,10 +6,11 @@ module.exports = {
     cmd: /^(play|video)$/i,
     category: 'downloader',
     desc: ['Mendownload video/audio dari youtube berdasarkan kata kunci!', '.play <query>'],
-    async handler(m, {conn, text, command}){
+    disabled: true,
+    async handler(m, {conn, msgId, text, command}){
         try{
-            if(!text) return await conn.reply(m, 'Kata kuncinya mana?')
-            conn.reply(m, global.mess.wait)
+            if(!text) return await conn.reply(m, 'Kata kuncinya mana?', msgId)
+            conn.reply(m, global.mess.wait, msgId)
             cari = await yts(text)
             filt = cari.all.filter(res => res.type == 'video')[0]
             down = await youtube(filt.url)
@@ -23,12 +24,12 @@ module.exports = {
             if(command == 'play' ? !down.size_mp3.endsWith('KB') && down.size.split(' MB')[0] > 50 : !down.size.endsWith('KB') && down.size.split(' MB')[0] > 10){
                 teks += command == 'play' ? `${global.shp} Download : ` + await tiny(down.mp3) : `${global.shp} Download : ` + await tiny(down.link) + '\n\n'
                 teks += `\n\n${global.mess.oversize}`
-                return conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: m.msgId})
+                return conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: msgId})
             }
             teks += `\nTunggu sebentar...\n${command == 'play' ? 'Audio' : 'Video'} sedang dikirim`
-            await conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: m.msgId})
+            await conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: msgId})
             mim = command == 'play' ? 'audio/mpeg' : 'video/mp4'
-            await conn.sendFileFromUrl(m.from, command == 'play' ? down.mp3 : down.link, {quotedMessageId: m.msgId}, {mimetype: mim})
+            await conn.sendFileFromUrl(m.from, command == 'play' ? down.mp3 : down.link, {quotedMessageId: msgId}, {mimetype: mim})
         }catch(e){
             global.eror(global.command, e, m)
         }

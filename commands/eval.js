@@ -11,19 +11,19 @@ module.exports = {
   category: 'owner',
   desc: ['Untuk Mengeksekusi kode javascript', '.eval < code >'],
   owner: true,
-  async handler(m, {conn,zx, q}){
+  async handler(m, {conn, msgId, zx, q}){
     const util = require('util')
       function _(rem) {
           ren = JSON.stringify(rem, null, 2)
           pes = util.format(ren)
-          conn.reply(m, pes)
+          conn.reply(m, pes, msgId)
         }
         try {
           q
-          conn.reply(m, require('util').format(eval(`(async () => { ${q} })()`)))
+          conn.reply(m, require('util').format(eval(`(async () => { ${q} })()`)), msgId)
         } catch (err) {
           e = String(err)
-          conn.reply(m, e)
+          conn.reply(m, e, msgId)
         }
   }
 }
