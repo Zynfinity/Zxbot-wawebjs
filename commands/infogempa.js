@@ -2,12 +2,12 @@ const {gempa} = require('../lib/scraper')
 const { getBuffer } = require('../lib/tools')
 module.exports = {
     name: ['infogempa'].map((v) => v + ''),
-    cmd: /^(infogempa|gempa)$/i,
+    cmd: ['infogempa','gempa'],
     category: 'information',
     desc: ['Menampilkan informasi gempa terkini', '.infogempa'],
-    async handler(m, {conn, msgId, text}){
+    async handler(m, {conn,  msgId, text}){
         try{
-            await conn.reply(m, global.mess.wait, msgId)
+            await m.reply(global.mess.wait)
             gempa().then(async res => {
                 array = Object.entries(res.data)
                 gempaa = '*I N F O  G E M P A*\n\n'
@@ -18,7 +18,7 @@ module.exports = {
                 conn.sendFileFromBuffer(m.from, buff, 'image/jpeg', {caption: gempaa, quotedMessageId: msgId})
             })
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
     }
 }

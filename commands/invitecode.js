@@ -1,16 +1,16 @@
 module.exports = {
     name: ['linkgc'].map((v) => v + ''),
-    cmd: /^(linkgc)$/i,
+    cmd: ['linkgc'],
     category: 'group',
     desc: ['Menampilkan link group', '.link'],
     group: true,
     botAdmin: true,
-    async handler(m, {conn, msgId, zx}){
+    async handler(m, {conn,  msgId, zx}){
         try{
             ling = await zx.getInviteCode()
             zx.sendMessage('https://chat.whatsapp.com/' + ling + `\nLink group ${zx.name}`, {quotedMessageId: msgId, linkPreview: true})
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
     }
 }

@@ -3,8 +3,8 @@ const data = db.collection("afk");
 const ms = require('parse-ms')
 module.exports = {
   function: true,
-  async handler(m, { conn, msgId, quotedMsg, mentionedIds, command }) {
-    if(command == 'afk') return
+  async handler(m, { conn, msgId, quotedMsg, mentionedIds}) {
+    if(m.command == 'afk') return
     afkdata = await data.findOne({ id: m.author });
     if (afkdata != null) {
         waktuafk = await ms(Date.now() - afkdata.time)

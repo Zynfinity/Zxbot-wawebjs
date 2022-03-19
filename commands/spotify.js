@@ -8,14 +8,14 @@ const credential = {
 const spotify = new spotifydlCore(credential)
 module.exports = {
     name: ['spotify'].map((v) => v + ' <query>'),
-    cmd: /^(spotify)$/i,
+    cmd: ['spotify'],
     category: 'downloader',
     desc: ['Mendownload lagu dari spotify berdasarkan kata kunci', '.spotify <query>'],
     disabled: true,
-    async handler(m, {conn, msgId, text}){
+    async handler(m, {conn,  msgId, text}){
         try{
-            if(!text) return await conn.reply(m, 'Mau cari apa?', msgId)
-            await conn.reply(m, global.mess.wait, msgId)
+            if(!text) return await m.reply('Mau cari apa?')
+            await m.reply(global.mess.wait)
             data = await spotifysearch(text)
             artis = data.artist.map(s => s.name).join(' && ')
             spoti = '*S P O T I F Y  P L A Y*\n\n'
@@ -27,7 +27,7 @@ module.exports = {
                 await conn.sendFileFromBuffer(m.from, res, 'audio/mpeg', {quotedMessageId: msgId})
             })
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
     }
 }

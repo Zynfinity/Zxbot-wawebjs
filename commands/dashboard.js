@@ -3,12 +3,12 @@ const {
 } = require("../lib/database/hit")
 module.exports = {
 	name: ['dashboard'].map((v) => v + ''),
-	cmd: /^(dashboard)$/i,
+	cmd: ['dashboard'],
 	category: 'other',
-	desc: ['Melihat history command bot', '.dashboard'],
-	async handler(m, {conn, msgId, prefix}) {
+	desc: ['Melihat history m.command bot', '.dashboard'],
+	async handler(m, {conn,  msgId, prefix}) {
 		const data = await showhit()
-		if (data == '') return await conn.reply(m, 'Masih Kosong :v', msgId)
+		if (data == '') return await m.reply('Masih Kosong :v')
 		let thit = data.map((total) => total.count)
 		let totalhit = 0
 		for (let i of thit) {
@@ -60,10 +60,10 @@ module.exports = {
         dash += `\n${global.shp} *HIT*\n`
         dash += `├ Global : ${totalhit}\n`
         dash += `└ User : ${totalhits}\n`
-        dash += `\n${global.shp} *MOST COMMAND USER*\n`
+        dash += `\n${global.shp} *MOST m.command USER*\n`
         dash += tu
-        dash += `\n\n${global.shp} *MOST COMMAND GLOBAL*\n`
+        dash += `\n\n${global.shp} *MOST m.command GLOBAL*\n`
         dash += tg
-        conn.reply(m, dash, msgId)
+        m.reply(dash)
 	}
 }

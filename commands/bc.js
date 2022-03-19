@@ -1,13 +1,13 @@
 const {sleep} = require('../lib/tools')
 module.exports = {
 	name: ['bcgc', 'bc'].map((v) => v + ' <pesan>'),
-	cmd: /^(bcgc|bc)$/i,
+	cmd: ['bcgc','bc'],
 	category: 'owner',
 	desc: ['Mengirim pesan ke semua group'],
 	owner: true,
-	async handler(m, {conn, msgId, zx, hasQuotedMsg, quotedMsg, hasMedia, text}){
+	async handler(m, {conn,  msgId, zx, hasQuotedMsg, quotedMsg, hasMedia, text}){
 		chat = await conn.getChats()
-		id = command == 'bcgc' ? chat.filter(s => s.isGroup).map(v => v.id._serialized) : chat.map(s => s.id._serialized)
+		id = m.command == 'bcgc' ? chat.filter(s => s.isGroup).map(v => v.id._serialized) : chat.map(s => s.id._serialized)
 		bc = text ? text : ''
 		bc += `${text ? '\n\n' : ''}[ *ZXBOT BROADCAST* ]`
 		if(hasMedia && m.type == 'video' || hasMedia && m.type == 'image' || hasQuotedMsg){

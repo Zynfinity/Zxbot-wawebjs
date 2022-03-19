@@ -3,15 +3,15 @@ const dbwelkom = db.collection('welcome')
 const dbleft = db.collection('left')
 module.exports = {
     name: ['setwelcome', 'setleft'].map((v) => v + ' <text>'),
-    cmd: /^(setwelcome|setleft)$/i,
+    cmd: ['setwelcome','setleft'],
     category: 'group',
-    desc: ['Mengganti kata kata pada welcome/left', '.@command <text>\n*Note : @user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)'],
-    async handler(m, {conn, msgId, text}){
-        if(!text) return await conn.reply(m, 'textnya mana?', msgId)
+    desc: ['Mengganti kata kata pada welcome/left', '.@m.command <text>\n*Note : @user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)'],
+    async handler(m, {conn,  msgId, text}){
+        if(!text) return await m.reply('textnya mana?')
         try{
-            succsess = command == 'setwelcome' ? 'Welcome berhasil diatur\n@user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)' : 'Left berhasil diatur\n@user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)'
-            if(command == 'setwelcome' ? await dbwelkom.findOne({id: m.from}) == null : await dbleft.findOne({id: m.from}) == null) {
-                command == 'setwelcome' ? await dbwelkom.insertOne({
+            succsess = m.command == 'setwelcome' ? 'Welcome berhasil diatur\n@user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)' : 'Left berhasil diatur\n@user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)'
+            if(m.command == 'setwelcome' ? await dbwelkom.findOne({id: m.from}) == null : await dbleft.findOne({id: m.from}) == null) {
+                m.command == 'setwelcome' ? await dbwelkom.insertOne({
                     id: m.from,
                     status: false,
                     text: text
@@ -20,9 +20,9 @@ module.exports = {
                     status: false,
                     text: text
                 })
-                return await conn.reply(m, succsess, msgId)
+                return await m.reply(succsess)
             }
-            command == 'setwelcome' ? await dbwelkom.updateOne({
+            m.command == 'setwelcome' ? await dbwelkom.updateOne({
                 id: m.from
             },
             {
@@ -37,9 +37,9 @@ module.exports = {
                     text: text
                 }
             })
-            conn.reply(m, succsess, msgId)
+            m.reply(succsess)
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
     }
 }

@@ -3,10 +3,10 @@ const { kapitalisasiKata, sleep } = require("../lib/tools")
 
 module.exports = {
     name: ['jadwalmpl'].map((v) => v + ''),
-    cmd: /^(jadwalmpl)$/i,
+    cmd: ['jadwalmpl'],
     category: 'information',
     desc: ['menampilkan jadwal mpl', '.jadwalmpl'],
-    async handler(m, {conn, msgId, args}){
+    async handler(m, {conn,  msgId, args}){
         try{
             mpl = `${global.shp} *Schedule && Result MPL ID S9*\n`
             jadwalmplid().then(async res => {
@@ -23,7 +23,7 @@ module.exports = {
                 await conn.sendFileFromUrl(m.from, 'https://media.suara.com/pictures/970x544/2022/02/04/31958-ilustrasi-dan-logo-mpl-id-season-9-moonton.jpg', {caption: mpl, quotedMessageId: msgId})
             })
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
     }
 }

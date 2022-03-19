@@ -2,7 +2,7 @@ const toms = require('ms')
 module.exports = {
     antispam: true,
     ignored: true,
-    async handler(m, {conn, msgId, command, isOwner, zx}){
+    async handler(m, {conn,  msgId, isOwner, zx}){
         if(conn.mode == 'self') return
         conn.cooldown = conn.cooldown ? conn.cooldown : {}
         setInterval(() => {
@@ -15,7 +15,7 @@ module.exports = {
               }
             })
           }, 1000)
-        if(command){
+        if(m.command){
           await require('../lib/function/function').func(m, conn, zx)
             if(m.sender in conn.cooldown == false){
                 conn.cooldown[m.sender] = {

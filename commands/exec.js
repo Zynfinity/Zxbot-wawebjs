@@ -1,14 +1,14 @@
 const {exec} = require('child_process')
 module.exports = {
     name: ['exec'].map((v) => v + ' < Your Code >'),
-    cmd: /^(exec|ex)$/i,
+    cmd: ['exec','ex'],
     category: 'owner',
     owner: true,
-    async handler(m, {conn, msgId, text}){
-        if(!text) return await conn.reply(m, 'Masukkan Codenya!', msgId)
+    async handler(m, {conn,  msgId, text}){
+        if(!text) return await m.reply('Masukkan Codenya!')
         exec(text, async(err, stdout) => {
-            if(err) return await conn.reply(m, String(err), msgId)
-            conn.reply(m, stdout, msgId)
+            if(err) return await m.reply(String(err))
+            m.reply(stdout)
         })
     }
 }

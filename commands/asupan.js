@@ -2,12 +2,12 @@ const { randomtt } = require("../lib/scraper")
 const { getBuffer, kapitalisasiKata } = require("../lib/tools")
 module.exports = {
     name: ['asupan'].map((v) => v + ''),
-    cmd: /^(asupan)$/i,
+    cmd: ['asupan'],
     category: 'other',
     disabled: true,
-    async handler(m, {conn, msgId, text}){
+    async handler(m, {conn,  msgId, text}){
         const dbs = require('../lib/database/database')
-        await conn.reply(m, global.mess.wait, msgId)
+        await m.reply(global.mess.wait)
         try{
             user = await dbs.showdata('asupan')
             userr = user[Math.floor(Math.random() * user.length)].user
@@ -22,7 +22,7 @@ module.exports = {
                 getBuffer(res.videourl).then(async x => await conn.sendFileFromBuffer(m.from, x, 'video/mp4', {caption: asupan, quotedMessageId: msgId}))
             })
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
     }
 }

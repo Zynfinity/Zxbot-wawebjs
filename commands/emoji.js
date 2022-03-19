@@ -2,10 +2,10 @@ const { stickerMetadata } = require("../lib/config")
 const { emoji } = require("../lib/scraper")
 module.exports = {
 	name: ['emoji'].map((v) => v + ' <emoji>'),
-	cmd: /^(emoji|emojisticker)$/i,
+	cmd: ['emoji','emojisticker'],
 	category: 'convert',
 	desc: ['Mengubah emoji menjadi sticker', '.emoji <emoji>'],
-	async handler(m, {conn, msgId, args}){
+	async handler(m, {conn,  msgId, args}){
 		try{
             function emojiStringToArray(str) {
                 split = str.split(/([\uD800-\uDBFF][\uDC00-\uDFFF])/)
@@ -18,13 +18,13 @@ module.exports = {
                 }
                 return arr
               }
-            if(!args[0]) return await conn.reply(m, 'Emojinya mana?', msgId)
-            await conn.reply(m, global.mess.wait, msgId)
+            if(!args[0]) return await m.reply('Emojinya mana?')
+            await m.reply(global.mess.wait)
             emoji(await emojiStringToArray(args[0])[0]).then(x => {
                 conn.sendStickerFromUrl(m.from, x.result.whatsapp, args[0], stickerMetadata.stickerAuthor, {quotedMessageId: msgId})
             })
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
 	}
 }

@@ -2,10 +2,10 @@ const { MessageMedia } = require('whatsapp-web.js')
 const {toTimer} = require('../lib/tools')
 module.exports = {
     name: ['menu'].map((v) => v + ''),
-    cmd: /^(menu)$/i,
+    cmd: ['menu'],
     category: 'other',
     ignored: true,
-    async handler(m, {conn, msgId, prefix}){
+    async handler(m, {conn,  msgId, prefix}){
 let d = new Date(new Date() + 3600000)
         let date = d.toLocaleDateString('id', {
             day: 'numeric',
@@ -39,12 +39,12 @@ let d = new Date(new Date() + 3600000)
         menu = `${global.shp} *[ Z X - B O T ]*\n`
         menu += `├ Library : Whatsapp-Web.js\n`
         menu += `├ Runtime  : ${await toTimer(process.uptime())}\n`
-        menu += `├ Command Total : ${total.length}\n`
+        menu += `├ m.command Total : ${total.length}\n`
         menu += `├ Prefix : [ ${prefix} ]\n`
         menu += `├ Date : ${date}\n`
         menu += `├ Time : ${time}\n`
         menu += `└ \n\n`
-        menu += `Hallo ${m._data.notifyName} Here my command list\n`
+        menu += `Hallo ${m._data.notifyName} Here my m.command list\n`
         for(let i of tags){
             helps = []
             menu += `\n${global.shp} ${i.toUpperCase()}\n`
@@ -64,7 +64,7 @@ let d = new Date(new Date() + 3600000)
             }
             menu += '└\n'
         }
-        menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
+        menu += `\n_*Note : Ketik .help <m.command> untuk melihat info m.command_\n_Berikan jeda 5 detik dalam memakai bot_`
         media = await MessageMedia.fromFilePath('./lib/media/thumb.mp4')
         conn.sendMessage(m.from, media, {caption: menu, sendVideoAsGif: true, quotedMessageId: msgId})
     }

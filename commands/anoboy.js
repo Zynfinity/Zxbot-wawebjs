@@ -3,14 +3,14 @@ const {List} = require('whatsapp-web.js')
 const { kapitalisasiKata } = require("../lib/tools")
 module.exports = {
 	name: ['anoboy'].map((v) => v + ' <emoji>'),
-	cmd: /^(anoboy|anoboyinfo)$/i,
+	cmd: ['anoboy','anoboyinfo'],
 	category: 'search',
 	desc: ['Mencari anime di web anoboy', '.anoboy <anime>'],
-	async handler(m, {conn, msgId, text, command}){
+	async handler(m, {conn,  msgId, text}){
 		try{
-            if(!text) return await conn.reply(m, 'mau cari apa?', msgId)
-            await conn.reply(m, global.mess.wait, msgId)
-            if(command == 'anoboy'){
+            if(!text) return await m.reply('mau cari apa?')
+            await m.reply(global.mess.wait)
+            if(m.command == 'anoboy'){
                 anoboys(text).then(async res => {
                     row = []
                     res.data.map(s => {
@@ -37,7 +37,7 @@ module.exports = {
                 })
             }
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
 	}
 }

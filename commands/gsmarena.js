@@ -1,13 +1,13 @@
 const { gsmarena } = require("../lib/scraper")
 module.exports = {
     name: ['gsmarena'].map((v) => v + ' <merek hp>'),
-    cmd: /^(gsmarena)$/i,
+    cmd: ['gsmarena'],
     category: 'search',
     desc: ['Menampilkan spesifikasi hp', '.gsmarena <merek hp>'],
-    async handler(m, {conn, msgId, text}){
+    async handler(m, {conn,  msgId, text}){
         try{
-            if(!text) return await conn.reply(m, 'Mau cari apa?', msgId)
-            await conn.reply(m, global.mess.wait, msgId)
+            if(!text) return await m.reply('Mau cari apa?')
+            await m.reply(global.mess.wait)
             const data = await gsmarena(text)
             gsm = '*G S M  A R E N A*\n\n'
             for(let i of Object.entries(data)){
@@ -15,7 +15,7 @@ module.exports = {
             }
             conn.sendFileFromUrl(m.from, data.thumbnail, {caption: gsm, quotedMessageId: msgId})
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
     }
 }

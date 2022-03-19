@@ -2,18 +2,18 @@ const moment = require('moment-timezone')
 const { sleep } = require('../lib/tools')
 module.exports = {
     name: ['listpc', 'listgroup'].map((v) => v + ''),
-    cmd: /^(listpc|listgroup)$/i,
+    cmd: ['listpc','listgroup'],
     category: 'owner',
     desc: ['Menampilkan list chat', '.listpc/listgroup'],
     owner: true,
-    async handler(m, {conn, msgId}){
+    async handler(m, {conn,  msgId}){
         chat = await conn.getChats()
-        filchat = command == 'listpc' ? chat.filter(lst => !lst.isGroup) : chat.filter(lst => lst.isGroup && lst.groupMetadata.participants != '')
-        list = command == 'listpc' ? `${global.shp} L I S T  P C\n\n` : `${global.shp} L I S T  G R O U P\n\n`
+        filchat = m.command == 'listpc' ? chat.filter(lst => !lst.isGroup) : chat.filter(lst => lst.isGroup && lst.groupMetadata.participants != '')
+        list = m.command == 'listpc' ? `${global.shp} L I S T  P C\n\n` : `${global.shp} L I S T  G R O U P\n\n`
         num = 1
         mentions = []
         filchat.map(async res => {
-            if(command == 'listpc'){
+            if(m.command == 'listpc'){
                 list += `${num}\n`
                 list += `├ *Number* : @${res.id._serialized.split('@')[0]} ${res.name.startsWith('+') ? '' : `${res.name}`}\n`
                 list += `└ *Waktu* : ${moment(`${res.timestamp}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n\n`

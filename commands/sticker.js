@@ -1,10 +1,10 @@
 const {stickerMetadata, gifcrop} = require('../lib/config')
 module.exports = {
     name: ['sticker'].map((v) => v + ' <reply/send image>'),
-    cmd: /^(sticker|s|stiker)$/i,
+    cmd: ['sticker','s','stiker'],
     category: 'convert',
     desc: ['Mengubah gambar menjadi stiker', '.sticker <reply/send image>'],
-    async handler(m, {conn, msgId, zx, hasMedia, type, quotedMsg, command}){
+    async handler(m, {conn, msgId, zx, hasMedia, type, quotedMsg}){
         if(hasMedia && type == 'image' || hasMedia && type == 'video'){
             const media = await m.downloadMedia()
             conn.sendSticker(zx, media, stickerMetadata.stickerName, stickerMetadata.stickerAuthor, {quotedMessageId: msgId})
@@ -14,7 +14,7 @@ module.exports = {
             const media = await quot.downloadMedia()
             conn.sendSticker(zx, media, stickerMetadata.stickerName, stickerMetadata.stickerAuthor, {quotedMessageId: msgId})
         }
-        else conn.reply(m, `reply/send image dengan caption .${command}`, msgId)
+        else m.reply(`reply/send image dengan caption .${m.command}`)
 
     }
 }

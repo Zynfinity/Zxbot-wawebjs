@@ -3,10 +3,10 @@ const { textpro } = require('../lib/textmaker')
 const { getBuffer } = require('../lib/tools')
 module.exports = {
     name: ['batman', 'circuit', 'neonlight', 'glitch', 'graffiti', 'text3d', 'blackpink', 'sand'].map((v) => v + ' <text>'),
-    cmd: /^(batman|circuit|neonlight|glitch|graffiti|text3d|blackpink|sand)$/i,
+    cmd: ['batman','circuit','neonlight','glitch','graffiti','text3d','blackpink','sand'],
     category: 'textmaker',
-    desc: ['Memanipulasi gambar', `.@command <text>\n_Note_ : Tambahkan -s jika ingin mengirim sebagai sticker\nExample : .@command Fajar Ihsana -s`],
-    async handler(m, {conn, msgId, command, args, text}){
+    desc: ['Memanipulasi gambar', `.@m.command <text>\n_Note_ : Tambahkan -s jika ingin mengirim sebagai sticker\nExample : .@m.command Fajar Ihsana -s`],
+    async handler(m, {conn,  msgId, m.command, args, text}){
         try{
             const tema = {
                 batman:'https://textpro.me/make-a-batman-logo-online-free-1066.html',
@@ -18,9 +18,9 @@ module.exports = {
                 blackpink: 'https://textpro.me/create-blackpink-logo-style-online-1001.html',
                 sand: 'https://textpro.me/sand-engraved-3d-text-effect-989.html'
             }
-            if(!text) return await conn.reply(m, 'teksnya mana?', msgId)
-            await conn.reply(m, global.mess.wait, msgId)
-            pros = await textpro(tema[command], text.replace('-s', ''))
+            if(!text) return await m.reply('teksnya mana?')
+            await m.reply(global.mess.wait)
+            pros = await textpro(tema[m.command], text.replace('-s', ''))
             sticker = text.includes('-s') ? true : false
             await conn.sendFileFromBuffer(m.from, await getBuffer(pros), 'image/jpeg', {
                 caption: '*Done*',
@@ -29,7 +29,7 @@ module.exports = {
                 ...stickerMetadata
             })
         }catch(e){
-            global.eror(global.command, e, m)
+            global.eror(m.m.command, e, m)
         }
     }
 }

@@ -10,9 +10,9 @@ const speed = require("performance-now");
 const {toTimer} = require('../lib/tools')
 module.exports = {
 	name: ['ping'].map((v) => v + ''),
-	cmd: /^(p|ping|status)$/i,
+	cmd: ['p','ping','status'],
 	category: 'other',
-	async handler(m, {conn, msgId}) {
+	async handler(m, {conn,  msgId}) {
 		const used = process.memoryUsage();
 		const cpus = os.cpus()
 			.map((cpu) => {
@@ -105,6 +105,6 @@ ${cpus
     : ""
 }
                 `.trim();
-		conn.reply(m, respon, msgId);
+		m.reply(respon);
 	}
 }

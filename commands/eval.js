@@ -6,24 +6,24 @@ const textmaker = require('../lib/textmaker')
 const {MessageMedia} = require('whatsapp-web.js')
 module.exports = {
   name: ['eval'].map((v) => v + ' <Your Code>'),
-  cmd: /^(ev|eval)$/i,
+  cmd: ['ev','eval'],
   category: 'owner',
   desc: ['Untuk Mengeksekusi kode javascript', '.eval < code >'],
   owner: true,
-  async handler(m, {conn, msgId, zx, q}){
+  async handler(m, {conn,  msgId, zx, q}){
     const scrap = require('../lib/scraper')
     const util = require('util')
       function _(rem) {
           ren = JSON.stringify(rem, null, 2)
           pes = util.format(ren)
-          conn.reply(m, pes, msgId)
+          m.reply(pes)
         }
         try {
           q
-          conn.reply(m, require('util').format(eval(`(async () => { ${q} })()`)), msgId)
+          m.reply(require('util').format(eval(`(async () => { ${q} })()`)))
         } catch (err) {
           e = String(err)
-          conn.reply(m, e, msgId)
+          m.reply(e)
         }
   }
 }
