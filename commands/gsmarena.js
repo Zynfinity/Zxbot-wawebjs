@@ -15,7 +15,7 @@ module.exports = {
             }
             conn.sendFileFromUrl(m.from, data.thumbnail, {caption: gsm, quotedMessageId: msgId})
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

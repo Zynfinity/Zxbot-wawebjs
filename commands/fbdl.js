@@ -15,7 +15,7 @@ module.exports = {
                 await conn.sendFileFromUrl(m.from, res.resource.sd, {caption: fb, quotedMessageId: msgId})
             })
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
 	}
 }

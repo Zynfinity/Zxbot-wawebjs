@@ -23,7 +23,7 @@ module.exports = {
                 await conn.sendFileFromUrl(m.from, 'https://media.suara.com/pictures/970x544/2022/02/04/31958-ilustrasi-dan-logo-mpl-id-season-9-moonton.jpg', {caption: mpl, quotedMessageId: msgId})
             })
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

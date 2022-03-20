@@ -10,7 +10,7 @@ module.exports = {
             ling = await zx.getInviteCode()
             zx.sendMessage('https://chat.whatsapp.com/' + ling + `\nLink group ${zx.name}`, {quotedMessageId: msgId, linkPreview: true})
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

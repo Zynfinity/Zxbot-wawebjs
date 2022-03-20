@@ -65,7 +65,7 @@ module.exports = {
                 m.reply(succsess)
             }
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

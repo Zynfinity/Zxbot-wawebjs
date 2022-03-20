@@ -22,7 +22,7 @@ module.exports = {
                 getBuffer(res.videourl).then(async x => await conn.sendFileFromBuffer(m.from, x, 'video/mp4', {caption: asupan, quotedMessageId: msgId}))
             })
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

@@ -31,7 +31,7 @@ module.exports = {
             mim = m.command == 'play' ? 'audio/mpeg' : 'video/mp4'
             await conn.sendFileFromUrl(m.from, m.command == 'play' ? down.mp3 : down.link, {quotedMessageId: msgId}, {mimetype: mim})
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

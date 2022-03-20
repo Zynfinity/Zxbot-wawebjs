@@ -15,7 +15,7 @@ module.exports = {
             lirik += `${global.shp} Author : ${lir.data.author}\n\n${lir.data.lyrics}`
             await conn.sendFileFromUrl(m.from, lir.data.thumbnail.genius, {caption: lirik, quotedMessageId: msgId})
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

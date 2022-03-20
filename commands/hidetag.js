@@ -24,7 +24,7 @@ module.exports = {
                 await conn.sendMessage(m.from, down, {sendMediaAsSticker: quotedMsg.type == 'sticker' ? true : false, mentions: kon})
             }
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

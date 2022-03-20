@@ -6,7 +6,7 @@ module.exports = {
     cmd: ['batman','circuit','neonlight','glitch','graffiti','text3d','blackpink','sand'],
     category: 'textmaker',
     desc: ['Memanipulasi gambar', `.@m.command <text>\n_Note_ : Tambahkan -s jika ingin mengirim sebagai sticker\nExample : .@m.command Fajar Ihsana -s`],
-    async handler(m, {conn,  msgId, m.command, args, text}){
+    async handler(m, {conn,  msgId, args, text}){
         try{
             const tema = {
                 batman:'https://textpro.me/make-a-batman-logo-online-free-1066.html',
@@ -29,7 +29,7 @@ module.exports = {
                 ...stickerMetadata
             })
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

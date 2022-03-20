@@ -38,7 +38,7 @@ module.exports = {
             }
             else m.reply('masukkan nomor/reply chatnya!')
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

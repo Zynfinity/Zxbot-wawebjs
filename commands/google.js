@@ -17,7 +17,7 @@ module.exports = {
 			})
 			await m.reply(google)
 		}catch(e){
-			global.eror(m.m.commands, e, m)
+			global.eror(m.commands, e, m)
 		}
 	}
 }

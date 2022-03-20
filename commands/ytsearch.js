@@ -22,7 +22,7 @@ module.exports = {
         }
         await conn.sendFileFromUrl(m.from, ytss[0].thumbnail, {caption: yss, quotedMessageId: msgId})
         }catch{
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

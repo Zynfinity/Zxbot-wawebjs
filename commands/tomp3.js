@@ -15,7 +15,7 @@ module.exports = {
             audio = await toAudio(buff, 'mp4')
             await conn.sendFileFromBuffer(m.from, audio, 'audio/mpeg', {quotedMessageId: msgId})
         }catch(e){
-            global.eror(m.m.commands, e, m)
+            global.eror(m.commands, e, m)
         }
     }
 }
