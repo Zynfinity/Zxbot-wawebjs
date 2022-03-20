@@ -28,7 +28,7 @@ module.exports = {
             }
             else m.reply('reply gambar/sticker dengan caption .' + m.command)
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

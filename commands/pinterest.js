@@ -12,7 +12,7 @@ module.exports = {
             image = res[Math.floor(Math.random() * res.length)]
             await conn.sendFileFromUrl(m.from, image, {caption: `*Hasil Pencarian : ${text}*`, quotedMessageId: msgId})
         }catch(e){
-            global.eror(m.m.command, e, m)
+            global.eror(m.command, e, m)
         }
     }
 }

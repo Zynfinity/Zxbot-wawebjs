@@ -4,6 +4,9 @@ const {db} = require('../lib/database/database')
 const dbs = require('../lib/database/database')
 const textmaker = require('../lib/textmaker')
 const {MessageMedia} = require('whatsapp-web.js')
+const rzkyClient = require('rzkyfdlh-api')
+const token = "1ibl8r4kz37x4to6h8r3uxl472o88bmvg49822xd8779q31bck"
+const rzky = new rzkyClient(token)
 module.exports = {
   name: ['eval'].map((v) => v + ' <Your Code>'),
   cmd: ['ev','eval'],

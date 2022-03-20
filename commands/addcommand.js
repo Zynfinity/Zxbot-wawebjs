@@ -7,7 +7,7 @@ module.exports = {
 owner: true,
     async handler(m, {conn,  msgId, quotedMsg, text}){
         if(!quotedMsg) return await m.reply('reply codenya!')
-        await fs.writeFileSync('./m.commands/'+ text, quotedMsg.body)
-m.reply('Sukses menambahkan m.command ' + text)
+        await fs.writeFileSync('./commands/'+ text, quotedMsg.body)
+m.reply('Sukses menambahkan command ' + text)
     }
 }
