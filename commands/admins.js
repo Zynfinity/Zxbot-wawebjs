@@ -6,7 +6,7 @@ module.exports = {
     group: true,
     admin: true,
     botAdmin: true,
-    async handler(m, {conn,  msgId, zx, mentionedIds, admin, hasQuotedMsg, quotedMsg, m.command}){
+    async handler(m, {conn,  msgId, zx, mentionedIds, admin, hasQuotedMsg, quotedMsg}){
         if(hasQuotedMsg){
             selamat = m.command == 'promote' || m.command == 'pm' ? `Selamat @${quotedMsg.sender.split('@')[0]}, Anda telah menjadi admin...`: `Selamat @${quotedMsg.sender.split('@')[0]}, jabatan admin anda telah dicopot:v`
             cek = m.command == 'promote' || m.command == 'pm' ? 'Orang tersebut sudah menjadi admin!' : 'Dia bukan admin:v'
