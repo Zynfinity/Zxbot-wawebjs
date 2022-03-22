@@ -1,19 +1,19 @@
 const axios = require('axios')
+const zxclient = require('zxy-api')
+const zapi = new zxclient('K1AX03AIIEV3Z12QD7D1OK1L')
 module.exports = {
     name: ['lirik'].map((v) => v + ' <query>'),
     cmd: ['lirik'],
     category: 'search',
     desc: ['Mencari lirik lagu berdasarkan kata kunci', '.lirik <query>'],
-    disabled: true,
     async handler(m, {conn,  msgId, text}){
         if(!text) return await m.reply('Mau cari lirik lagu apa?')
         await m.reply(global.mess.wait)
         try{
-            lir = await axios.get('https://some-random-api.ml/lyrics?title=' + text)
+            lir = await zapi.search.lirik(text)
             lirik = '*L I R I K  L A G U*\n\n'
-            lirik += `${global.shp} Judul : ${lir.data.title}\n`
-            lirik += `${global.shp} Author : ${lir.data.author}\n\n${lir.data.lyrics}`
-            await conn.sendFileFromUrl(m.from, lir.data.thumbnail.genius, {caption: lirik, quotedMessageId: msgId})
+            lirik += `${global.shp} Judul : ${lir.title}\n\n${lir.lyrics}`
+            await m.reply(lirik)
         }catch(e){
             global.eror(m.command, e, m)
         }

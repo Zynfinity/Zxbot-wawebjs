@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const syntaxerror = require('syntax-error')
 const qrcode = require('qrcode-terminal')
+const djs = require("@discordjs/collection");
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const client = new Client({
   authStrategy: new LocalAuth(),
@@ -21,10 +22,13 @@ client.on('ready', () => {
 //read command
 let pluginFolder = path.join(__dirname, 'commands')
 let pluginFilter = (filename) => /\.js$/.test(filename)
-global.plugins = {}
+//global.plugins = {}
+djs.commands = new djs.Collection()
 for (let filename of fs.readdirSync(pluginFolder).filter(pluginFilter)) {
     try {
-        global.plugins[filename] = require(path.join(pluginFolder, filename))
+        plugins = require(path.join(pluginFolder, filename))
+        //console.log(plugins)
+        djs.commands.set(plugins.name[0], plugins)
     } catch (e) {
         console.log(e)
     }
@@ -37,18 +41,20 @@ global.reload = (_event, filename) => {
         if (fs.existsSync(dir)) console.info(`re - require plugin '${filename}'`)
         else {
           console.log(`deleted plugin '${filename}'`)
-          return delete global.plugins[filename]
+          //return delete global.plugins[filename]
         }
       } else console.info(`requiring new plugin '${filename}'`)
       let err = syntaxerror(fs.readFileSync(dir), filename)
       if (err) console.log(`syntax error while loading '${filename}'\n${err}`)
       else
         try {
-          global.plugins[filename] = require(dir)
+         // global.plugins[filename] = require(dir)
+         plug = require(dir)
+         djs.commands.set(plug.name[0], plug)
         } catch (e) {
           console.log(e)
         } finally {
-          global.plugins = Object.fromEntries(Object.entries(global.plugins).sort(([a], [b]) => a.localeCompare(b)))
+          //global.plugins = Object.fromEntries(Object.entries(global.plugins).sort(([a], [b]) => a.localeCompare(b)))
         }
     }
   }

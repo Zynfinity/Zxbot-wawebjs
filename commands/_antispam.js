@@ -1,6 +1,8 @@
 const toms = require('ms')
 module.exports = {
+  name: ['antispam_function'],
     antispam: true,
+    function: true,
     ignored: true,
     async handler(m, {conn,  msgId, isOwner, zx}){
         if(conn.mode == 'self') return

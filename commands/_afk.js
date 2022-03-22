@@ -2,6 +2,7 @@ const { db } = require("../lib/database/database");
 const data = db.collection("afk");
 const ms = require('parse-ms')
 module.exports = {
+  name: ['afk_function'],
   function: true,
   async handler(m, { conn, msgId, quotedMsg, mentionedIds}) {
     if(m.command == 'afk') return
@@ -27,6 +28,7 @@ module.exports = {
         afkdata = await data.findOne({ id: res });
         if (afkdata != null) {
             user = await conn.getContactById(res)
+            cekafk = await ms(Date.now() - afkdata.time)
             ini_txt = `_${user.pushname} Sedang AFK..._\n\n`
             ini_txt += `${global.shp} _Reason :_ *_${afkdata.reason}_*\n${global.shp} _Since :_ *_${cekafk.hours} Jam  ${cekafk.minutes} Menit  ${cekafk.seconds} Detik  Yang lalu_*`
             conn.mentions(m.from, ini_txt, {quotedMessageId: msgId})

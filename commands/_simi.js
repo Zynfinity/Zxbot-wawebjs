@@ -2,6 +2,7 @@ const got = require('got')
 const { owner } = require("../lib/config")
 
 module.exports = {
+    name: ['simi_function'],
     function: true,
     async handler(m, {conn, zx, msgId, budy}){
         try{

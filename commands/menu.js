@@ -1,5 +1,6 @@
 const { MessageMedia } = require('whatsapp-web.js')
 const {toTimer} = require('../lib/tools')
+const djs = require("@discordjs/collection");
 module.exports = {
     name: ['menu'].map((v) => v + ''),
     cmd: ['menu'],
@@ -19,14 +20,22 @@ let d = new Date(new Date() + 3600000)
         })  
         cmd = []
         total = []
-        Object.values(global.plugins)
+        pe = await djs.commands.filter(plugin => !plugin.ignored && !plugin.function || plugin.disabled)
+        Array.from(pe).map(plugin => {
+            cmd.push({
+                cmd: plugin[1].name,
+                tag: plugin[1].disabled ? 'Disabled' : plugin[1].category,
+            })
+        })
+        /*
+        /*Object.values(global.plugins)
         .filter((plugin) => !plugin.ignored && !plugin.function || plugin.disabled)
         .map((plugin) => {
             cmd.push({
             cmd: plugin.name,
             tag: plugin.disabled ? 'Disabled' : plugin.category,
             })
-        })
+        })*/
         map_tag = cmd.map((mek) => mek.tag)
         sort_tag = await map_tag.sort()
         tag_data = new Set(sort_tag)
