@@ -60,9 +60,9 @@ module.exports = {
         dash += `\n${global.shp} *HIT*\n`
         dash += `├ Global : ${totalhit}\n`
         dash += `└ User : ${totalhits}\n`
-        dash += `\n${global.shp} *MOST m.command USER*\n`
+        dash += `\n${global.shp} *MOST COMMAND USER*\n`
         dash += tu
-        dash += `\n\n${global.shp} *MOST m.command GLOBAL*\n`
+        dash += `\n\n${global.shp} *MOST COMMAND GLOBAL*\n`
         dash += tg
         m.reply(dash)
 	}

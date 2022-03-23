@@ -53,7 +53,7 @@ let d = new Date(new Date() + 3600000)
         menu += `├ Date : ${date}\n`
         menu += `├ Time : ${time}\n`
         menu += `└ \n\n`
-        menu += `Hallo ${m._data.notifyName} Here my m.command list\n`
+        menu += `Hallo ${m._data.notifyName} Here my command list\n`
         for(let i of tags){
             helps = []
             menu += `\n${global.shp} ${i.toUpperCase()}\n`

@@ -12,6 +12,7 @@ module.exports = {
             success = m.command == 'add' ? `Berhasil menambahkan @${hasQuotedMsg ? quotedMsg.sender.split('@')[0] : mentionedIds != '' ? mentionedIds[0].split('@')[0] : text}` : `Berhasil mengeluarkan @${hasQuotedMsg ? quotedMsg.sender.split('@')[0] : mentionedIds != '' ? mentionedIds[0].split('@')[0] : text}`
             member = zx.participants.map(s => s.id._serialized)
             if(hasQuotedMsg){
+                if(quotedMsg.sender == conn.info.wid._serialized) return
                 if(m.command == 'add' ? member.includes(quotedMsg.sender) : !member.includes(quotedMsg.sender)) return await m.reply(stop)
                 if(m.command == 'add'){
                     add = await zx.addParticipants([quotedMsg.sender])
@@ -25,6 +26,7 @@ module.exports = {
             }
             else if(!hasQuotedMsg && mentionedIds != '' || !hasQuotedMsg && text != '' && !isNaN(text)){
                 no = mentionedIds != '' ? mentionedIds[0] : text + '@c.us'
+                if(no == conn.info.wid._serialized) return
                 if(m.command == 'add' ? member.includes(no) : !member.includes(no)) return await m.reply(stop)
                 if(m.command == 'add'){
                     add = await zx.addParticipants([no])

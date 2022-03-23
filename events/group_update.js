@@ -4,6 +4,7 @@ async function groupupdate(anu, conn){
         conn.sendMessage(anu.id.remote, `Deskripsi Group telah diubah oleh @${anu.author.split('@')[0]}\nDeskripsi baru : \n${anu.body}`, {mentions: [await conn.getContactById(anu.author)]})
     }
     else if(anu.type == 'announce'){
+        if(anu.author == conn.info.wid._serialized) return
         if(anu.body == 'on') conn.sendMessage(anu.id.remote, `Group telah ditutup oleh admin @${anu.author.split('@')[0]}\nSekarang hanya admin yang bisa mengirim pesan`, {mentions: [await conn.getContactById(anu.author)]})
         else conn.sendMessage(anu.id.remote, `Group telah dibuka oleh admin @${anu.author.split('@')[0]}\nSekarang semua member bisa mengirim pesan`, {mentions: [await conn.getContactById(anu.author)]})
     }

@@ -18,7 +18,7 @@ module.exports = {
                 await fs.writeFileSync(filepath, buff)
                 upload = await ra.UploadFile(filepath)
                 sticker = m.command == 'smeme' ? true : false
-                await conn.sendFileFromUrl(m.from, `https://api.memegen.link/images/custom/${text.split('|')[0]}/${text.split('|')[1]}.png?background=${upload.result.namaFile}`, {
+                await conn.sendFileFromUrl(m.from, `https://api.memegen.link/images/custom/${text.split('|')[0] != undefined ? text.split('|')[0] + '/' : ''}${text.split('|')[1] != undefined ? text.split('|')[1] : ''}.png?background=${upload.result.namaFile}`, {
                     quotedMessageId: msgId,
                     caption: '*Done*',
                     sendMediaAsSticker: sticker,
