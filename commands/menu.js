@@ -1,6 +1,7 @@
 const { MessageMedia } = require('whatsapp-web.js')
 const {toTimer} = require('../lib/tools')
 const djs = require("@discordjs/collection");
+const imageToBase64 = require('image-to-base64');
 module.exports = {
     name: ['menu'].map((v) => v + ''),
     cmd: ['menu'],
@@ -48,7 +49,7 @@ let d = new Date(new Date() + 3600000)
         menu = `${global.shp} *[ Z X - B O T ]*\n`
         menu += `├ Library : Whatsapp-Web.js\n`
         menu += `├ Runtime  : ${await toTimer(process.uptime())}\n`
-        menu += `├ m.command Total : ${total.length}\n`
+        menu += `├ Command Total : ${total.length}\n`
         menu += `├ Prefix : [ ${prefix} ]\n`
         menu += `├ Date : ${date}\n`
         menu += `├ Time : ${time}\n`
@@ -74,7 +75,7 @@ let d = new Date(new Date() + 3600000)
             menu += '└\n'
         }
         menu += `\n_*Note : Ketik .help <m.command> untuk melihat info m.command_\n_Berikan jeda 5 detik dalam memakai bot_`
-        media = await MessageMedia.fromFilePath('./lib/media/thumb.mp4')
-        conn.sendMessage(m.from, media, {caption: menu, sendVideoAsGif: true, quotedMessageId: msgId})
+        media = await MessageMedia.fromFilePath('./lib/media/thumb.jpg')
+        await conn.sendMessage(m.from, media, {caption: menu, quotedMessageId: msgId})
     }
 }

@@ -13,7 +13,7 @@ module.exports = {
 		if(hasMedia && m.type == 'video' || hasMedia && m.type == 'image' || hasQuotedMsg){
 			down = hasMedia ? await m.downloadMedia() : hasQuotedMsg ? await m.getQuotedMessage().then(async p => await p.downloadMedia()) : false
 			if(down == false) return
-			isgif = quotedMsg.type == 'video' ? bc.includes('-s') ? true : false : false 
+			isgif = hasQuotedMsg ? quotedMsg.type == 'video' ? bc.includes('-s') ? true : false : false : false
 			for(let i of id){
 				await conn.sendMessage(i, down, {sendVideoAsGif: isgif, caption: bc.replace(/-s/g, '')})
 				await sleep(10000)

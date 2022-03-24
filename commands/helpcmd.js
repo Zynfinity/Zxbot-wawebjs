@@ -6,9 +6,13 @@ module.exports = {
     desc: ['Melihat informasi dari Command', '.help <Command>'],
     ignored: true,
     async handler(m, {conn,  msgId, q, prefix}){
-        if(!q) return global.plugins['menu.js'].handler(m, {conn,  msgId, prefix})
-        plugin = await djs.commands.find(cmd => !cmd.function && !cmd.disabled && !cmd.ignored && cmd.cmd && cmd.cmd.includes(q))
-        if(plugin == undefined) return m.reply(`Command ${q} tidak tercantum di menu!`)
+        if(!q) {
+            //return global.plugins['menu.js'].handler(m, {conn,  msgId, prefix})
+            menu = await djs.commands.find(cmd => cmd.cmd.includes('menu'))
+            return menu.handler(m, {conn, msgId, prefix})
+        }
+            plugin = await djs.commands.find(cmd => !cmd.function && !cmd.disabled && !cmd.ignored && cmd.cmd && cmd.cmd.includes(q))
+            if(plugin == undefined) return m.reply(`Command ${q} tidak tercantum di menu!`)
             helpt = '*Helper*\n'
             helpt += `${global.shp} Command : ${q.toUpperCase()}\n`
             helpt += `${global.shp} Trigger Command : ${plugin.cmd.join(', ')}\n`

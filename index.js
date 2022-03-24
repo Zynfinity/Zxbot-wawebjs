@@ -4,9 +4,19 @@ const syntaxerror = require('syntax-error')
 const qrcode = require('qrcode-terminal')
 const djs = require("@discordjs/collection");
 const { Client, LocalAuth } = require('whatsapp-web.js');
+const myCustomId = 'multidevice'
+const authStrategy = new LocalAuth({
+    clientId: myCustomId,
+})
+const worker = `${authStrategy.dataPath}/session-${myCustomId}/Default/Service Worker`
+if (fs.existsSync(worker)) {
+   fs.rmdirSync(worker, { recursive: true })
+}
 const client = new Client({
-  authStrategy: new LocalAuth(),
-  puppeteer: { headless: true, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }
+  puppeteer: { headless: true, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' },
+  takeoverOnConflict: true,
+  takeoverTimeoutMs: 10,
+  authStrategy
 });
 require('./lib/database/database').connectToDatabase()
 client.on('qr', (qr) => {
@@ -62,7 +72,16 @@ global.reload = (_event, filename) => {
   fs.watch(path.join(__dirname, 'commands'), global.reload)
 
 client.on('message', async msg => {
-  exports.m = msg
+  //exports.m = msg
+  client.msgdata = client.msgdata ? client.msgdata : []
+  if(msg.type == 'chat' || msg.type == 'image' || msg.type == 'video'){
+    if(client.msgdata.length > 100) client.msgdata = []
+    client.msgdata.push({
+      caption: msg.body,
+      msgId: msg.id._serialized,
+      sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from
+    })
+  }
 if(msg.type != 'chat' && msg.type != 'image' && msg.type != 'video' && msg.type != 'list_response') return
   await require('./lib/handler').handler(msg, client)
 });
@@ -77,7 +96,12 @@ client.on('group_join', async upt => {
 client.on('group_leave', upt => {
   require('./events/greetings').left(upt, client)
 })
-client.initialize();
+client.initialize().then(async () => {
+  console.log(this)
+})
+.catch((err) => {
+  console.error(err)   
+})
 
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {

@@ -16,7 +16,12 @@ module.exports = {
             await sleep(3000)
             if(!hasQuotedMsg){
                 if(!text) return await m.reply('Teksnya mana?')
-                await conn.sendMessage(m.from, text, {mentions: kon})
+                await conn.sendMessage(m.from, text, {mentions: kon, extra: {
+                    quotedMsg: {
+                    type: 'chat',
+                    body: 'Hidetag'
+                    },
+                    quotedParticipant: '0@s.whatsapp.net'}})
             }
             else if(hasQuotedMsg){
                 quot = await m.getQuotedMessage()
