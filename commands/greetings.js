@@ -64,6 +64,7 @@ module.exports = {
                 })
                 m.reply(succsess)
             }
+            else m.reply('Pilih on/off')
         }catch(e){
             global.eror(m.command, e, m)
         }
