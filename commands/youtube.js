@@ -17,11 +17,11 @@ module.exports = {
             teks += `${global.shp} Id : ${down.id}\n`
             teks += `${global.shp} Type : ${m.command == 'ytmp3' ? 'Mp3' : 'Mp4'}\n`
             teks += `${global.shp} Size : ${m.command == 'ytmp3' ? down.size_mp3 : down.size}\n`
-            /*if(m.command == 'ytmp3' ? !down.size_mp3.endsWith('KB') && down.size_mp3.split(' MB')[0] > 50 : !down.size.endsWith('KB') && down.size.split(' MB')[0] > 10){
+            if(m.command == 'ytmp3' ? !down.size_mp3.endsWith('KB') && down.size_mp3.split(' MB')[0] > 50 : !down.size.endsWith('KB') && down.size.split(' MB')[0] > 10){
                 teks += m.command == 'ytmp3' ? `${global.shp} Download : ` + await tiny(down.mp3) : `${global.shp} Download : ` + await tiny(down.link) + '\n\n'
                 teks += `\n\n${global.mess.oversize}`
                 return conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: msgId})
-            }*/
+            }
             teks += `\nTunggu sebentar...\n${m.command == 'ytmp3' ? 'Audio' : 'Video'} sedang dikirim`
             await conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: msgId})
             conn.sendFileFromUrl(m.from, m.command == 'ytmp3' ? down.mp3 : down.link, {quotedMessageId: msgId})

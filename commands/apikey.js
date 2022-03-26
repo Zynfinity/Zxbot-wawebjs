@@ -4,6 +4,7 @@ module.exports = {
     cmd: ['getapikey', 'cekapikey'],
     category: 'other',
     private: true,
+    disabled: true,
     async handler(m, {conn, text}){
         if(m.command == 'getapikey'){
             axios.get('https://restapi-beta.herokuapp.com/api/getapikey?sender=' + m.sender).then(async ({data}) => {

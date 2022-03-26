@@ -32,6 +32,6 @@
     "syntax-error": "^1.4.0",
     "whatsapp-web.js": "git+https://github.com/pedroslopez/whatsapp-web.js.git",
     "yt-search": "^2.10.3",
-    "zxy-api": "^1.0.1"
+    "zxy-api": "^1.0.2"
   }
 }

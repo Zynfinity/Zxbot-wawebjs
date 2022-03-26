@@ -6,6 +6,7 @@ module.exports = {
 	cmd: ['anoboy','anoboyinfo'],
 	category: 'search',
 	desc: ['Mencari anime di web anoboy', '.anoboy <anime>'],
+    disabled: true,
 	async handler(m, {conn,  msgId, text}){
 		try{
             if(!text) return await m.reply('mau cari apa?')
