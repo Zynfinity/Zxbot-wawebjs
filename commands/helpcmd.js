@@ -26,7 +26,9 @@ module.exports = {
             if(plugin.desc){
                 helpt += '\n*Command Description*\n'
                 helpt += `${global.shp} ${plugin.desc[0]}\n\n`
-                helpt += `${global.shp} Usage : ${plugin.desc[1].replace(/@command/g, q)}`
+                if(plugin.desc[1]){
+                    helpt += `${global.shp} Usage : ${plugin.desc[1].replace(/@command/g, q)}`
+                }
             }
             return await m.reply(helpt)
     }

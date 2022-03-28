@@ -3,7 +3,7 @@ const fs = require('fs')
 module.exports = {
     name: ['function_auto'],
     function: true,
-ignored: true,
+    ignored: true,
     async handler(m, {conn, zx}){
         //if(!zx.isGroup) return
         setInterval(() => {

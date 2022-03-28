@@ -4,20 +4,15 @@ const syntaxerror = require('syntax-error')
 const qrcode = require('qrcode-terminal')
 const djs = require("@discordjs/collection");
 const { Client, LocalAuth } = require('whatsapp-web.js');
-const myCustomId = 'multidevice'
-const authStrategy = new LocalAuth({
-    clientId: myCustomId,
-})
-const worker = `${authStrategy.dataPath}/session-${myCustomId}/Default/Service Worker`
-if (fs.existsSync(worker)) {
-   fs.rmdirSync(worker, { recursive: true })
-}
+const { M } = require('human-readable');
 const client = new Client({
-  puppeteer: { headless: true, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' },
-  takeoverOnConflict: true,
-  takeoverTimeoutMs: 10,
-  authStrategy
+  authStrategy: new LocalAuth(),
+  puppeteer: { headless: true, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }
 });
+client.initialize().then(async re => {
+  require('./lib/game')(client)
+  console.log(re)
+})
 require('./lib/database/database').connectToDatabase()
 client.on('qr', (qr) => {
     // Generate and scan this code with your phone
@@ -74,13 +69,15 @@ global.reload = (_event, filename) => {
 client.on('message', async msg => {
   //exports.m = msg
   client.msgdata = client.msgdata ? client.msgdata : []
-  if(msg.type == 'chat' || msg.type == 'image' || msg.type == 'video'){
-    if(client.msgdata.length > 100) client.msgdata = []
-    client.msgdata.push({
-      caption: msg.body,
-      msgId: msg.id._serialized,
-      sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from
-    })
+  if(msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response'){
+    if(client.msgdata.length > 50) client.msgdata = []
+    if(msg.type == 'list_response' || msg.body.startsWith('.')){
+      client.msgdata.push({
+        caption: msg.type === 'list_response' ? msg.selectedRowId : msg.body,
+        msgId: msg.id._serialized,
+        sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from
+      })
+    }
   }
 if(msg.type != 'chat' && msg.type != 'image' && msg.type != 'video' && msg.type != 'list_response') return
   await require('./lib/handler').handler(msg, client)
@@ -95,12 +92,6 @@ client.on('group_join', async upt => {
 })
 client.on('group_leave', upt => {
   require('./events/greetings').left(upt, client)
-})
-client.initialize().then(async () => {
-  console.log(this)
-})
-.catch((err) => {
-  console.error(err)   
 })
 
 let file = require.resolve(__filename)

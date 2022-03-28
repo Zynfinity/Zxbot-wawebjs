@@ -74,8 +74,8 @@ let d = new Date(new Date() + 3600000)
             }
             menu += '└\n'
         }
-        menu += `\n_*Note : Ketik .help <m.command> untuk melihat info m.command_\n_Berikan jeda 5 detik dalam memakai bot_`
-        media = await MessageMedia.fromFilePath('./lib/media/thumb.jpg')
+        menu += `\n_*Note : Ketik .help <command> untuk melihat info m.command_\n_Berikan jeda 5 detik dalam memakai bot_`
+        media = await MessageMedia.fromFilePath('./lib/media/thumb.jpeg')
         await conn.sendMessage(m.from, media, {caption: menu, quotedMessageId: msgId})
     }
 }

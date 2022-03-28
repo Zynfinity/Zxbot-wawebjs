@@ -1,6 +1,5 @@
 const axios = require('axios')
-const zxclient = require('zxy-api')
-const zapi = new zxclient('K1AX03AIIEV3Z12QD7D1OK1L')
+const zapi = require('zxy-api')
 module.exports = {
     name: ['lirik'].map((v) => v + ' <query>'),
     cmd: ['lirik'],

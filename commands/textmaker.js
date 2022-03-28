@@ -5,7 +5,7 @@ module.exports = {
     name: ['batman', 'circuit', 'neonlight', 'glitch', 'graffiti', 'text3d', 'blackpink', 'sand'].map((v) => v + ' <text>'),
     cmd: ['batman','circuit','neonlight','glitch','graffiti','text3d','blackpink','sand'],
     category: 'textmaker',
-    desc: ['Memanipulasi gambar', `.@m.command <text>\n_Note_ : Tambahkan -s jika ingin mengirim sebagai sticker\nExample : .@m.command Fajar Ihsana -s`],
+    desc: ['Memanipulasi gambar', `.@command <text>\n_Note_ : Tambahkan -s jika ingin mengirim sebagai sticker\nExample : .@command Fajar Ihsana -s`],
     async handler(m, {conn,  msgId, args, text}){
         try{
             const tema = {
