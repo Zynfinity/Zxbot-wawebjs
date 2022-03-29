@@ -4,7 +4,8 @@ const ms = require('parse-ms')
 module.exports = {
   name: ['afk_function'],
   function: true,
-  async handler(m, { conn, msgId, quotedMsg, mentionedIds}) {
+  async handler(m, { conn, msgId, zx, quotedMsg, mentionedIds}) {
+    if(!zx.isGroup) return
     if(m.command == 'afk') return
     afkdata = await data.findOne({ id: m.author });
     if (afkdata != null) {

@@ -3,6 +3,8 @@ module.exports = {
     function: true,
     ignored: true,
     async handler(m, {conn, hasQuotedMsg, zx, budy, prefix}){
+        const {db} = require('../lib/database/database')
+        userdb = db.collection('users')
         conn.game = conn.game ? conn.game : {}
         conn.game.tebakgambar = conn.game.tebakgambar ? conn.game.tebakgambar : {}
         if(!hasQuotedMsg) return
@@ -12,7 +14,24 @@ module.exports = {
         quot = await m.getQuotedMessage()
         if(gdata.msgId == quot.id._serialized){
             if(gdata.jawaban.toLowerCase() == budy.toLowerCase()){
-                m.reply('Jawaban Benar')
+                users = await userdb.findOne({id: m.sender})
+                if(users == null){
+                    userdb.insertOne({
+                        id: m.sender,
+                        limit: 0,
+                        balance: 50
+                    })
+                }
+                else{
+                    userdb.updateOne({
+                        id: m.sender
+                    },{
+                        $set: {
+                            balance: users.balance + 50
+                        }
+                    })
+                }
+                m.reply('Benar, + 50 Balance\n.mybank untuk mengecek')
                 delete conn.game.tebakgambar[m.from]
             }
             else{

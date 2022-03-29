@@ -7,7 +7,8 @@ const { Client, LocalAuth } = require('whatsapp-web.js');
 const { M } = require('human-readable');
 const client = new Client({
   authStrategy: new LocalAuth(),
-  puppeteer: { headless: true, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }
+  clientId: 'multidevice',
+  puppeteer: { headless: true, args: ['--no-sandbox'], executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }
 });
 client.initialize().then(async re => {
   require('./lib/game')(client)
@@ -21,6 +22,7 @@ client.on('qr', (qr) => {
   });
     console.log('Scan Qr Code');
 });
+client.on('change_state', (s) => console.log(s))
 client.on('ready', () => {
     console.log('Client is ready!');
 });
@@ -65,22 +67,22 @@ global.reload = (_event, filename) => {
   }
   Object.freeze(global.reload)
   fs.watch(path.join(__dirname, 'commands'), global.reload)
-
+client.on('auth_failure', msg => console.log(msg))
 client.on('message', async msg => {
   //exports.m = msg
   client.msgdata = client.msgdata ? client.msgdata : []
   if(msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response'){
-    if(client.msgdata.length > 50) client.msgdata = []
+    if(client.msgdata.length > 150) client.msgdata = []
     if(msg.type == 'list_response' || msg.body.startsWith('.')){
       client.msgdata.push({
         caption: msg.type === 'list_response' ? msg.selectedRowId : msg.body,
         msgId: msg.id._serialized,
         sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from
       })
+      await require('./lib/handler').handler(msg, client)
     }
+    await require('./lib/handlerfc').handler(msg, client)
   }
-if(msg.type != 'chat' && msg.type != 'image' && msg.type != 'video' && msg.type != 'list_response') return
-  await require('./lib/handler').handler(msg, client)
 });
 client.on('message_revoke_everyone', async (after, before) => {
 });

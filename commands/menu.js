@@ -48,6 +48,7 @@ let d = new Date(new Date() + 3600000)
         })
         menu = `${global.shp} *[ Z X - B O T ]*\n`
         menu += `├ Library : Whatsapp-Web.js\n`
+        menu += `├ Api's : https://www.npmjs.com/package/zxy-api\n`
         menu += `├ Runtime  : ${await toTimer(process.uptime())}\n`
         menu += `├ Command Total : ${total.length}\n`
         menu += `├ Prefix : [ ${prefix} ]\n`
