@@ -1,9 +1,7 @@
-const got = require('got')
-const { owner } = require("../lib/config")
-
 module.exports = {
     name: ['simi_function'],
     function: true,
+    disabled: true,
     async handler(m, {conn, zx, msgId, budy}){
         try{
             if(zx.isGroup) return
@@ -13,7 +11,6 @@ module.exports = {
                 await conn.sendMessage(m.from, data.success, {quotedMessageId: msgId})
             }
         }catch{
-            conn.sendText(owner, 'Simi error')
         }
     }
 }

@@ -11,7 +11,7 @@ const client = new Client({
   puppeteer: { headless: true, args: ['--no-sandbox'], executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }
 });
 client.initialize().then(async re => {
-  require('./lib/game')(client)
+  require('./lib/interval')(client)
   console.log(re)
 })
 require('./lib/database/database').connectToDatabase()
