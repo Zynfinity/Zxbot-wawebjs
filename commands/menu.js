@@ -1,6 +1,5 @@
 const { MessageMedia } = require('whatsapp-web.js')
 const {toTimer} = require('../lib/tools')
-const djs = require("@discordjs/collection");
 const imageToBase64 = require('image-to-base64');
 module.exports = {
     name: ['menu'].map((v) => v + ''),
@@ -21,11 +20,11 @@ let d = new Date(new Date() + 3600000)
         })  
         cmd = []
         total = []
-        pe = await djs.commands.filter(plugin => !plugin.ignored && !plugin.function || plugin.disabled)
+        pe = await Object.values(global.commands).filter(plugin => !plugin.ignored && !plugin.function || plugin.disabled)
         Array.from(pe).map(plugin => {
             cmd.push({
-                cmd: plugin[1].name,
-                tag: plugin[1].disabled ? 'Disabled' : plugin[1].category,
+                cmd: plugin.name,
+                tag: plugin.disabled ? 'Disabled' : plugin.category,
             })
         })
         /*
@@ -49,6 +48,7 @@ let d = new Date(new Date() + 3600000)
         menu = `${global.shp} *[ Z X - B O T ]*\n`
         menu += `├ Library : Whatsapp-Web.js\n`
         menu += `├ Api's : https://www.npmjs.com/package/zxy-api\n`
+menu += `├ Blog : https://ihsanafajar.blogspot.com\n`
         menu += `├ Runtime  : ${await toTimer(process.uptime())}\n`
         menu += `├ Command Total : ${total.length}\n`
         menu += `├ Prefix : [ ${prefix} ]\n`

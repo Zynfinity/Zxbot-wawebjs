@@ -19,7 +19,7 @@ module.exports = {
             description: 'Petunjuk'
         }]
         section = [{'title':'sectionTitle','rows':row}]
-        txt = `${rand.pertanyaan.split(' : ')[1].toLowerCase()}\n\nReply untuk menjawab!\n\nWaktu menjawab 30s`
+        txt = `${rand.pertanyaan.split(' : ')[1].toLowerCase()}\n\nReply untuk menjawab!\nWaktu menjawab 30s\n\n*_Note_* : _Kalo jawaban gak digubris bot, berarti jawaban salah!_`
         list = await new List(txt, 'Click Here', section, '*SUSUN KATA*')
         await conn.sendMessage(m.from, list, {quotedMessageId: msgId}).then(async re => {
             conn.game.susunkata[m.from] = {

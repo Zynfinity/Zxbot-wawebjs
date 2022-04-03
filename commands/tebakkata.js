@@ -17,6 +17,7 @@ module.exports = {
         tkata += `${rand.pertanyaan}\n\n`
         tkata += 'Reply untuk menjawab\n'
         tkata += 'Waktu menjawab 30s'
+        tkata += `\n\n*_Note_* : _Kalo jawaban gak digubris bot, berarti jawaban salah!_`
         await conn.sendMessage(m.from, tkata, {quotedMessageId: msgId}).then(async re => {
             conn.game.tebakkata[m.from] = {
                 id: m.from,

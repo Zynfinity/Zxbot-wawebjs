@@ -3,6 +3,7 @@ module.exports = {
     name: ['pinterest'].map((v) => v + ' <query>'),
     cmd: ['pinterest'],
     category: 'search',
+disabled: true,
     desc: ['Mencari gambar di pinterest', '.pinterest <query>'],
     async handler(m, {conn,  msgId, text}){
         try{

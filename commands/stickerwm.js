@@ -1,7 +1,7 @@
 const {stickerMetadata, gifcrop} = require('../lib/config')
 module.exports = {
     name: ['takestick', 'stickerwm'].map((v) => v + ' <reply/send image>'),
-    cmd: ['takestick','take','swm','stickerwm'],
+    cmd: ['takestick','take','swm','stickerwm', 'wm'],
     category: 'convert',
     desc: ['Mengubah gambar/sticker menjadi stikerwm', '.stickerwm <reply/send image>'],
     async handler(m, {conn,  msgId, hasMedia, type, mimetype, quotedMsg, zx, text}){

@@ -1,7 +1,7 @@
 const fs = require('fs')
 module.exports = {
-    name: ['addm.command'].map((v) => v + ' <reply code m.command>'),
-    cmd: ['addm.command','addfitur','addcmd'],
+    name: ['addcommand'].map((v) => v + ' <reply code m.command>'),
+    cmd: ['addcommand','addfitur','addcmd'],
     category: 'owner',
     desc: ['Menambahkan m.command secara langsung lewat pesan', '.addm.command <reply code m.command>'],
 owner: true,

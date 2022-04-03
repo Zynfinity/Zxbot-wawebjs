@@ -6,7 +6,6 @@ module.exports = {
 	cmd: ['anoboy','anoboyinfo'],
 	category: 'search',
 	desc: ['Mencari anime di web anoboy', '.anoboy <anime>'],
-    disabled: true,
 	async handler(m, {conn,  msgId, text}){
 		try{
             if(!text) return await m.reply('mau cari apa?')
@@ -21,7 +20,7 @@ module.exports = {
                             description: s.uptime.split('UP ')[1]
                         })
                     })
-                    section = [{'title':'sectionTitle','rows':row}]
+                    section = [{'title':'p','rows':row}]
                     list = await new List('Query : ' + text, 'Click Here', section, '*ANOBOY SEARCH*')
                     await conn.sendMessage(m.from, list, {quotedMessageId: msgId})
                 })

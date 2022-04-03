@@ -16,6 +16,7 @@ module.exports = {
                 tebak += `Timeout : 30s\n`
                 tebak += `Reply ${prefix}hint untuk menampilkan petunjuk\n`
                 tebak += `Reply pesan ini untuk menjawab`
+                tebak += `\n\n*_Note_* : _Kalo jawaban gak digubris bot, berarti jawaban salah!_`
                 await conn.sendFileFromUrl(m.from, tg.img, {caption: tebak, quotedMessageId: msgId}).then(async send => {
                     conn.game.tebakgambar[m.from] = {
                         id: m.from,

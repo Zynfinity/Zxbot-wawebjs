@@ -1,0 +1,21 @@
+module.exports = {
+    name: ['antilink_function'],
+    function: true,
+    async handler(m, {conn, zx, budy, isBotAdmin, isAdmin}){
+        const {db} = require('../lib/database/database')
+        const dbanti = db.collection('groups')
+        if(!zx.isGroup) return
+        if(isAdmin) return
+        if(isBotAdmin){
+            let linkRegex = /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i
+            isGroupLink = linkRegex.exec(budy)
+            if(isGroupLink){
+                isantilink = await dbanti.findOne({id: m.from})
+                if(isantilink != null && isantilink.antilink){
+                    await m.reply('Link Group Detected\nyou will be removed from the group')
+                    zx.removeParticipants([m.sender])
+                }
+            }
+        }
+    }
+}

@@ -3,6 +3,7 @@ module.exports = {
     name: ['image'].map((v) => v + ' <query>'),
     cmd: ['image'],
     category: 'search',
+disabled: true,
     desc: ['Mencari gambar di google', '.image <query>'],
     async handler(m, {conn,  msgId, text}){
         try{

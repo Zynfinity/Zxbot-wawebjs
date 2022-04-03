@@ -17,6 +17,7 @@ module.exports = {
                 if(m.command == 'add'){
                     add = await zx.addParticipants([quotedMsg.sender])
                     console.log(add)
+                    if(add[quotedMsg.sender] == '403') return m.reply('Tidak dapat menambahkan, Nomor diprivate!!')
                     conn.mentions(m.from, success, {quotedMessageId: msgId})
                 }else{
                     kick = await zx.removeParticipants([quotedMsg.sender])

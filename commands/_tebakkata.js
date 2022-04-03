@@ -14,6 +14,7 @@ module.exports = {
         quot = await m.getQuotedMessage()
         if(gdata.msgId == quot.id._serialized){
             if(gdata.jawaban.toLowerCase() == budy.toLowerCase()){
+                delete conn.game.tebakkata[m.from]
                 users = await userdb.findOne({id: m.sender})
                 if(users == null){
                     userdb.insertOne({
@@ -32,10 +33,6 @@ module.exports = {
                     })
                 }
                 m.reply('Benar, + 100 Balance\n.mybank untuk mengecek')
-                delete conn.game.tebakkata[m.from]
-            }
-            else{
-                m.reply("Jawaban salah")
             }
         }
     }

@@ -2,7 +2,7 @@ const {db} = require('../lib/database/database')
 const dbwelkom = db.collection('welcome')
 const dbleft = db.collection('left')
 module.exports = {
-    name: ['welcome', 'left'].map((v) => v + ' <query>'),
+    name: ['welcome', 'left'].map((v) => v + ' <on/off>'),
     cmd: ['welcome','left'],
     category: 'group',
     desc: ['Menyambut member yang keluar/masuk', '.@m.command <on/off>'],

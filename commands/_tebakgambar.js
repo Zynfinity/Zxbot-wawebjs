@@ -14,12 +14,13 @@ module.exports = {
         quot = await m.getQuotedMessage()
         if(gdata.msgId == quot.id._serialized){
             if(gdata.jawaban.toLowerCase() == budy.toLowerCase()){
+                delete conn.game.tebakgambar[m.from]
                 users = await userdb.findOne({id: m.sender})
                 if(users == null){
                     userdb.insertOne({
                         id: m.sender,
                         limit: 0,
-                        balance: 50
+                        balance: 100
                     })
                 }
                 else{
@@ -27,15 +28,11 @@ module.exports = {
                         id: m.sender
                     },{
                         $set: {
-                            balance: users.balance + 50
+                            balance: users.balance + 100
                         }
                     })
                 }
-                m.reply('Benar, + 50 Balance\n.mybank untuk mengecek')
-                delete conn.game.tebakgambar[m.from]
-            }
-            else{
-                m.reply("Jawaban salah")
+                m.reply('Benar, + 100 Balance\n.mybank untuk mengecek')
             }
         }
     }

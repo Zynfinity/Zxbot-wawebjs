@@ -4,7 +4,7 @@ module.exports = {
     name: ['asupan'].map((v) => v + ''),
     cmd: ['asupan'],
     category: 'other',
-    //disabled: true,
+    disabled: true,
     async handler(m, {conn,  msgId, text}){
         const dbs = require('../lib/database/database')
         await m.reply(global.mess.wait)

@@ -5,7 +5,7 @@ const dbleft = db.collection('left')
 const {sleep} = require('../lib/tools')
 const {owner} = require('../lib/config')
 const {MessageMedia} = require('whatsapp-web.js')
-const bgurl = 'https://images3.alphacoders.com/117/thumb-1920-1174531.jpg'
+const bgurl = 'https://telegra.ph/file/7d38fa49c0c5aefe56366.png'
 const welcome = async(anu, conn) => {
     metadata = await conn.getChatById(anu.id.remote)
     if(anu.type == 'add' && anu.author != owner && anu.id.participant == conn.info.wid._serialized){
