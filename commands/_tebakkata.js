@@ -4,7 +4,7 @@ module.exports = {
     ignored: true,
     async handler(m, {conn, hasQuotedMsg, zx, budy, prefix}){
         const {db} = require('../lib/database/database')
-        userdb = db.collection('users')
+        userdb = await db.collection('users')
         conn.game = conn.game ? conn.game : {}
         conn.game.tebakkata = conn.game.tebakkata ? conn.game.tebakkata : {}
         if(!hasQuotedMsg) return

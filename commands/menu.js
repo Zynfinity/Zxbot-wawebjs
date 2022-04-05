@@ -1,13 +1,12 @@
 const { MessageMedia } = require('whatsapp-web.js')
 const {toTimer} = require('../lib/tools')
-const imageToBase64 = require('image-to-base64');
 module.exports = {
     name: ['menu'].map((v) => v + ''),
     cmd: ['menu'],
     category: 'other',
     ignored: true,
     async handler(m, {conn,  msgId, prefix}){
-let d = new Date(new Date() + 3600000)
+        let d = new Date(new Date() + 3600000)
         let date = d.toLocaleDateString('id', {
             day: 'numeric',
             month: 'long',
@@ -17,7 +16,7 @@ let d = new Date(new Date() + 3600000)
             hour: 'numeric',
             minute: 'numeric',
             second: 'numeric',
-        })  
+        })
         cmd = []
         total = []
         pe = await Object.values(global.commands).filter(plugin => !plugin.ignored && !plugin.function || plugin.disabled)
@@ -27,15 +26,6 @@ let d = new Date(new Date() + 3600000)
                 tag: plugin.disabled ? 'Disabled' : plugin.category,
             })
         })
-        /*
-        /*Object.values(global.plugins)
-        .filter((plugin) => !plugin.ignored && !plugin.function || plugin.disabled)
-        .map((plugin) => {
-            cmd.push({
-            cmd: plugin.name,
-            tag: plugin.disabled ? 'Disabled' : plugin.category,
-            })
-        })*/
         map_tag = cmd.map((mek) => mek.tag)
         sort_tag = await map_tag.sort()
         tag_data = new Set(sort_tag)
@@ -48,7 +38,7 @@ let d = new Date(new Date() + 3600000)
         menu = `${global.shp} *[ Z X - B O T ]*\n`
         menu += `├ Library : Whatsapp-Web.js\n`
         menu += `├ Api's : https://www.npmjs.com/package/zxy-api\n`
-menu += `├ Blog : https://ihsanafajar.blogspot.com\n`
+        menu += `├ Blog : https://ihsanafajar.blogspot.com\n`
         menu += `├ Runtime  : ${await toTimer(process.uptime())}\n`
         menu += `├ Command Total : ${total.length}\n`
         menu += `├ Prefix : [ ${prefix} ]\n`
@@ -75,7 +65,7 @@ menu += `├ Blog : https://ihsanafajar.blogspot.com\n`
             }
             menu += '└\n'
         }
-        menu += `\n_*Note : Ketik .help <command> untuk melihat info m.command_\n_Berikan jeda 5 detik dalam memakai bot_`
+        menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
         media = await MessageMedia.fromFilePath('./lib/media/thumb.jpeg')
         await conn.sendMessage(m.from, media, {caption: menu, quotedMessageId: msgId})
     }

@@ -7,7 +7,7 @@ module.exports = {
     async handler(m, {conn,  msgId, q, prefix}){
         if(!q) {
             //return global.plugins['menu.js'].handler(m, {conn,  msgId, prefix})
-            menu = await Object.values(global.commands).find(cmd => cmd.cmd.includes('menu'))
+            menu = require('./menu')
             return menu.handler(m, {conn, msgId, prefix})
         }
             plugin = await Object.values(global.commands).find(cmd => !cmd.function && !cmd.disabled && !cmd.ignored && cmd.cmd && cmd.cmd.includes(q))
