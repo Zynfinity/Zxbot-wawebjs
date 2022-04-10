@@ -19,8 +19,15 @@ module.exports = {
         })
         cmd = []
         total = []
-        pe = await Object.values(global.commands).filter(plugin => !plugin.ignored && !plugin.function || plugin.disabled)
+        pe = await Object.values(global.commands).filter(plugin => !plugin.ignored || plugin.disabled)
         Array.from(pe).map(plugin => {
+            cmd.push({
+                cmd: plugin.name,
+                tag: plugin.disabled ? 'Disabled' : plugin.category,
+            })
+        })
+        ye = await Object.values(global.functions).filter(plugin => !plugin.disabled && plugin.menu)
+        Array.from(ye).map(plugin => {
             cmd.push({
                 cmd: plugin.name,
                 tag: plugin.disabled ? 'Disabled' : plugin.category,

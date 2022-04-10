@@ -1,7 +1,6 @@
 module.exports = {
     name: ['function_tebakkata'],
     function: true,
-    ignored: true,
     async handler(m, {conn, hasQuotedMsg, zx, budy, prefix}){
         const {db} = require('../lib/database/database')
         userdb = await db.collection('users')

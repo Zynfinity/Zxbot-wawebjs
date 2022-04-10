@@ -4,6 +4,7 @@ const dbwelkam = db.collection('welcome')
 const dbleft = db.collection('left')
 const {sleep} = require('../lib/tools')
 const {owner} = require('../lib/config')
+const encodeurl = require('encodeurl')
 const {MessageMedia} = require('whatsapp-web.js')
 const bgurl = 'https://telegra.ph/file/7d38fa49c0c5aefe56366.png'
 const welcome = async(anu, conn) => {
@@ -39,7 +40,7 @@ const welcome = async(anu, conn) => {
     greet = rsubject.replace(/@desc/, desc)
     ppuser = await user.getProfilePicUrl()
     totiny = await tiny(ppuser == undefined ? 'https://divedigital.id/wp-content/uploads/2021/10/2-min.png' : ppuser)
-    await conn.sendFileFromUrl(anu.id.remote, `https://restapi-beta.herokuapp.com/api/welcome?username=${await user.getFormattedNumber()}&memcount=${metadata.groupMetadata.participants.length}&groupname=${metadata.name}&ppurl=${totiny}&bgurl=${bgurl}`, {caption: greet, mentions: [user]})
+    await conn.sendFileFromUrl(anu.id.remote, `https://restapi-beta.herokuapp.com/api/welcome?username=${await user.getFormattedNumber()}&memcount=${metadata.groupMetadata.participants.length}&groupname=${encodeurl(metadata.name.replace(/#/, ''))}&ppurl=${totiny}&bgurl=${bgurl}`, {caption: greet, mentions: [user]})
 }
 const left = async(anu, conn) => {
     cekdata = await dbleft.findOne({id: anu.id.remote})
@@ -56,7 +57,7 @@ const left = async(anu, conn) => {
     greet = rsubject.replace(/@desc/, desc)
     ppuser = await user.getProfilePicUrl()
     totiny = await tiny(ppuser == undefined ? 'https://divedigital.id/wp-content/uploads/2021/10/2-min.png' : ppuser)
-    await conn.sendFileFromUrl(anu.id.remote, `https://restapi-beta.herokuapp.com/api/goodbye?username=${await user.getFormattedNumber()}&memcount=${metadata.groupMetadata.participants.length}&groupname=${metadata.name}&ppurl=${totiny}&bgurl=${bgurl}`, {caption: greet, mentions: [user]})
+    await conn.sendFileFromUrl(anu.id.remote, `https://restapi-beta.herokuapp.com/api/goodbye?username=${await user.getFormattedNumber()}&memcount=${metadata.groupMetadata.participants.length}&groupname=${encodeurl(metadata.name.replace(/#/, ''))}&ppurl=${totiny}&bgurl=${bgurl}`, {caption: greet, mentions: [user]})
 }
 async function simulate(action, m, conn){
     simul = {
