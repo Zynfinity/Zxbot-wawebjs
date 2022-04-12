@@ -7,6 +7,7 @@ module.exports = {
     category: 'game',
     desc: ['Bermain tebak kata'],
     group: true,
+    game: true,
     async handler(m, {conn, hasQuotedMsg, msgId}){
         conn.game = conn.game ? conn.game : {}
         conn.game.tebakkata = conn.game.tebakkata ? conn.game.tebakkata : {}

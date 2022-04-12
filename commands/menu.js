@@ -42,16 +42,16 @@ module.exports = {
                 total.push(pe)
             })
         })
-        menu = `${global.shp} *[ Z X - B O T ]*\n`
-        menu += `├ Library : Whatsapp-Web.js\n`
-        menu += `├ Api's : https://www.npmjs.com/package/zxy-api\n`
-        menu += `├ Blog : https://ihsanafajar.blogspot.com\n`
-        menu += `├ Runtime  : ${await toTimer(process.uptime())}\n`
-        menu += `├ Command Total : ${total.length}\n`
-        menu += `├ Prefix : [ ${prefix} ]\n`
-        menu += `├ Date : ${date}\n`
-        menu += `├ Time : ${time}\n`
-        menu += `└ \n\n`
+        menu = `            *[ Z X - B O T ]*\n\n`
+        menu += `${global.shp} Library : Whatsapp-Web.js\n`
+        menu += `${global.shp} Api's : https://www.npmjs.com/package/zxy-api\n`
+        menu += `${global.shp} Blog : https://ihsanafajar.blogspot.com\n`
+        menu += `${global.shp} Group Bot : https://bit.ly/3LZ5LcN\n`
+        menu += `${global.shp} Runtime  : ${await toTimer(process.uptime())}\n`
+        menu += `${global.shp} Command Total : ${total.length}\n`
+        menu += `${global.shp} Prefix : [ ${prefix} ]\n`
+        menu += `${global.shp} Date : ${date}\n`
+        menu += `${global.shp} Time : ${time}\n\n`
         menu += `Hallo ${m._data.notifyName} Here my command list\n`
         for(let i of tags){
             helps = []
@@ -68,12 +68,11 @@ module.exports = {
                 return a.length - b.length
               })
             for (let l = 0; l<sort.length; l++) {
-                menu += `├ ${l + 1}. _${sort[l]}_\n`
+                menu += `  ${l + 1}. _${sort[l]}_\n`
             }
-            menu += '└\n'
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
-        media = await MessageMedia.fromFilePath('./lib/media/thumb.jpeg')
+        media = await MessageMedia.fromFilePath('./lib/media/thumb.jpg')
         await conn.sendMessage(m.from, media, {caption: menu, quotedMessageId: msgId})
     }
 }

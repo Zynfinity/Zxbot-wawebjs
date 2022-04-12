@@ -11,7 +11,6 @@ module.exports = {
         try{
             data = await musicaldown(text)
             if(m.command == 'tiktokmusic' || m.command == 'tiktokmp3'){
-                console.log(data.audio.link3)
                 return await conn.sendFileFromUrl(m.from, data.audio.link3 == undefined ? data.video.link1 : data.audio.link3, {quotedMessageId: msgId}, {mimetype: 'audio/mpeg'})
             }
             tx = '*T I K T O K  D O W N L O A D E R*'

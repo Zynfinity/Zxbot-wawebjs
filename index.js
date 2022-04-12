@@ -28,7 +28,6 @@ const client = new Client({
 client.initialize().then(async re => {
     require('./lib/interval')(client)
 })
-require('./lib/database/database').connectToDatabase()
 client.on('qr', (qr) => {
     // Generate and scan this code with your phone
     qrcode.generate(qr, {
@@ -39,6 +38,7 @@ client.on('qr', (qr) => {
     console.log('Scan Qr Code');
 });
 client.on('ready', async () => {
+    require('./lib/database/database').connectToDatabase()
     console.log('Client is ready!');
     client.sendMessage(owner, JSON.stringify(client.info, null, 2))
     databes.restarttime = Date.now() + await toms('6h')

@@ -6,6 +6,8 @@ module.exports = {
     cmd: ['setwelcome','setleft'],
     category: 'group',
     desc: ['Mengganti kata kata pada welcome/left', '.@m.command <text>\n*Note : @user (Mention)\n@subject (Judul Grup)\n@desc (Deskripsi Grup)'],
+    group: true,
+    admin: true,
     async handler(m, {conn,  msgId, text}){
         if(!text) return await m.reply('textnya mana?')
         try{

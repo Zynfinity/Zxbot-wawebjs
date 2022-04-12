@@ -1,5 +1,6 @@
 const os = require("os");
 let util = require("util");
+const speedd = require('performance-now');
 let {
 	performance
 } = require("perf_hooks");
@@ -9,10 +10,15 @@ let {
 const speed = require("performance-now");
 const {toTimer} = require('../lib/tools')
 module.exports = {
-	name: ['ping'].map((v) => v + ''),
-	cmd: ['p','ping','status'],
+	name: ['ping', 'speed'].map((v) => v + ''),
+	cmd: ['p','ping','status', 'speed'],
 	category: 'other',
 	async handler(m, {conn,  msgId}) {
+		if(m.command == 'speed'){
+			timestampi = speedd();
+			latensii = speedd() - timestampi
+			return m.reply(`*› Speed* : ${latensii.toFixed(4)} Second`)
+		}
 		const used = process.memoryUsage();
 		const cpus = os.cpus()
 			.map((cpu) => {
