@@ -9,7 +9,7 @@ module.exports = {
     async handler(m, {conn, msgId, zx, text, hasQuotedMsg, hasMedia, quotedMsg}){
         try{
             if(!text) return await m.reply(`Masukkan teksnya dengan format text1|teks2\nExample : .${m.command} test|oke`)
-            if(hasMedia && m.type == 'image' || (hasQuotedMsg && quotedMsg.type == 'image' || quotedMsg.type == 'sticker')){
+            if(hasMedia && m.type == 'image' || (hasQuotedMsg ? quotedMsg.type == 'image' || quotedMsg.type == 'sticker' : false)){
                 await m.reply(global.mess.wait)
                 quot = hasMedia ? '' : await m.getQuotedMessage()
                 down = hasMedia ? await m.downloadMedia() : await quot.downloadMedia()

@@ -12,7 +12,7 @@ module.exports = {
             if(!text) return await m.reply('Kata kuncinya mana?')
             m.reply(global.mess.wait)
             cari = await yts(text)
-            filt = cari.all.filter(res => res.type == 'video')[0]
+            filt = cari.all.filter(res => res.type == 'video' && res.url)[0]
             down = await youtube(filt.url)
             teks = m.command == 'play' ? `P L A Y  M U S I C\n\n` : `P L A Y  V I D E O\n\n`
             teks += `${global.shp} Title : ${filt.title}\n`

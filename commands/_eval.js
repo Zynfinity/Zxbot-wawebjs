@@ -8,10 +8,8 @@ const textmaker = require('../lib/textmaker')
 const {
     MessageMedia
 } = require('whatsapp-web.js')
-const zapi = require('zxy-api')
-const rzkyClient = require('rzkyfdlh-api')
-const token = "1ibl8r4kz37x4to6h8r3uxl472o88bmvg49822xd8779q31bck"
-const rzky = new rzkyClient(token)
+const sagili = require('sagiri')
+const sagiri = sagili('5edd4fc72ec03f8c23d02ed08f2e3f35055d7479')
 const {
     exec
 } = require('child_process')
@@ -26,9 +24,8 @@ module.exports = {
         isOwner,
         msgId,
         zx,
-        q
+        q,
     }) {
-        const scrap = require('../lib/scraper')
         const util = require('util')
         if (!isOwner) return
         if (budy.startsWith('<')) {

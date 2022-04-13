@@ -106,14 +106,17 @@ client.on('message', async msg => {
         await require('./lib/handlerfc').handler(msg, client)
     }
 });
-client.on('group_update', upt => {
-    require('./events/group_update')(upt, client)
+client.on('group_update', async upt => {
+    await require('./events/group_update')(upt, client)
 })
 client.on('group_join', async upt => {
     await require('./events/greetings').welcome(upt, client)
 })
-client.on('group_leave', upt => {
-    require('./events/greetings').left(upt, client)
+client.on('group_leave', async upt => {
+    await require('./events/greetings').left(upt, client)
+})
+client.on('incoming_call', async call => {
+    await require('./events/call.js')(call, client)
 })
 
 let file = require.resolve(__filename)
