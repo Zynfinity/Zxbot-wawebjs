@@ -93,7 +93,7 @@ client.on('message', async msg => {
     } = JSON.parse(fs.readFileSync('./lib/json/data.json'))
     client.msgdata = client.msgdata ? client.msgdata : []
     if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response' || msg.type == 'sticker') {
-        if (client.msgdata.length > 30) client.msgdata = []
+        if (client.msgdata.length > 50) client.msgdata = []
         isstick = stcmd.find(stc => stc.id == msg._data.filehash)
         if (msg.type == 'list_response' || msg.body.startsWith('.') || isstick != undefined) {
             client.msgdata.push({
