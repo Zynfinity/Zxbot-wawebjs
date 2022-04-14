@@ -76,7 +76,7 @@ global.reload = (_event, filename) => {
         if (err) console.log(`syntax error while loading '${filename}'\n${err}`)
         else
             try {
-                isi.function ? global.functions[require(dir)] : global.commands[filename] = require(dir)
+                isi.function ? global.functions[filename] = require(dir) : global.commands[filename] = require(dir)
             } catch (e) {
                 console.log(e)
             } finally {
