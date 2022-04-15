@@ -35,6 +35,7 @@ module.exports = {
                 title: `${after.terjawab.length == gdata.jawaban.length ? 'Mulai Family100' : 'Nyerah'}`,
                 description: `${after.terjawab.length == gdata.jawaban.length ? 'Bermain kembali family100' : 'selesaikan family100'}`
             }]
+            after.terjawab.length == gdata.jawaban.length ? delete conn.game.family[m.from] : ''
             section = [{'title':'sectionTitle','rows':row}]
             list = await new List(family, 'Click Here', section, '*Family100*')
             conn.sendMessage(m.from, list, {quotedMessageId: msgId, mentions: after.terjawab.map(kon => kon.sender)})

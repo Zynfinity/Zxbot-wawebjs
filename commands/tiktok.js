@@ -1,4 +1,4 @@
-const { musicaldown } = require("../lib/scraper")
+const { musicaldown, tikdown } = require("../lib/scraper")
 module.exports = {
     name: ['tiktok', 'tiktokmp3'].map((v) => v + ' <link>'),
     cmd: ['tiktok','tiktoknowm','tiktokmusic','tiktokmp3'],
@@ -16,7 +16,14 @@ module.exports = {
             tx = '*T I K T O K  D O W N L O A D E R*'
             await conn.sendFileFromUrl(m.from, data.video.link1, {caption: tx, quotedMessageId: msgId}, {mimetype: 'video/mp4'})
         }catch(e){
-            global.eror(m.command, e, m)
+            try{
+                data = await tikdown(text)
+                if(data.status){
+                    await conn.sendFileFromUrl(m.from, m.command == 'tiktokmusic' || m.command == 'tiktokmp3' ? data.audio : data.video, {quotedMessageId: msgId})
+                }
+            }catch(p){
+                global.eror(m.command, p, m)
+            }
         }
     }
     

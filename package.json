@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "start": "node index.js || touch index.js"
+  },
+  "nodemonConfig": {
+    "ext": "js,html,sh"
+  },
   "dependencies": {
     "@vitalets/google-translate-api": "^8.0.0",
     "axios": "^0.26.0",
