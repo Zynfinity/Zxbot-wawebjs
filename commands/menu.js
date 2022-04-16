@@ -68,7 +68,7 @@ module.exports = {
                 return a.length - b.length
               })
             for (let l = 0; l<sort.length; l++) {
-                menu += `  ${l + 1}. _${sort[l]}_\n`
+                menu += `*${l + 1}*. _${sort[l]}_\n`
             }
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`

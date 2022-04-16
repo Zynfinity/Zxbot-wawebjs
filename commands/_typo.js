@@ -6,7 +6,7 @@ module.exports = {
     name: ['function_typo'],
     function: true,
     typo: true,
-    async handler(m, {conn}){
+    async handler(m, {conn, isOwner, isAdmin}){
         if(m.command == '') return
         pe = await Object.values(global.commands).filter(plugin => !plugin.ignored && !plugin.disabled)
         cmd = []

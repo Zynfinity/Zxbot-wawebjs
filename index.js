@@ -88,9 +88,7 @@ Object.freeze(global.reload)
 fs.watch(path.join(__dirname, 'commands'), global.reload)
 client.on('auth_failure', msg => console.log(msg))
 client.on('message', async msg => {
-    const {
-        stcmd
-    } = JSON.parse(fs.readFileSync('./lib/json/data.json'))
+    const stcmd = JSON.parse(fs.readFileSync('./lib/json/stickercmd.json'))
     client.msgdata = client.msgdata ? client.msgdata : []
     if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response' || msg.type == 'sticker') {
         if (client.msgdata.length > 50) client.msgdata = []
