@@ -7,7 +7,7 @@ module.exports = {
     async handler(m, {conn, hasQuotedMsg, zx, msgId, budy, prefix}){
         if(!zx.isGroup && budy.startsWith(prefix)) return
         const {db} = require('../lib/database/database')
-        userdb = db.collection('users')
+        userdb = await db.collection('users')
         conn.game = conn.game ? conn.game : {}
         conn.game.family = conn.game.family ? conn.game.family : {}
         gdata = conn.game.family[m.from]

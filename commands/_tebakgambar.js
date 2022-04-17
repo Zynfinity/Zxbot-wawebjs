@@ -2,6 +2,7 @@ module.exports = {
     name: ['function_tebakgambar'],
     function: true,
     ignored: true,
+    disabled: true,
     async handler(m, {conn, hasQuotedMsg, zx, budy, prefix}){
         const {db} = require('../lib/database/database')
         userdb = db.collection('users')

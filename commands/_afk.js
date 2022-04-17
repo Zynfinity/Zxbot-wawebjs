@@ -1,5 +1,3 @@
-const { db } = require("../lib/database/database");
-const data = db.collection("afk");
 const ms = require('parse-ms')
 module.exports = {
   name: ['afk_function'],
@@ -7,6 +5,8 @@ module.exports = {
   async handler(m, { conn, msgId, zx, quotedMsg, mentionedIds}) {
     if(!zx.isGroup) return
     if(m.command == 'afk') return
+    const { db } = require("../lib/database/database");
+    const data = await db.collection("afk");
     afkdata = await data.findOne({ id: m.author });
     if (afkdata != null) {
         waktuafk = await ms(Date.now() - afkdata.time)

@@ -1,7 +1,7 @@
-const { sfilesearch, wattpad, happymod, mangatoon } = require("../lib/scraper")
+const { sfilesearch, wattpad, happymod, mangatoon, playstore } = require("../lib/scraper")
 module.exports = {
-    name: ['sfilesearch', 'wattpad', 'happymod', 'mangatoon'].map((v) => v + ' <query>'),
-    cmd: ['sfilesearch', 'wattpad', 'happymod', 'mangatoon'],
+    name: ['sfilesearch', 'wattpad', 'happymod', 'mangatoon', 'playstore'].map((v) => v + ' <query>'),
+    cmd: ['sfilesearch', 'wattpad', 'happymod', 'mangatoon', 'playstore'],
     category: 'search',
     desc: ['Mencari sesuatu di web tertentu', '.@command <query>'],
     async handler(m, {conn, msgId, text, args}){
@@ -9,23 +9,28 @@ module.exports = {
             if(!text) return m.reply('Mau cari apa?')
             await m.reply(mess.wait)
             if(m.command == 'sfilesearch'){
-                data = await sfilesearch(text)
-                m.reply(await tools.parseResult('SFILE SEARCH', data))
+                getdata = await sfilesearch(text)
+                m.reply(await tools.parseResult('SFILE SEARCH', getdata))
             }
             else if(m.command == 'wattpad'){
-                data = await wattpad(text)
-                if(data == '') return m.reply('Cerita tidak ditemukan!')
-                await conn.sendFileFromUrl(m.from, data[0].thumb, {caption: await tools.parseResult('WATTPAD SEARCH', data, {delete: ['thumb']}), quotedMessageId: msgId})
+                getdata = await wattpad(text)
+                if(getdata == '') return m.reply('Cerita tidak ditemukan!')
+                await conn.sendFileFromUrl(m.from, getdata[0].thumb, {caption: await tools.parseResult('WATTPAD SEARCH', getdata, {delete: ['thumb']}), quotedMessageId: msgId})
             }
             else if(m.command == 'happymod'){
-                data = await happymod(text)
-                if(data.data == '') return m.reply('apk tidak ditemukan!')
-                await conn.sendFileFromUrl(m.from, data.data[0].thumb, {caption: await tools.parseResult('HAPPYMOD SEARCH', data.data, {delete: ['thumb']}), quotedMessageId: msgId})
+                getdata = await happymod(text)
+                if(getdata.getdata == '') return m.reply('apk tidak ditemukan!')
+                await conn.sendFileFromUrl(m.from, getdata.getdata[0].thumb, {caption: await tools.parseResult('HAPPYMOD SEARCH', getdata.getdata, {delete: ['thumb']}), quotedMessageId: msgId})
             }
             else if(m.command == 'mangatoon'){
-                data = await mangatoon(text)
-                if(data == '') return m.reply('Manga tidak ditemukan!')
-                await conn.sendFileFromUrl(m.from, data[0].comic_thumb, {caption: await tools.parseResult('MANGATOON SEARCH', data, {delete: ['status', 'creator', 'comic_thumb']}), quotedMessageId: msgId})
+                getdata = await mangatoon(text)
+                if(getdata == '') return m.reply('Manga tidak ditemukan!')
+                await conn.sendFileFromUrl(m.from, getdata[0].comic_thumb, {caption: await tools.parseResult('MANGATOON SEARCH', getdata, {delete: ['status', 'creator', 'comic_thumb']}), quotedMessageId: msgId})
+            }
+            else if(m.command == 'playstore'){
+                getdata = await playstore(text)
+                if(!getdata.status) return m.reply('Apk tidak ditemukan')
+                await m.reply(await tools.parseResult('PLAY STORE SEARCH', getdata.result))
             }
         }catch(e){
             global.eror(m.command, e, m)

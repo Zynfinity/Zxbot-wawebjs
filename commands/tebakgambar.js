@@ -7,6 +7,7 @@ module.exports = {
     desc: ['Bermain game tebak gambar'],
     group: true,
     game: true,
+    disabled: true,
     async handler(m, {conn, msgId, prefix}){
         try{
             conn.game = conn.game ? conn.game : {}

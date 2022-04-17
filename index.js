@@ -20,7 +20,12 @@ const client = new Client({
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--shm-size=2gb',
-            '--disable-gpu'
+            '--disable-gpu',
+            '--aggressive-cache-discard',
+            '--disable-cache',
+            '--disable-application-cache',
+            '--disable-offline-load-stale-cache',
+            '--disk-cache-size=0'
         ],
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
     }
@@ -41,8 +46,8 @@ client.on('ready', async () => {
     require('./lib/database/database').connectToDatabase()
     console.log('Client is ready!');
     client.sendMessage(owner, JSON.stringify(client.info, null, 2))
-    databes.restarttime = Date.now() + await toms('6h')
-    databes.cleartime = Date.now() + await toms('20s')
+    databes.restarttime = Date.now() + await toms('3h')
+    databes.cleartime = Date.now() + await toms('5s')
     fs.writeFileSync('./lib/json/data.json', JSON.stringify(databes))
 });
 //read command
@@ -88,20 +93,22 @@ Object.freeze(global.reload)
 fs.watch(path.join(__dirname, 'commands'), global.reload)
 client.on('auth_failure', msg => console.log(msg))
 client.on('message', async msg => {
-    const stcmd = JSON.parse(fs.readFileSync('./lib/json/stickercmd.json'))
     client.msgdata = client.msgdata ? client.msgdata : []
-    if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response' || msg.type == 'sticker') {
-        if (client.msgdata.length > 50) client.msgdata = []
-        isstick = stcmd.find(stc => stc.id == msg._data.filehash)
-        if (msg.type == 'list_response' || msg.body.startsWith('.') || isstick != undefined) {
-            client.msgdata.push({
-                caption: msg.type === 'list_response' ? msg.selectedRowId : msg.type == 'sticker' ? '.' + isstick.cmd : msg.body,
-                msgId: msg.id._serialized,
-                sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from
-            })
+    if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response') {
+        if (client.msgdata.length > 30) client.msgdata = []
+        if (msg.type == 'list_response' || msg.body.startsWith('.')) {
+            coman = await Object.values(global.commands).find((rescmd) => !rescmd.disabled && rescmd.cmd.includes(msg.body.split(' ')[0].replace('.', '')))
+            if(coman != undefined){
+                await client.msgdata.push({
+                    caption: msg.type === 'list_response' ? msg.selectedRowId : msg.body,
+                    msgId: msg.id._serialized,
+                    sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from,
+                    group: msg.id.remote.endsWith('@g.us') ? msg.from : false
+                })
+            }
             await require('./lib/handler').handler(msg, client)
         }
-        await require('./lib/handlerfc').handler(msg, client)
+        await require('./lib/function').handler(msg, client)
     }
 });
 client.on('group_update', async upt => {
@@ -116,7 +123,6 @@ client.on('group_leave', async upt => {
 client.on('incoming_call', async call => {
     await require('./events/call.js')(call, client)
 })
-
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
     fs.unwatchFile(file)
