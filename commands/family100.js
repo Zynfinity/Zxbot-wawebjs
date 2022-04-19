@@ -13,6 +13,7 @@ module.exports = {
         conn.game.family = conn.game.family ? conn.game.family : {}
         gdata = conn.game.family[m.from]
         if(args[0] == '-nyerah'){
+            if(gdata == undefined) return m.reply('Game sudah berakhir!')
             family = `${global.shp} Soal : ${gdata.soal}\n\n`
             for(let i=1; i<=gdata.jawaban.length; i++){
                 urut = gdata.terjawab.find(ter => ter.pos == i)

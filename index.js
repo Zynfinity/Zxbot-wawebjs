@@ -31,7 +31,7 @@ const client = new Client({
     }
 });
 client.initialize().then(async re => {
-    require('./lib/interval')(client)
+    await require('./lib/interval')(client)
 })
 client.on('qr', (qr) => {
     // Generate and scan this code with your phone
@@ -46,7 +46,7 @@ client.on('ready', async () => {
     require('./lib/database/database').connectToDatabase()
     console.log('Client is ready!');
     client.sendMessage(owner, JSON.stringify(client.info, null, 2))
-    databes.restarttime = Date.now() + await toms('3h')
+    databes.restarttime = Date.now() + await toms('4h')
     databes.cleartime = Date.now() + await toms('5s')
     fs.writeFileSync('./lib/json/data.json', JSON.stringify(databes))
 });
@@ -95,7 +95,7 @@ client.on('auth_failure', msg => console.log(msg))
 client.on('message', async msg => {
     client.msgdata = client.msgdata ? client.msgdata : []
     if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response') {
-        if (client.msgdata.length > 30) client.msgdata = []
+        if (client.msgdata.length > 50) client.msgdata = []
         if (msg.type == 'list_response' || msg.body.startsWith('.')) {
             coman = await Object.values(global.commands).find((rescmd) => !rescmd.disabled && rescmd.cmd.includes(msg.body.split(' ')[0].replace('.', '')))
             if(coman != undefined){
@@ -108,8 +108,8 @@ client.on('message', async msg => {
             }
             await require('./lib/handler').handler(msg, client)
         }
-        await require('./lib/function').handler(msg, client)
     }
+    await require('./lib/function').handler(msg, client)
 });
 client.on('group_update', async upt => {
     await require('./events/group_update')(upt, client)

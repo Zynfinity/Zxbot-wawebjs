@@ -22,20 +22,20 @@ module.exports = {
                 sender: await conn.getContactById(m.sender)
             })
             after = conn.game.family[m.from]
-            family = `${global.shp} Soal : ${gdata.soal}\n`
-            family += `${global.shp} Jawaban : tersisa ${gdata.jawaban.length - after.terjawab.length}\n\n`
-            for(let i=1; i<=gdata.jawaban.length; i++){
+            family = `${global.shp} Soal : ${after.soal}\n`
+            family += `${global.shp} Jawaban : tersisa ${after.jawaban.length - after.terjawab.length}\n\n`
+            for(let i=1; i<=after.jawaban.length; i++){
                 urut = after.terjawab.find(ter => ter.pos == i)
                 if(urut != undefined) family += `${i}. ${urut.jawaban} <@${urut.sender.id._serialized.split('@')[0]}> + ${urut.pos == 1 ? '150' : '100'}\n`
                 else family += `${i}. ???\n`
             }
-            family += `\nWaktu tersisa ${(await ms(gdata.timeout - Date.now())).seconds}s`
+            family += `\nWaktu tersisa ${(await ms(after.timeout - Date.now())).seconds}s`
             row = [{
-                id: `${after.terjawab.length == gdata.jawaban.length ? '.family100' : '.family100 -nyerah'}`,
-                title: `${after.terjawab.length == gdata.jawaban.length ? 'Mulai Family100' : 'Nyerah'}`,
-                description: `${after.terjawab.length == gdata.jawaban.length ? 'Bermain kembali family100' : 'selesaikan family100'}`
+                id: `${after.terjawab.length == after.jawaban.length ? '.family100' : '.family100 -nyerah'}`,
+                title: `${after.terjawab.length == after.jawaban.length ? 'Mulai Family100' : 'Nyerah'}`,
+                description: `${after.terjawab.length == after.jawaban.length ? 'Bermain kembali family100' : 'selesaikan family100'}`
             }]
-            after.terjawab.length == gdata.jawaban.length ? delete conn.game.family[m.from] : ''
+            after.terjawab.length == after.jawaban.length ? delete conn.game.family[m.from] : ''
             section = [{'title':'sectionTitle','rows':row}]
             list = await new List(family, 'Click Here', section, '*Family100*')
             conn.sendMessage(m.from, list, {quotedMessageId: msgId, mentions: after.terjawab.map(kon => kon.sender)})

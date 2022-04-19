@@ -8,7 +8,7 @@ module.exports = {
     async handler(m, {conn, args, zx, msgId, mentionedIds}){
         conn.game.kgb = conn.game.kgb ? conn.game.kgb : []
         if(args[0] == '-terima'){
-            find = conn.game.kgb.find(f => f.id == m.from && m.b == m.sender)
+            find = conn.game.kgb.find(f => f.id == m.from && f.b == m.sender)
             find.status = 'active'
             accept = `Halo @${find.a.split('@')[0]}, @${find.b.split('@')[0]}, silahkan cek Private chat dari bot untuk memulai permainan!`
             conn.sendMessage(m.from, accept, {quotedMessageId: msgId, mentions: [await conn.getContactById(find.a), await conn.getContactById(find.b)]})
