@@ -47,8 +47,15 @@ client.on('ready', async () => {
     console.log('Client is ready!');
     client.sendMessage(owner, JSON.stringify(client.info, null, 2))
     databes.restarttime = Date.now() + await toms('4h')
-    databes.cleartime = Date.now() + await toms('5s')
     fs.writeFileSync('./lib/json/data.json', JSON.stringify(databes))
+    client.sendMessage(owner, 'Clearing Messages')
+    chats = await client.getChats()
+    id = chats.map(c => c.id._serialized)
+    for(let i=0; i<id.length; i++){
+        chat = await client.getChatById(id[i])
+        chat.clearMessages()
+        if(i + 1 == id.length) client.sendMessage(owner, 'Clear Messages Complete')
+    }
 });
 //read command
 let pluginFolder = path.join(__dirname, 'commands')
@@ -99,14 +106,13 @@ client.on('message', async msg => {
         if (msg.type == 'list_response' || msg.body.startsWith('.')) {
             coman = await Object.values(global.commands).find((rescmd) => !rescmd.disabled && rescmd.cmd.includes(msg.body.split(' ')[0].replace('.', '')))
             if(coman != undefined){
-                await client.msgdata.push({
+                client.msgdata.push({
                     caption: msg.type === 'list_response' ? msg.selectedRowId : msg.body,
                     msgId: msg.id._serialized,
-                    sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from,
-                    group: msg.id.remote.endsWith('@g.us') ? msg.from : false
+                    sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from
                 })
+                await require('./lib/handler').handler(msg, client)
             }
-            await require('./lib/handler').handler(msg, client)
         }
     }
     await require('./lib/function').handler(msg, client)

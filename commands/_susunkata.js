@@ -8,12 +8,12 @@ module.exports = {
         conn.game = conn.game ? conn.game : {}
         conn.game.susunkata = conn.game.susunkata ? conn.game.susunkata : {}
         if(!hasQuotedMsg) return
-        gdata = conn.game.susunkata[m.from]
-        if(gdata == undefined) return
+        sdata = conn.game.susunkata[m.from]
+        if(sdata == undefined) return
         if(budy == `${prefix}hint`) return
         quot = await m.getQuotedMessage()
-        if(gdata.msgId == quot.id._serialized){
-            if(gdata.jawaban.toLowerCase() == budy.toLowerCase()){
+        if(sdata.msgId == quot.id._serialized){
+            if(sdata.jawaban.toLowerCase() == budy.toLowerCase()){
                 delete conn.game.susunkata[m.from]
                 users = await userdb.findOne({id: m.sender})
                 if(users == null){

@@ -1,15 +1,9 @@
 const fs = require('fs')
 const tools = require('../lib/tools')
-const {
-    db
-} = require('../lib/database/database')
-const dbs = require('../lib/database/database')
 const textmaker = require('../lib/textmaker')
 const {
     MessageMedia
 } = require('whatsapp-web.js')
-const sagili = require('sagiri')
-const sagiri = sagili('5edd4fc72ec03f8c23d02ed08f2e3f35055d7479')
 const {
     exec
 } = require('child_process')
