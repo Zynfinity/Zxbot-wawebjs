@@ -104,15 +104,15 @@ client.on('message', async msg => {
     if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response') {
         if (client.msgdata.length > 50) client.msgdata = []
         if (msg.type == 'list_response' || msg.body.startsWith('.')) {
-            coman = await Object.values(global.commands).find((rescmd) => !rescmd.disabled && rescmd.cmd.includes(msg.body.split(' ')[0].replace('.', '')))
+            coman = await Object.values(global.commands).find((rescmd) => !rescmd.disabled && rescmd.cmd.includes(msg.type === 'list_response' ? msg.selectedRowId.split(' ')[0].replace('.', '') : msg.body.split(' ')[0].replace('.', '')))
             if(coman != undefined){
                 client.msgdata.push({
                     caption: msg.type === 'list_response' ? msg.selectedRowId : msg.body,
                     msgId: msg.id._serialized,
                     sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from
                 })
-                await require('./lib/handler').handler(msg, client)
             }
+            await require('./lib/handler').handler(msg, client)
         }
     }
     await require('./lib/function').handler(msg, client)

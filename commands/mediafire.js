@@ -1,4 +1,3 @@
-const { mediafire } = require("../lib/scraper")
 module.exports = {
     name: ['mediafire <link>'],
     cmd: ['mediafire', 'mediafiredl'],
@@ -9,8 +8,8 @@ module.exports = {
             if(!text) return m.reply('Masukkan linknya!')
             if(!m.isUrl(text)) return m.reply(mess.errorlink)
             await m.reply(mess.wait)
-            const mfire = await mediafire(text)
-            if(!mfire.status) return m.reply('Media tidak valid!')
+            const mfire = await scrapp.mediafire(text)
+            if(!mfire.status) return m.reply(mfire)
             await m.reply(await tools.parseResult('MEDIAFIRE', mfire))
             await conn.sendFileFromUrl(m.from, mfire.link, {sendMediaAsDocument: true, quotedMessageId: msgId})
         }catch(e){

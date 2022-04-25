@@ -72,7 +72,7 @@ module.exports = {
             }
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
-        media = await MessageMedia.fromFilePath('./lib/media/thumb.jpg')
-        await conn.sendMessage(m.from, media, {caption: menu, quotedMessageId: msgId})
+        media = await MessageMedia.fromFilePath('./lib/media/thumb.mp4')
+        await conn.sendMessage(m.from, media, {caption: menu, quotedMessageId: msgId, sendVideoAsGif: true})
     }
 }

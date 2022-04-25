@@ -1,5 +1,4 @@
 const yts = require('yt-search')
-const {youtube} = require('../lib/scraper')
 const { tiny } = require('../lib/tools')
 module.exports = {
     name: ['ytmp3', 'ytmp4'].map((v) => v + ' <link>'),
@@ -11,7 +10,8 @@ module.exports = {
             if(!text) return await m.reply('Masukkan link!')
             if(!m.isUrl(text)) return await m.reply(global.mess.errorlink)
             m.reply(global.mess.wait)
-            down = await youtube(text)
+            down = await scrapp.youtube(text)
+            if(!down.status) return m.reply(down)
             teks = m.command == 'ytmp3' ? `*Y T M P 3  D O W N L O A D E R*\n\n` : `*Y T M P 4  D O W N L O A D E R*\n\n`
             teks += `${global.shp} Title : ${down.title}\n`
             teks += `${global.shp} Id : ${down.id}\n`

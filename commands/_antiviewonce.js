@@ -8,7 +8,7 @@ module.exports = {
             data = await group.findOne({id: m.from})
             if(data == null) return
             if(!data.antiviewonce) return
-            m.reply('ViewOnce Message Detected').then(async s => {
+            conn.sendMessage(m.from, 'ViewOnce Message Detected', {quotedMessageId: msgId}).then(async s => {
                 s._data.quotedMsg.isViewOnce = false
                 await conn.sendMessage(m.from, 'antiviewonce', {quotedMessageId: msgId, extra: {...s._data.quotedMsg}})
             })

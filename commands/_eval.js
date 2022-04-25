@@ -19,15 +19,13 @@ module.exports = {
             if (budy.startsWith('<')) {
                 console.log("E V A L")
                 async function _(rem) {
-                    ren = JSON.stringify(rem, null, 2)
-                    pes = util.format(ren)
-                    await m.reply(pes)
+                    await m.reply(rem)
                 }
                 await m.reply(await require('util').format(eval(`(async () => { ${budy.slice(2)} })()`)))
             }else if(budy.startsWith('=>')){
                 console.log("E V A L  V 2")
                 let evaled = await eval(budy.slice(3))
-                if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
+                //if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
                 await m.reply(evaled)
             } 
             else if (budy.startsWith('$')) {

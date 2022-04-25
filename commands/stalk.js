@@ -1,5 +1,4 @@
 const { default: axios } = require('axios')
-const {igstalk} = require('../lib/scraper')
 module.exports = {
     name: ['igstalk', 'tiktokstalk'].map((v) => v + ' <username>'),
     cmd: ['igstalk', 'tiktokstalk'],
@@ -10,7 +9,7 @@ module.exports = {
             if(!text) return await m.reply('Usernamenya mana?')
             await m.reply(global.mess.wait)
             if(m.command == 'igstalk'){
-                stalk = await igstalk(text)
+                stalk = await scrapp.igstalk(text)
                 stalkt = `*I N S T A G R A M  S T A L K*\n\n`
                 stalkt += `${global.shp} Username : ${stalk.username} ${stalk.verified ? '✅' : ''}\n`
                 stalkt += `${global.shp} Fullname : ${stalk.fullname}\n`

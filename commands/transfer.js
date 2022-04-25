@@ -5,6 +5,7 @@ module.exports = {
     cmd: ['transfer', 'tf'],
     category: 'bank',
     desc: ['Mentransfer balance yang anda miliki', '.transfer @0 2000'],
+disabled: true,
     async handler(m, {conn, msgId, args, text, mentionedIds}){
         const {db} = require('../lib/database/database')
         const users = await db.collection('users')
@@ -35,7 +36,7 @@ module.exports = {
         tf += `${global.shp} Status : Succsess\n`
         tf += `${global.shp} Pengirim : @${m.sender.split('@')[0]}\n`
         tf += `${global.shp} Penerima : @${mentionedIds[0].split('@')[0]}\n`
-        tf += `${global.shp} Jumlah : ${await formatRupiah(args[1], '.')}`
+        tf += `${global.shp} Jumlah : ${args[1]}`
         await conn.mentions(m.from, tf, {quotedMessageId: msgId})
     }
-} 
+}

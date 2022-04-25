@@ -1,5 +1,4 @@
 const yts = require('yt-search')
-const {youtube} = require('../lib/scraper')
 const { tiny } = require('../lib/tools')
 module.exports = {
     name: ['play', 'video'].map((v) => v + ' <query>'),
@@ -13,7 +12,8 @@ module.exports = {
             m.reply(global.mess.wait)
             cari = await yts(text)
             filt = cari.all.filter(res => res.type == 'video' && res.url)[0]
-            down = await youtube(filt.url)
+            down = await scrapp.youtube(filt.url)
+            if(!down.status) return m.reply(down)
             teks = m.command == 'play' ? `P L A Y  M U S I C\n\n` : `P L A Y  V I D E O\n\n`
             teks += `${global.shp} Title : ${filt.title}\n`
             teks += `${global.shp} Author : ${filt.author.name}\n`

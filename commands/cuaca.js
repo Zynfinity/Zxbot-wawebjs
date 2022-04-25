@@ -7,7 +7,7 @@ module.exports = {
         try{
             if(!text) return await m.reply('Masukkan nama derah/tempat!')
             await m.reply(global.mess.wait)
-            scrap.cuaca(text).then(async res => {
+            scrapp.cuaca(text).then(async res => {
                 m.reply(await tools.parseResult('I N F O  C U A C A', res))
             })
         }catch(e){
