@@ -26,8 +26,7 @@ module.exports = {
           conn.mentions(m.from, ini_txt, {quotedMessageId: msgId})
       }
       } else if (mentionedIds != "") {
-        mentionedIds.map(async (res) => {
-          afkdata = await data.findOne({ id: res });
+          afkdata = await data.findOne({ id: mentionedIds[0] });
           if (afkdata != null) {
               user = await conn.getContactById(res)
               cekafk = await ms(Date.now() - afkdata.time)
@@ -35,7 +34,6 @@ module.exports = {
               ini_txt += `${global.shp} _Reason :_ *_${afkdata.reason}_*\n${global.shp} _Since :_ *_${cekafk.hours} Jam  ${cekafk.minutes} Menit  ${cekafk.seconds} Detik  Yang lalu_*`
               conn.mentions(m.from, ini_txt, {quotedMessageId: msgId})
           }
-        });
       }
     }catch{}
   }

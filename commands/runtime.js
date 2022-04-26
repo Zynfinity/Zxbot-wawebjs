@@ -5,7 +5,11 @@ module.exports = {
 	cmd: ['runtime'],
 	category: 'other',
 	async handler(m, {conn,  msgId}){
-		const {data} = await axios.get('https://takabot.up.railway.app/')
-		m.reply(`Runtime\n\n${global.shp} *Whatsapp-Bot*\n${await toTimer(process.uptime())}\n\n${global.shp} *Telegram*\n${data.runtime}`)
+		try{
+			const {data} = await axios.get('https://takabot.up.railway.app/')
+			await m.reply(`Runtime\n\n${global.shp} *Whatsapp-Bot*\n${await toTimer(process.uptime())}\n\n${global.shp} *Telegram*\n${data.runtime}`)
+		}catch{
+			await m.reply(`Runtime\n\n${global.shp} *Whatsapp-Bot*\n${await toTimer(process.uptime())}\n\n${global.shp} *Telegram*\nOffline`)
+		}
 	}
 }
