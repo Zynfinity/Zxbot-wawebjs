@@ -12,11 +12,11 @@ module.exports = {
             await m.reply(global.mess.wait)
             if(m.command == 'ttp'){
                 const {data} = await axios.get(`https://xteam.xyz/ttp?text=${encodeurl(text)}`)
-                await conn.sendFileFromBuffer(m.from, data.result.split('data:image/png;base64,')[1], 'image/png', {sendMediaAsSticker: true, ...stickerMetadata, quotedMessageId: msgId})
+                await conn.sendFileFromBuffer(m.from, data.result.split('data:image/png;base64,')[1], {mimetype: 'image/png', sendMediaAsSticker: true, ...stickerMetadata, quotedMessageId: msgId})
             }
             else{
                 const {data} = await axios.get(`https://xteam.xyz/attp?text=${encodeurl(text)}`)
-                await conn.sendFileFromBuffer(m.from, data.result.split('data:image/webp;base64,')[1], 'image/webp', {sendMediaAsSticker: true, ...stickerMetadata, quotedMessageId: msgId})
+                await conn.sendFileFromBuffer(m.from, data.result.split('data:image/webp;base64,')[1], {mimetype: 'image/png', sendMediaAsSticker: true, ...stickerMetadata, quotedMessageId: msgId})
             }
         }catch(e){
             global.eror(m.command, e, m)

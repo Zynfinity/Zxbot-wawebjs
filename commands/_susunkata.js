@@ -16,8 +16,9 @@ module.exports = {
             if(sdata.jawaban.toLowerCase() == budy.toLowerCase()){
                 delete conn.game.susunkata[m.from]
                 users = await userdb.findOne({id: m.sender})
+                m.reply('Benar, + 50 Balance\n.mybank untuk mengecek')
                 if(users == null){
-                    userdb.insertOne({
+                    return userdb.insertOne({
                         id: m.sender,
                         limit: 0,
                         balance: 50
@@ -32,7 +33,6 @@ module.exports = {
                         }
                     })
                 }
-                m.reply('Benar, + 50 Balance\n.mybank untuk mengecek')
             }
         }
     }

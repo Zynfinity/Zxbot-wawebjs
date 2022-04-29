@@ -22,7 +22,8 @@ module.exports = {
             await m.reply(global.mess.wait)
             pros = await textpro(tema[m.command], text.replace('-s', ''))
             sticker = text.includes('-s') ? true : false
-            await conn.sendFileFromBuffer(m.from, await getBuffer(pros), 'image/jpeg', {
+            await conn.sendFileFromBuffer(m.from, await getBuffer(pros), {
+                mimetype: 'image/jpeg',
                 caption: '*Done*',
                 quotedMessageId: msgId,
                 sendMediaAsSticker: sticker,

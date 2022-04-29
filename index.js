@@ -13,20 +13,18 @@ const toms = require('ms')
 const databes = JSON.parse(fs.readFileSync('./lib/json/data.json'))
 const client = new Client({
     authStrategy: new LocalAuth(),
-    clientId: 'multidevice',
     puppeteer: {
         headless: true,
         args: [
+            '--enable-features=NetworkService',
             '--no-sandbox',
             '--disable-setuid-sandbox',
-            '--shm-size=2gb',
-            '--disable-gpu',
-            '--aggressive-cache-discard',
-            '--disable-cache',
-            '--disable-application-cache',
-            '--disable-offline-load-stale-cache',
-            '--disk-cache-size=0'
-        ],
+            '--disable-dev-shm-usage',
+            '--disable-web-security',
+            '--disable-features=IsolateOrigins,site-per-process',
+            '--shm-size=3gb', // this solves the issue
+          ],
+        ignoreHTTPSErrors: true,
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
     }
 });
@@ -46,16 +44,8 @@ client.on('ready', async () => {
     require('./lib/database/database').connectToDatabase()
     console.log('Client is ready!');
     client.sendMessage(owner, JSON.stringify(client.info, null, 2))
-    databes.restarttime = Date.now() + await toms('4h')
+    databes.restarttime = Date.now() + await toms('6h')
     fs.writeFileSync('./lib/json/data.json', JSON.stringify(databes))
-    client.sendMessage(owner, 'Clearing Messages')
-    chats = await client.getChats()
-    id = chats.map(c => c.id._serialized)
-    for(let i=0; i<id.length; i++){
-        chat = await client.getChatById(id[i])
-        chat.clearMessages()
-        if(i + 1 == id.length) client.sendMessage(owner, 'Clear Messages Complete')
-    }
 });
 //read command
 let pluginFolder = path.join(__dirname, 'commands')

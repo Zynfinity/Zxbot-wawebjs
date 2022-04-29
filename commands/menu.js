@@ -1,5 +1,6 @@
 const { MessageMedia } = require('whatsapp-web.js')
 const {toTimer} = require('../lib/tools')
+const fs = require('fs')
 module.exports = {
     name: ['menu'].map((v) => v + ''),
     cmd: ['menu'],
@@ -72,7 +73,7 @@ module.exports = {
             }
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
-        media = await MessageMedia.fromFilePath('./lib/media/thumb.mp4')
-        await conn.sendMessage(m.from, media, {caption: menu, quotedMessageId: msgId, sendVideoAsGif: true})
+        media = await fs.readFileSync('./lib/media/thumb.jpg')
+        await conn.sendFileFromBuffer(m.from, media, {mimetype: 'image/jpeg', caption: menu, quotedMessageId: msgId})
     }
 }

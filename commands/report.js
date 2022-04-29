@@ -9,7 +9,7 @@ module.exports = {
         if(m.command == 'reportacc'){
             lap = 'Laporan sudah diterima oleh Owner dan akan diproses\n\n'
             lap += `${global.shp} Detail Laporan\n`
-            lap += m._data.quotedMsg.list.description
+            lap += m.quoted.list.description
             split = m._data.listResponse.description.split('|')
             m.reply('done')
             return conn.sendMessage(split[1], lap, {quotedMessageId: split[0], mentions: [await conn.getContactById(split[2])]})
@@ -17,7 +17,7 @@ module.exports = {
         else if(m.command == 'blockreport'){
             lap = 'Laporan ditolak, anda akan diblock oleh bot\n\n'
             lap += `${global.shp} Detail Laporan\n`
-            lap += m._data.quotedMsg.list.description
+            lap += m.quoted.list.description
             split = m._data.listResponse.description.split('|')
             con = await conn.getContactById(split[2])
             con.block()
@@ -27,7 +27,7 @@ module.exports = {
         else if(m.command == 'refuseacc'){
             lap = 'Laporan ditolak\n\n'
             lap += `${global.shp} Detail Laporan\n`
-            lap += m._data.quotedMsg.list.description
+            lap += m.quoted.list.description
             split = m._data.listResponse.description.split('|')
             m.reply('done')
             return conn.sendMessage(split[1], lap, {quotedMessageId: split[0], mentions: [await conn.getContactById(split[2])]})

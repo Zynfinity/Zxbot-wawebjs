@@ -7,6 +7,7 @@ module.exports = {
             const dbanti = db.collection('groups')
             if(!zx.isGroup) return
             if(isAdmin) return
+            if(m.isBot) return
             if(isBotAdmin){
                 let linkRegex = /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i
                 isGroupLink = linkRegex.exec(budy)

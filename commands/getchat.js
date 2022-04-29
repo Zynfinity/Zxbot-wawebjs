@@ -9,7 +9,7 @@ module.exports = {
     async handler(m, {conn,  msgId}){
         chat = await conn.getChats()
         filchat = m.command == 'listpc' ? chat.filter(lst => !lst.isGroup) : chat.filter(lst => lst.isGroup && lst.groupMetadata.participants != '')
-        list = m.command == 'listpc' ? `${global.shp} L I S T  P C\n\n` : `${global.shp} L I S T  G R O U P\n\n`
+        list = m.command == 'listpc' ? `${global.shp} L I S T  P C\nTotal : ${filchat.length}\n\n` : `${global.shp} L I S T  G R O U P\nTotal : ${filchat.length}\n\n`
         num = 1
         mentions = []
         filchat.map(async res => {

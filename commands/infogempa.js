@@ -15,7 +15,7 @@ module.exports = {
                     if(i[0] != 'imagemap') gempaa += `${global.shp} ${i[0].toUpperCase()} : ${i[1]}\n`
                 }
                 buff = await getBuffer(res.data.imagemap)
-                conn.sendFileFromBuffer(m.from, buff, 'image/jpeg', {caption: gempaa, quotedMessageId: msgId})
+                conn.sendFileFromBuffer(m.from, buff, {mimetype: 'image/jpeg', caption: gempaa, quotedMessageId: msgId})
             })
         }catch(e){
             global.eror(m.command, e, m)

@@ -9,7 +9,7 @@ module.exports = {
         await m.reply(global.mess.wait)
         try{
             lir = await lyrics.search(text)
-            await m.reply(lir)
+            lir != '' ? await m.reply(lir) : await m.reply('Lirik tidak ditemukan')
         }catch(e){
             m.reply('Lirik tidak ditemukan')
             //global.eror(m.command, e, m)

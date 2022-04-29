@@ -24,7 +24,7 @@ module.exports = {
             spoti += `${global.shp} Release Date : ${data.release_date}\n\nTunggu sebentar..\nAudio sedang dikirim`
             await conn.sendFileFromUrl(m.from, data.thumbnail, {caption: spoti, quotedMessageId: msgId})
             spotify.downloadTrack(data.track).then(async res => {
-                await conn.sendFileFromBuffer(m.from, res, 'audio/mpeg', {quotedMessageId: msgId})
+                await conn.sendFileFromBuffer(m.from, res, {mimetype: 'image/jpeg', quotedMessageId: msgId})
             })
         }catch(e){
             global.eror(m.command, e, m)
