@@ -14,6 +14,7 @@ module.exports = {
     menu: true,
     async handler(m, {conn,budy,isOwner,msgId,zx,q}){
         const util = require('util')
+        const anony = JSON.parse(fs.readFileSync('./lib/json/anonymous.json'))
         if (!isOwner) return
         try{
             if (budy.startsWith('<')) {

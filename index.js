@@ -44,7 +44,7 @@ client.on('ready', async () => {
     require('./lib/database/database').connectToDatabase()
     console.log('Client is ready!');
     client.sendMessage(owner, JSON.stringify(client.info, null, 2))
-    databes.restarttime = Date.now() + await toms('6h')
+    databes.restarttime = Date.now() + await toms('4h')
     fs.writeFileSync('./lib/json/data.json', JSON.stringify(databes))
 });
 //read command
@@ -94,7 +94,7 @@ client.on('message', async msg => {
     if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response') {
         if (client.msgdata.length > 50) client.msgdata = []
         if (msg.type == 'list_response' || msg.body.startsWith('.')) {
-            coman = await Object.values(global.commands).find((rescmd) => !rescmd.disabled && rescmd.cmd.includes(msg.type === 'list_response' ? msg.selectedRowId.split(' ')[0].replace('.', '') : msg.body.split(' ')[0].replace('.', '')))
+            coman = await Object.values(global.commands).find((rescmd) => !rescmd.function && !rescmd.disabled && rescmd.cmd.includes(msg.type === 'list_response' ? msg.selectedRowId.split(' ')[0].replace('.', '') : msg.body.split(' ')[0].replace('.', '')))
             if(coman != undefined){
                 client.msgdata.push({
                     caption: msg.type === 'list_response' ? msg.selectedRowId : msg.body,

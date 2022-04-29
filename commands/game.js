@@ -5,7 +5,7 @@ module.exports = {
     category: 'group',
     desc: ['Mengaktifkan mode game di group'],
     group: true,
-    admin: true,
+    owner: true,
     async handler(m, {conn, zx, args}){
         data = JSON.parse(fs.readFileSync('./lib/json/data.json'))
         if(args[0] == 'on'){
