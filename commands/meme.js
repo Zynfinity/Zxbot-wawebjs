@@ -14,19 +14,18 @@ module.exports = {
                 quot = hasMedia ? '' : await m.getQuotedMessage()
                 down = hasMedia ? await m.downloadMedia() : await quot.downloadMedia()
                 buff = await Buffer.from(down.data, 'base64')
-                filepath = `./lib/utils/${m.command}_${m.sender}.jpg`
+                const filepath = `./lib/utils/${m.command}_${m.sender}.jpg`
                 await fs.writeFileSync(filepath, buff)
                 upload = await ra.UploadFile(filepath)
                 sticker = m.command == 'smeme' ? true : false
                 txt = `${text.split('|')[0] != '' ? text.split('|')[0].replace('?', '') : '_'}/${text.split('|')[1] != undefined ? text.split('|')[1].replace('?', '') : '_'}`
-                console.log(txt)
                 await conn.sendFileFromUrl(m.from, `https://api.memegen.link/images/custom/${txt}.png?background=${upload.result.namaFile}`, {
                     quotedMessageId: msgId,
                     caption: '*Done*',
                     sendMediaAsSticker: sticker,
                     ...stickerMetadata
                 })
-                fs.unlinkSync(filepath)
+                await fs.unlinkSync(filepath)
             }
             else m.reply('reply gambar/sticker dengan caption .' + m.command)
         }catch(e){

@@ -27,11 +27,12 @@ module.exports = {
             }
             else{
               emojis = await emojiStringToArray(await text.replace('+', ''))
-              emojimix = await rzky.fun.emojimix(emojis[0], emojis[1])
-              if(emojimix.status == 404) return m.reply('Emoji not support!')
-              await conn.sendFileFromUrl(m.from, emojimix.url, {sendMediaAsSticker: true, ...stickerMetadata, quotedMessageId: msgId})
+              emojimix = await caliph.other.emojimix(emojis[0], emojis[1])
+              //if(emojimix.status == 404) return m.reply('Emoji not support!')
+              await conn.sendFileFromBuffer(m.from, emojimix, {mimetype: 'image/jpeg',sendMediaAsSticker: true, ...stickerMetadata, quotedMessageId: msgId})
             }
         }catch(e){
+          if(m.command == 'emojimix') return m.reply('Emoji not support')
             global.eror(m.command, e, m)
         }
 	}

@@ -9,11 +9,9 @@ module.exports = {
             if(!text) return await m.reply('Linknya mana?')
             if(!m.isUrl(text)) return await m.reply(global.mess.errorlink)
             await m.reply(global.mess.wait)
-            facebook(text).then(async res => {
-                fb = `*F B  D O W N L O A D E R*\n\n`
-                fb += `${global.shp} Caption : ${res.resource.text}`
-                await conn.sendFileFromUrl(m.from, res.resource.sd, {caption: fb, quotedMessageId: msgId})
-            })
+            const res = await facebook(text)
+            fb = `*F B  D O W N L O A D E R*`
+            await conn.sendFileFromUrl(m.from, res.resource.sd, {caption: fb, quotedMessageId: msgId})
         }catch(e){
             global.eror(m.command, e, m)
         }

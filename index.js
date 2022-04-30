@@ -20,9 +20,8 @@ const client = new Client({
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
-            '--disable-web-security',
             '--disable-features=IsolateOrigins,site-per-process',
-            '--shm-size=3gb', // this solves the issue
+            '--shm-size=5gb', // this solves the issue
           ],
         ignoreHTTPSErrors: true,
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
@@ -44,7 +43,7 @@ client.on('ready', async () => {
     require('./lib/database/database').connectToDatabase()
     console.log('Client is ready!');
     client.sendMessage(owner, JSON.stringify(client.info, null, 2))
-    databes.restarttime = Date.now() + await toms('4h')
+    databes.restarttime = Date.now() + await toms('7h')
     fs.writeFileSync('./lib/json/data.json', JSON.stringify(databes))
 });
 //read command

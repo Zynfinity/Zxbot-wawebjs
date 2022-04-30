@@ -6,7 +6,6 @@ module.exports = {
     category: 'anonymous',
     desc: [`#start untuk memulai mencari partner anonymous\n#stop untuk meninggalkan obrolan\n#next untuk mencari partner lain`],
     private: true,
-    //owner: true,
     async handler(m, {conn, msgId}){
         const desc = '#start untuk memulai mencari partner anonymous\n#stop untuk meninggalkan obrolan\n#next untuk mencari partner lain'
         const anony = JSON.parse(fs.readFileSync('./lib/json/anonymous.json'))
@@ -25,7 +24,6 @@ module.exports = {
             description: 'Mulai mencari partner yang lain!'
         }]
         section = [{'title':'sectionTitle','rows':row}]
-        //list = await new List(family, 'Click Here', section, '*Family100*')
         if(m.command == 'anonymous'){
             await conn.sendMessage(m.from, await new List(desc, 'Click Here', section, 'Anonymous Chat'), {quotedMessageId: msgId})
         }
@@ -54,8 +52,12 @@ module.exports = {
         }
         else if(m.command == 'next'){
             if(!isanon) return m.reply("Kamu belum memulai anonymous chat\nSilahkan .start terlebih dahulu!")
-            find = Object.values(anony).find(anon => [anon.a, anon.b].includes(m.sender))
+            find = Object.values(anony).find(anon => [anon.a, anon.b].includes(m.sender) && anon.status == 'chatting')
+            console.log(find)
+            if(find == undefined) return m.reply('Kamu belum mendapatkan partner!')
             pas = find.a == m.sender ? find.b : find.a
+            console.log(pas)
+            if(!pas) return m.reply('Kamu belum mendapatkan partner!')
             await conn.sendMessage(pas, await new List(desc, 'Click Here', section, 'Partner Meninggalkan Obrolan!'))
             delete anony[find.id]
             await fs.writeFileSync('./lib/json/anonymous.json', JSON.stringify(anony))
