@@ -21,7 +21,7 @@ const client = new Client({
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
             '--disable-features=IsolateOrigins,site-per-process',
-            '--shm-size=5gb', // this solves the issue
+            '--shm-size=8gb', // this solves the issue
           ],
         ignoreHTTPSErrors: true,
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'

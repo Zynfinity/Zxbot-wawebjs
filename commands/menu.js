@@ -43,8 +43,8 @@ module.exports = {
                 total.push(pe)
             })
         })
-        menu = `            *[ Z X - B O T ]*\n\n`
-        menu += `${global.shp} Library : Whatsapp-Web.js\n`
+        //menu = `            *[ Z X - B O T ]*\n\n`
+        menu = `${global.shp} Library : Whatsapp-Web.js\n`
         menu += `${global.shp} Api's : https://www.npmjs.com/package/zxy-api\n`
         menu += `${global.shp} Blog : https://ihsanafajar.blogspot.com\n`
         menu += `${global.shp} Group Bot : https://bit.ly/3LZ5LcN\n`
@@ -73,7 +73,19 @@ module.exports = {
             }
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
-        media = await fs.readFileSync('./lib/media/thumb.jpg')
-        await conn.sendFileFromBuffer(m.from, media, {mimetype: 'image/jpeg', caption: menu, quotedMessageId: msgId})
+        //media = await fs.readFileSync('./lib/media/thumb.jpg')
+        const thumb = await MessageMedia.fromUrl('https://i.ytimg.com/vi/XB5mB1WuzbM/hqdefault.jpg')
+        await conn.sendMessage(m.from, menu, {
+            quotedMessageId: msgId,
+            extra: {
+                ctwaContext: {
+                    title: '🤖  𝙕𝙓𝘽𝙊𝙏 𝙈𝙐𝙇𝙏𝙄𝘿𝙀𝙑𝙄𝘾𝙀',
+                    description: `Whatsapp-Web Version : ${await conn.getWWebVersion()}`,
+                    thumbnail: thumb.data,
+                    mediaType: 2,
+                    mediaUrl: 'https://youtube.com/watch?v=XB5mB1WuzbM'
+                }
+            }
+        })
     }
 }

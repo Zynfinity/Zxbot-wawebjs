@@ -1,5 +1,5 @@
 const yts = require('yt-search')
-const {List} = require('whatsapp-web.js')
+const {List, MessageMedia} = require('whatsapp-web.js')
 module.exports = {
     name: ['ytsearch', 'ytdl'].map((v) => v + ' <query>'),
     cmd: ['ytsearch','yts', 'ytdl'],
@@ -40,7 +40,16 @@ module.exports = {
             yss += `${global.shp} Url Channel : ${i.author.url}\n`;
             yss += `${global.shp} Url : ${i.url}\n\n\n`
         }
-        await conn.sendFileFromUrl(m.from, ytss[0].thumbnail, {caption: yss, quotedMessageId: msgId})
+        const {data} = await MessageMedia.fromUrl(ytss[0].image)
+        await conn.sendMessage(m.from, yss, {quotedMessageId: msgId, extra: {
+            ctwaContext: {
+                title: ytss[0].title,
+                description: ytss[0].description,
+                thumbnail: data,
+                mediaUrl: ytss[0].url,
+                mediaType: 2
+            }
+        }})
         }catch{
             global.eror(m.command, e, m)
         }

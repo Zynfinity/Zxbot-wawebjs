@@ -7,12 +7,16 @@ package-lock.json
 #session2
 store
 #media1
-lib/utils
+test.js
+test.json
 #media2
 lib/media
+lib/utils
+lib/tmp
 
 # managed
 **.data.json
+**.mp3
 **.mp3
 **.node-persist**
 **_IGNORE_**
