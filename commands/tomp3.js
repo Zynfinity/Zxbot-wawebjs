@@ -13,7 +13,7 @@ module.exports = {
             down = hasQuotedMsg ? await quot.downloadMedia() : await m.downloadMedia()
             buff = await Buffer.from(down.data, 'base64')
             audio = await toAudio(buff, 'mp4')
-            await conn.sendFileFromBuffer(m.from, audio, {mimetype: 'audio/mpeg', quotedMessageId: msgId})
+            await conn.sendFileFromBuffer(m.from, audio, {ctwa: {type: 'link'},mimetype: 'audio/mpeg', quotedMessageId: msgId})
         }catch(e){
             global.eror(m.command, e, m)
         }

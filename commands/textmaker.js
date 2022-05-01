@@ -23,6 +23,7 @@ module.exports = {
             pros = await textpro(tema[m.command], text.replace('-s', ''))
             sticker = text.includes('-s') ? true : false
             await conn.sendFileFromBuffer(m.from, await getBuffer(pros), {
+                ctwa: {type: 'link'},
                 mimetype: 'image/jpeg',
                 caption: '*Done*',
                 quotedMessageId: msgId,

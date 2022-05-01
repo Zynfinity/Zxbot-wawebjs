@@ -9,7 +9,7 @@ module.exports = {
             await m.reply(mess.wait)
             scrapp.resepmasakan(text).then(async res => {
                 if(!res.status) return m.reply(await tools.parseResult('RESEP MASAKAN', res))
-                await conn.sendFileFromUrl(m.from, res.data.thumb, {caption: await tools.parseResult('RESEP MASAKAN', res.data, {delete: ['thumb']}), quotedMessageId: msgId})
+                await conn.sendFileFromUrl(m.from, res.data.thumb, {ctwa: {type: 'link'}, caption: await tools.parseResult('RESEP MASAKAN', res.data, {delete: ['thumb']}), quotedMessageId: msgId})
             })
         }catch(e){
             global.eror(m.command, e, m)

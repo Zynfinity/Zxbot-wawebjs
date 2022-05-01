@@ -38,7 +38,7 @@ module.exports = {
             after.terjawab.length == after.jawaban.length ? delete conn.game.family[m.from] : ''
             section = [{'title':'sectionTitle','rows':row}]
             list = await new List(family, 'Click Here', section, '*Family100*')
-            conn.sendMessage(m.from, list, {quotedMessageId: msgId, mentions: after.terjawab.map(kon => kon.sender)})
+            conn.sendMessage(m.from, list, {quotedMessageId: msgId, mentions: after.terjawab.map(kon => kon.sender), ctwa:{type: 'link'}})
             users = await userdb.findOne({id: m.sender})        
             if(users == null){
                 return userdb.insertOne({

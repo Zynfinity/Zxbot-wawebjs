@@ -8,12 +8,12 @@ module.exports = {
         try{
             if(hasMedia && type == 'image' || hasMedia && type == 'video'){
                 const media = await m.downloadMedia()
-                await conn.sendSticker(zx, media, stickerMetadata.stickerName, stickerMetadata.stickerAuthor, {quotedMessageId: msgId})
+                await conn.sendSticker(zx, media, stickerMetadata.stickerName, stickerMetadata.stickerAuthor, {ctwa: {type: 'link'},quotedMessageId: msgId})
             }
             else if(quotedMsg && quotedMsg.type == 'image' || quotedMsg && quotedMsg.type == 'video'){
                 const quot = await m.getQuotedMessage()
                 const media = await quot.downloadMedia()
-                await conn.sendSticker(zx, media, stickerMetadata.stickerName, stickerMetadata.stickerAuthor, {quotedMessageId: msgId})
+                await conn.sendSticker(zx, media, stickerMetadata.stickerName, stickerMetadata.stickerAuthor, {ctwa: {type: 'link'},quotedMessageId: msgId})
             }
             else m.reply(`reply/send image dengan caption .${m.command}`)
         }catch(e){

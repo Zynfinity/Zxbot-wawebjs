@@ -10,7 +10,7 @@ module.exports = {
         m.reply(global.mess.wait)
         stickersearch(text).then(res => {
             for(let i=0; i<10; i++){
-                conn.sendStickerFromUrl(m.from, res.sticker[i], text, stickerMetadata.stickerAuthor)
+                conn.sendStickerFromUrl(m.from, res.sticker[i], text, stickerMetadata.stickerAuthor, {quotedMessageId: msgId, ctwa: {type: 'link'}})
             }
         })
     }

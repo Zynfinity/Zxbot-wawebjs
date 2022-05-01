@@ -1,3 +1,4 @@
+const { MessageMedia } = require('whatsapp-web.js')
 const yts = require('yt-search')
 const { tiny } = require('../lib/tools')
 module.exports = {
@@ -23,7 +24,8 @@ module.exports = {
                 return conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: msgId})
             }
             teks += `\nTunggu sebentar...\n${m.command == 'ytmp3' ? 'Audio' : 'Video'} sedang dikirim`
-            await conn.sendFileFromUrl(m.from, down.thumbnail, {caption: teks, quotedMessageId: msgId})
+            const thumb = await MessageMedia.fromUrl(down.thumbnail)
+            await conn.sendFileFromUrl(m.from, down.thumbnail, {ctwa: {type: 'yt', data: await conn.ctwa(down.title, m.command == 'ytmp3' ? `*Y T M P 3  D O W N L O A D E R*` : `*Y T M P 4  D O W N L O A D E R*`, thumb.data, down.url)}, caption: teks, quotedMessageId: msgId})
             conn.sendFileFromUrl(m.from, m.command == 'ytmp3' ? down.mp3 : down.link, {quotedMessageId: msgId})
         }catch(e){
 global.eror(m.command, e)

@@ -1,7 +1,7 @@
 const { default: axios } = require('axios')
 module.exports = {
-    name: ['igstalk', 'tiktokstalk'].map((v) => v + ' <username>'),
-    cmd: ['igstalk', 'tiktokstalk'],
+    name: ['igstalk', 'tiktokstalk', 'githubstalk'].map((v) => v + ' <username>'),
+    cmd: ['igstalk', 'tiktokstalk', 'githubstalk'],
     category: 'stalk',
     desc: ['Menampilkan profil Sosial Media berdasarkan username', '.@command <username>'],
     async handler(m, {conn,  msgId, text}){
@@ -19,7 +19,7 @@ module.exports = {
                 stalkt += `${global.shp} Url : https://www.instagram.com/${stalk.username}/`
                 await conn.sendFileFromUrl(m.from, stalk.thumbnail, {caption: stalkt, quotedMessageId: msgId})
             }
-            else{
+            else if(m.command == 'tiktokstalk'){
                 stalk = await axios.get('https://www.tiktok.com/node/share/user/@' + text, {
                     headers:{
                         'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36'
@@ -37,6 +37,11 @@ module.exports = {
                 stalkt += `${global.shp} Like : ${user.stats.heartCount}\n`
                 stalkt += `${global.shp} Video : ${user.stats.videoCount}`
                 await conn.sendFileFromUrl(m.from, user.user.avatarLarger, {caption: stalkt, quotedMessageId: msgId})
+            }
+            else{
+                stalk = await scrapp.ghuser(text)
+                if(!stalk.status) return m.reply(stalk)
+                await conn.sendFileFromUrl(m.from, stalk.user.avatarUrl, {quotedMessageId: msgId, caption: await tools.parseResult('GITHUB STALK', stalk.user, {delete: ['avatarUrl']})})
             }
         }catch(e){
             global.eror(m.command, e, m)

@@ -11,7 +11,7 @@ module.exports = {
             await m.reply(global.mess.wait)
             const res = await facebook(text)
             fb = `*F B  D O W N L O A D E R*`
-            await conn.sendFileFromUrl(m.from, res.resource.sd, {caption: fb, quotedMessageId: msgId})
+            await conn.sendFileFromUrl(m.from, res.resource.sd, {ctwa: {type: 'link'},caption: fb, quotedMessageId: msgId})
         }catch(e){
             global.eror(m.command, e, m)
         }

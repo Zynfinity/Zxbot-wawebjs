@@ -14,14 +14,14 @@ module.exports = {
                 many = stories.stories.length > 1 ? true : false
                 if(many) await m.reply('Jumlah media lebih dari 1, media akan dikirim lewat private chat (PC)\nSilahkan cek chat dari bot><!')
                 stories.stories.map(async igeh => {
-                    await conn.sendFileFromUrl(many ? m.sender : m.from, igeh.url, {quotedMessageId: msgId})
+                    await conn.sendFileFromUrl(many ? m.sender : m.from, igeh.url, {ctwa: {type: 'link'},quotedMessageId: msgId})
                 })
             }else{
                 scrapp.igdl(text).then(async res => {
                     many = res.length > 1 ? true : false
                     if(many) await m.reply('Jumlah media lebih dari 1, media akan dikirim lewat private chat (PC)\nSilahkan cek chat dari bot><!')
                     res.map(async s => {
-                        await conn.sendFileFromUrl(many ? m.sender : m.from, s, {quotedMessageId: msgId})
+                        await conn.sendFileFromUrl(many ? m.sender : m.from, s, {ctwa: {type: 'link'},quotedMessageId: msgId})
                     })
                 })
             }

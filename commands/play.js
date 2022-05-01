@@ -1,3 +1,4 @@
+const { MessageMedia } = require('whatsapp-web.js')
 const yts = require('yt-search')
 const { tiny } = require('../lib/tools')
 module.exports = {
@@ -9,10 +10,11 @@ module.exports = {
     async handler(m, {conn, msgId, text}){
         try{
             if(!text) return await m.reply('Kata kuncinya mana?')
+            isdoc = text.includes('-d') ? true : false
             m.reply(global.mess.wait)
-            cari = await yts(text)
-            filt = cari.all.filter(res => res.type == 'video' && res.url)[0]
-            down = await scrapp.youtube(filt.url)
+            const cari = await yts(isdoc ? text.replace('-d', '') : text)
+            const filt = cari.all.filter(res => res.type == 'video' && res.url)[0]
+            const down = await scrapp.youtube(filt.url)
             if(!down.status) return m.reply(down)
             teks = m.command == 'play' ? `P L A Y  M U S I C\n\n` : `P L A Y  V I D E O\n\n`
             teks += `${global.shp} Title : ${filt.title}\n`
@@ -28,8 +30,8 @@ module.exports = {
             }
             teks += `\nTunggu sebentar...\n${m.command == 'play' ? 'Audio' : 'Video'} sedang dikirim`
             await conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: msgId})
-            mim = m.command == 'play' ? 'audio/mpeg' : 'video/mp4'
-            await conn.sendFileFromUrl(m.from, m.command == 'play' ? down.mp3 : down.link, {quotedMessageId: msgId}, {mimetype: mim})
+            const mim = m.command == 'play' ? 'audio/mpeg' : 'video/mp4'
+            await conn.sendFileFromUrl(m.from, m.command == 'play' ? down.mp3 : down.link, {sendMediaAsDocument: isdoc,  quotedMessageId: msgId, ctwa:{type: 'link'}}, {mimetype: mim, filename: filt.title + '.mp3'})
         }catch(e){
             global.eror(m.command, e, m)
         }

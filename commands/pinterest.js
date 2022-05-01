@@ -3,7 +3,6 @@ module.exports = {
     name: ['pinterest'].map((v) => v + ' <query>'),
     cmd: ['pinterest'],
     category: 'search',
-disabled: true,
     desc: ['Mencari gambar di pinterest', '.pinterest <query>'],
     async handler(m, {conn,  msgId, text}){
         try{
@@ -11,7 +10,7 @@ disabled: true,
             await m.reply(global.mess.wait)
             res = await pinterest(text)
             image = res[Math.floor(Math.random() * res.length)]
-            await conn.sendFileFromUrl(m.from, image, {caption: `*Hasil Pencarian : ${text}*`, quotedMessageId: msgId})
+            await conn.sendFileFromUrl(m.from, image, {ctwa: {type: 'link'}, caption: `*Hasil Pencarian : ${text}*`, quotedMessageId: msgId})
         }catch(e){
             global.eror(m.command, e, m)
         }

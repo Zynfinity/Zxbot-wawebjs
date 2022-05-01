@@ -20,6 +20,7 @@ module.exports = {
                 sticker = m.command == 'smeme' ? true : false
                 txt = `${text.split('|')[0] != '' ? text.split('|')[0].replace('?', '') : '_'}/${text.split('|')[1] != undefined ? text.split('|')[1].replace('?', '') : '_'}`
                 await conn.sendFileFromUrl(m.from, `https://api.memegen.link/images/custom/${txt}.png?background=${upload.result.namaFile}`, {
+                    ctwa: {type: 'link'}, 
                     quotedMessageId: msgId,
                     caption: '*Done*',
                     sendMediaAsSticker: sticker,

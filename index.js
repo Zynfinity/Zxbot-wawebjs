@@ -24,6 +24,7 @@ const client = new Client({
             '--shm-size=8gb', // this solves the issue
           ],
         ignoreHTTPSErrors: true,
+        exitOnPageError: false,
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
     }
 });

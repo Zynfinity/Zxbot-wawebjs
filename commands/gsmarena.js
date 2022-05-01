@@ -13,7 +13,7 @@ module.exports = {
             for(let i of Object.entries(data)){
                 gsm += `${global.shp} ${i[0].toUpperCase()} : ${i[1]}\n\n`
             }
-            conn.sendFileFromUrl(m.from, data.thumbnail, {caption: gsm, quotedMessageId: msgId})
+            conn.sendFileFromUrl(m.from, data.thumbnail, {ctwa: {type: 'link'},caption: gsm, quotedMessageId: msgId})
         }catch(e){
             global.eror(m.command, e, m)
         }

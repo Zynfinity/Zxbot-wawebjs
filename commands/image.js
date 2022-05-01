@@ -3,7 +3,6 @@ module.exports = {
     name: ['image'].map((v) => v + ' <query>'),
     cmd: ['image'],
     category: 'search',
-disabled: true,
     desc: ['Mencari gambar di google', '.image <query>'],
     async handler(m, {conn,  msgId, text}){
         try{
@@ -11,7 +10,7 @@ disabled: true,
             await m.reply(global.mess.wait)
             gis(text, async (error, result) => {
                 images = result[Math.floor(Math.random() * result.length)].url
-                await conn.sendFileFromUrl(m.from, images, {caption: '*Hasil Pencarian* : ' + text, quotedMessageId: msgId})
+                await conn.sendFileFromUrl(m.from, images, {ctwa: {type: 'link'}, caption: '*Hasil Pencarian* : ' + text, quotedMessageId: msgId})
             });
         }catch(e){
             global.eror(m.command, e, m)

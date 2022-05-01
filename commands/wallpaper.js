@@ -11,7 +11,7 @@ module.exports = {
             await m.reply(global.mess.wait)
             peakpx(text).then(async res => {
                 rand = res[Math.floor(Math.random() * res.length)]
-                await conn.sendFileFromUrl(m.from, rand.image, {caption: rand.title, quotedMessageId: msgId})
+                await conn.sendFileFromUrl(m.from, rand.image, {ctwa: {type: 'link'}, caption: rand.title, quotedMessageId: msgId})
             })
         }catch(e){
             global.eror(m.command, e, m)

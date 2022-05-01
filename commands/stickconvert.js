@@ -21,7 +21,7 @@ module.exports = {
                 down = await quot.downloadMedia()
                 buff = await Buffer.from(down.data, 'base64')
                 video = await webp2mp4(buff)
-                await conn.sendFileFromUrl(m.from, video, {sendVideoAsGif: m.command == 'togif' ? true : false ,quotedMessageId: msgId})
+                await conn.sendFileFromUrl(m.from, video, {ctwa: {type: 'link'},sendVideoAsGif: m.command == 'togif' ? true : false ,quotedMessageId: msgId})
             }
         }catch(e){
             global.eror(m.command, e, m)

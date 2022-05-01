@@ -22,14 +22,14 @@ module.exports = {
             await m.reply(global.mess.wait)
             if(m.command == 'emoji'){
               emoji(await emojiStringToArray(args[0])[0]).then(async x => {
-                  await conn.sendStickerFromUrl(m.from, x.result.whatsapp, args[0], stickerMetadata.stickerAuthor, {quotedMessageId: msgId})
+                  await conn.sendStickerFromUrl(m.from, x.result.whatsapp, args[0], stickerMetadata.stickerAuthor, {ctwa: {type: 'link'},quotedMessageId: msgId})
               })
             }
             else{
               emojis = await emojiStringToArray(await text.replace('+', ''))
               emojimix = await caliph.other.emojimix(emojis[0], emojis[1])
               //if(emojimix.status == 404) return m.reply('Emoji not support!')
-              await conn.sendFileFromBuffer(m.from, emojimix, {mimetype: 'image/jpeg',sendMediaAsSticker: true, ...stickerMetadata, quotedMessageId: msgId})
+              await conn.sendFileFromBuffer(m.from, emojimix, {ctwa: {type: 'link'},mimetype: 'image/jpeg',sendMediaAsSticker: true, ...stickerMetadata, quotedMessageId: msgId})
             }
         }catch(e){
           if(m.command == 'emojimix') return m.reply('Emoji not support')

@@ -13,7 +13,7 @@ module.exports = {
                 twitter = '*T W I T T E R  D O W N L O A D E R*\n\n'
                 twitter += `${global.shp} Username : ${res.username}\n`
                 twitter += `${global.shp} Caption : ${res.caption}`
-                await conn.sendFileFromUrl(m.from, res.hd, {caption: twitter, quotedMessageId: msgId})
+                await conn.sendFileFromUrl(m.from, res.hd, {ctwa: {type: 'link'},caption: twitter, quotedMessageId: msgId})
             })
         }catch(e){
             global.eror(m.command, e, m)

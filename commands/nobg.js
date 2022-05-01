@@ -23,7 +23,7 @@ module.exports = {
                     type: "auto",
                     scale: '100%'
                 })
-                await conn.sendFileFromBuffer(m.from, await remove.base64img, {...stickerMetadata, quotedMessageId: msgId, filename: 'removebg.jpg', sendMediaAsSticker: issticker ? true : false, sendMediaAsDocument: !issticker ? true : false, mimetype: 'image/jpeg'})
+                await conn.sendFileFromBuffer(m.from, await remove.base64img, {...stickerMetadata,ctwa: {type: 'link'}, quotedMessageId: msgId, filename: 'removebg.jpg', sendMediaAsSticker: issticker ? true : false, sendMediaAsDocument: !issticker ? true : false, mimetype: 'image/jpeg'})
             }
             else if(hasQuotedMsg && quotedMsg.type == 'sticker'){
                 await m.reply(mess.wait)
@@ -44,7 +44,7 @@ module.exports = {
                             type: "auto",
                             scale: "100%",
                         })
-                        await conn.sendFileFromBuffer(m.from, await remove.base64img, {...stickerMetadata, quotedMessageId: msgId, filename: 'removebg.jpg', sendMediaAsSticker: issticker ? true : false, sendMediaAsDocument: !issticker ? true : false, mimetype: 'image/jpeg'})
+                        await conn.sendFileFromBuffer(m.from, await remove.base64img, {ctwa: {type: 'link'}, ...stickerMetadata, quotedMessageId: msgId, filename: 'removebg.jpg', sendMediaAsSticker: issticker ? true : false, sendMediaAsDocument: !issticker ? true : false, mimetype: 'image/jpeg'})
                         await fs.unlinkSync(output)
                     }
                 })
