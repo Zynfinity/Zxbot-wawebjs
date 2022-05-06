@@ -8,8 +8,9 @@ module.exports = {
         try{
             if(!text) return await m.reply('Mau cari apa di pinterest?')
             await m.reply(global.mess.wait)
-            res = await pinterest(text)
-            image = res[Math.floor(Math.random() * res.length)]
+            const res = await pinterest(text)
+if(res == '') return m.reply('Gambar tidak ditemukan')
+            const image = res[Math.floor(Math.random() * res.length)]
             await conn.sendFileFromUrl(m.from, image, {ctwa: {type: 'link'}, caption: `*Hasil Pencarian : ${text}*`, quotedMessageId: msgId})
         }catch(e){
             global.eror(m.command, e, m)

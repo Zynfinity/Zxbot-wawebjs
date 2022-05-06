@@ -25,12 +25,13 @@ module.exports = {
                     conn.mentions(m.from, success, {quotedMessageId: msgId})
                 }
             }
-            else if(!hasQuotedMsg && mentionedIds != '' || !hasQuotedMsg && text != '' && !isNaN(text)){
-                no = mentionedIds != '' ? mentionedIds[0] : text + '@c.us'
+            else if(!hasQuotedMsg && mentionedIds != '' || !hasQuotedMsg && text != '' && !isNaN(text.replace(/\D/g, ''))){
+                no = mentionedIds != '' ? mentionedIds[0] : text.replace(/\D/g, '') + '@c.us'
                 if(no == conn.info.wid._serialized) return
                 if(m.command == 'add' ? member.includes(no) : !member.includes(no)) return await m.reply(stop)
                 if(m.command == 'add'){
                     add = await zx.addParticipants([no])
+                    if(add[no] == '403') return m.reply('Tidak dapat menambahkan, Nomor diprivate!!')
                     console.log(add)
                     conn.mentions(m.from, success, {quotedMessageId: msgId})
                 }else{

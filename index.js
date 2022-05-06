@@ -16,18 +16,17 @@ const client = new Client({
     puppeteer: {
         headless: true,
         args: [
-            '--enable-features=NetworkService',
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
             '--disable-features=IsolateOrigins,site-per-process',
             '--shm-size=8gb', // this solves the issue
           ],
-        ignoreHTTPSErrors: true,
         exitOnPageError: false,
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
     }
 });
+client.on('change_state', msg => console.log(msg))
 client.initialize().then(async re => {
     await require('./lib/interval')(client)
 })
@@ -40,13 +39,16 @@ client.on('qr', (qr) => {
     });
     console.log('Scan Qr Code');
 });
+client.on('authenticated', msg => console.log(msg))
 client.on('ready', async () => {
     require('./lib/database/database').connectToDatabase()
     console.log('Client is ready!');
     client.sendMessage(owner, JSON.stringify(client.info, null, 2))
     databes.restarttime = Date.now() + await toms('7h')
+    databes.cleartime = Date.now() + await toms('1h')
     fs.writeFileSync('./lib/json/data.json', JSON.stringify(databes))
 });
+client.on('auth_failure', msg => console.log(msg))
 //read command
 let pluginFolder = path.join(__dirname, 'commands')
 let pluginFilter = (filename) => /\.js$/.test(filename)
@@ -88,7 +90,6 @@ global.reload = (_event, filename) => {
 }
 Object.freeze(global.reload)
 fs.watch(path.join(__dirname, 'commands'), global.reload)
-client.on('auth_failure', msg => console.log(msg))
 client.on('message', async msg => {
     client.msgdata = client.msgdata ? client.msgdata : []
     if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response') {

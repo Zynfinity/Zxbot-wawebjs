@@ -10,6 +10,7 @@ module.exports = {
             if(quott == undefined) return m.reply('Pesan tidak mengandung reply!')
             await quott.forward(m.from)
         }catch(e){
+if(String(e).includes("reading 'asMms'")) return m.reply('Pesan tidak ditemukan\nmungkin karena telah dihapus:)')
             global.eror(m.command, e, m)
         }
     }

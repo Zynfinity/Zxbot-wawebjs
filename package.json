@@ -8,7 +8,7 @@
   "dependencies": {
     "@vitalets/google-translate-api": "^8.0.0",
     "axios": "^0.26.0",
-    "caliph-api": "^0.8.3",
+    "caliph-api": "^0.8.4",
     "chalk": "^4.1.2",
     "cheerio": "^1.0.0-rc.10",
     "child_process": "^1.0.2",
@@ -21,6 +21,7 @@
     "g-i-s": "^2.1.6",
     "google-it": "^1.6.2",
     "human-readable": "^0.2.1",
+    "ikyy": "0.0.8",
     "insta-fetcher": "^1.3.21",
     "moment-timezone": "^0.5.34",
     "mongodb": "^4.4.0",
@@ -34,14 +35,13 @@
     "ra-api": "^1.3.2",
     "remove.bg": "^1.3.0",
     "request": "^2.88.2",
-    "rzkyfdlh-api": "^0.6.1",
-    "sagiri": "^3.1.1",
     "spotify-finder": "^2.1.1",
     "spotifydl-core": "^0.2.0",
     "syntax-error": "^1.4.0",
     "tiktok-scraper": "git+https://github.com/drawrowfly/tiktok-scraper.git",
     "whatsapp-web.js": "git+https://github.com/pedroslopez/whatsapp-web.js.git",
     "yt-search": "^2.10.3",
+    "ytdl-core": "^4.11.0",
     "zxy-api": "^1.0.2"
   }
 }

@@ -14,7 +14,7 @@ module.exports = {
             m.reply(global.mess.wait)
             const cari = await yts(isdoc ? text.replace('-d', '') : text)
             const filt = cari.all.filter(res => res.type == 'video' && res.url)[0]
-            const down = await scrapp.youtube(filt.url)
+            const down = await scrapp.youtube(m.command == 'play' ? 'mp3' : 'mp4', filt.url)
             if(!down.status) return m.reply(down)
             teks = m.command == 'play' ? `P L A Y  M U S I C\n\n` : `P L A Y  V I D E O\n\n`
             teks += `${global.shp} Title : ${filt.title}\n`
@@ -22,17 +22,18 @@ module.exports = {
             teks += `${global.shp} Duration : ${filt.timestamp}\n`
             teks += `${global.shp} Upload Date : ${filt.ago == undefined ? '-' : filt.ago}\n`
             teks += `${global.shp} Type : ${m.command == 'play' ? 'Mp3' : 'Mp4'}\n`
-            teks += `${global.shp} Size : ${m.command == 'play' ? down.size_mp3 : down.size}\n`
-            if(m.command == 'play' ? !down.size_mp3.endsWith('KB') && Number(down.size_mp3.split(' MB')[0]) > 10 : !down.size.endsWith('KB') && down.size.split(' MB')[0] > 10){
-                teks += m.command == 'play' ? `${global.shp} Download : ` + await tiny(down.mp3) : `${global.shp} Download : ` + await tiny(down.link) + '\n\n'
+            teks += `${global.shp} Size : ${down.size}\n`
+            if(!down.size.endsWith('KB') && Number(down.size.split(' MB')[0]) > 10){
+                teks += `${global.shp} Download : ` + await tiny(down.link)
                 teks += `\n\n${global.mess.oversize}`
                 return conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: msgId})
             }
             teks += `\nTunggu sebentar...\n${m.command == 'play' ? 'Audio' : 'Video'} sedang dikirim`
             await conn.sendFileFromUrl(m.from, filt.thumbnail, {caption: teks, quotedMessageId: msgId})
             const mim = m.command == 'play' ? 'audio/mpeg' : 'video/mp4'
-            await conn.sendFileFromUrl(m.from, m.command == 'play' ? down.mp3 : down.link, {sendMediaAsDocument: isdoc,  quotedMessageId: msgId, ctwa:{type: 'link'}}, {mimetype: mim, filename: filt.title + '.mp3'})
+            await conn.sendFileFromUrl(m.from, down.link, {sendMediaAsDocument: isdoc,  quotedMessageId: msgId, ctwa:{type: 'link'}}, {mimetype: mim, filename: filt.title + '.mp3'})
         }catch(e){
+            console.log(e)
             global.eror(m.command, e, m)
         }
     }

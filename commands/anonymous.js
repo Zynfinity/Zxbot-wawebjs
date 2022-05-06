@@ -53,10 +53,8 @@ module.exports = {
         else if(m.command == 'next'){
             if(!isanon) return m.reply("Kamu belum memulai anonymous chat\nSilahkan .start terlebih dahulu!")
             find = Object.values(anony).find(anon => [anon.a, anon.b].includes(m.sender) && anon.status == 'chatting')
-            console.log(find)
             if(find == undefined) return m.reply('Kamu belum mendapatkan partner!')
             pas = find.a == m.sender ? find.b : find.a
-            console.log(pas)
             if(!pas) return m.reply('Kamu belum mendapatkan partner!')
             await conn.sendMessage(pas, await new List(desc, 'Click Here', section, 'Partner Meninggalkan Obrolan!'))
             delete anony[find.id]

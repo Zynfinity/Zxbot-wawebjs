@@ -27,6 +27,15 @@ const welcome = async(anu, conn) => {
             await conn.sendMessage(anu.id.remote, media, {sendVideoAsGif: true, caption: `Terima kasih @${anu.author.split('@')[0]} telah menambahkan ZXBOT ke Group ${metadata.name}\n\n~ Owner`, mentions: [await conn.getContactById(anu.author)]})
         }
     }
+    if(anu.id.remote == '120363042211899675@g.us'){
+        if(anu.id.participant.startsWith('2')){
+            luar = `sorry, @${anu.id.participant.split('@')[0]}\n+2 was blocked in this group for spamming bots, you will be removed from the group`
+            const grup = await conn.getChatById('120363042211899675@g.us')
+            await conn.sendMessage(anu.id.remote, luar, {mentions: [await conn.getContactById(anu.id.participant)]})
+            await sleep(10000)
+            return grup.removeParticipants([anu.id.participant])
+        }
+    }
     cekdata = await dbwelkam.findOne({id: anu.id.remote})
     if(cekdata == null) return
     if(!cekdata.status) return

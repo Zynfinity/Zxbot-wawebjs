@@ -1,11 +1,21 @@
 const scrapp = require('../lib/scraper')
 module.exports = {
-    name: ['instagram'].map((v) => v + ' <link>'),
-    cmd: ['igdl','instagram','ig'],
+    name: ['instagram <link>', 'igstory <username>'],
+    cmd: ['igdl','instagram','ig', 'igstory'],
     category: 'downloader',
     desc: ['Mendownload media dari instagram', '.@command <link>'],
     async handler(m, {conn,  msgId, text}){
         try{
+            if(m.command == 'igstory'){
+                if(!text) return m.reply('Masukkan usernamenya!')
+                const igstory = await ig.fetchStories(text)
+                const many = igstory.stories_count > 1 ? true : false
+if(many) await m.reply('Jumlah media lebih dari 1, media akan dikirim lewat private chat (PC)\nSilahkan cek chat dari bot><!')
+                for(let i of igstory.stories){
+                    await conn.sendFileFromUrl(many ? m.sender : m.from, i.url, {quotedMessageId: msgId, caption: await tools.parseResult('INSTAGRAM DOWNLOADER', i, {delete: ['url']})})
+                }
+                return
+            }
             if(!text) return await m.reply('masukkan linknya!')
             if(!m.isUrl(text)) return await m.reply('Link tidak valid!')
             m.reply(global.mess.wait)
@@ -26,6 +36,7 @@ module.exports = {
                 })
             }
         }catch(e){
+            if(m.command == 'igstory') return m.reply('User tidak ditemukan!')
             global.eror(m.command, e, m)
         }
     }

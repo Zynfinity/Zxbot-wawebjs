@@ -1,7 +1,4 @@
-const rzkyClient = require('rzkyfdlh-api')
 const { sleep } = require('../lib/tools')
-const token = "1ibl8r4kz37x4to6h8r3uxl472o88bmvg49822xd8779q31bck"
-const rzky = new rzkyClient(token)
 module.exports = {
     name: ['function_typo'],
     function: true,

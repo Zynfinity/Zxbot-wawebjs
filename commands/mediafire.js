@@ -10,7 +10,7 @@ module.exports = {
             await m.reply(mess.wait)
             const mefire = await caliph.downloader.mediafire(text)
             const mfire = mefire.result
-            if(!mefire.status == '200') return m.reply(mefire)
+            if(mefire.status != 200) return m.reply(mefire)
             await m.reply(await tools.parseResult('MEDIAFIRE', mfire))
             tsize = mfire.filesize.includes('.') ? mfire.filesize.split('.')[1].replace(/\d/g, '') : mfire.filesize.replace(/\d/g, '')
             size = mfire.filesize.includes('.') ? mfire.filesize.split('.')[0].replace(/\D/g, '') : mfire.filesize.replace(/\D/g, '')

@@ -13,6 +13,7 @@ module.exports = {
                 await m.reply(global.mess.wait)
                 quot = hasMedia ? '' : await m.getQuotedMessage()
                 down = hasMedia ? await m.downloadMedia() : await quot.downloadMedia()
+                if(down == undefined) return m.reply('Media not found, please resend media!')
                 buff = await Buffer.from(down.data, 'base64')
                 const filepath = `./lib/utils/${m.command}_${m.sender}.jpg`
                 await fs.writeFileSync(filepath, buff)
