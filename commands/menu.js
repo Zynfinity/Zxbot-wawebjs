@@ -73,19 +73,11 @@ module.exports = {
             }
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
-        //media = await fs.readFileSync('./lib/media/thumb.jpg')
-        const thumb = await MessageMedia.fromUrl('https://i.ytimg.com/vi/XB5mB1WuzbM/hqdefault.jpg')
+        //const thumb = await MessageMedia.fromFilePath('./lib/media/thumb.jpg')
+        const thumb = await MessageMedia.fromUrl('https://img.freepik.com/free-vector/cute-robot-flying-cartoon-illustration-people-technology-icon-concept_138676-1892.jpg')
         await conn.sendMessage(m.from, menu, {
             quotedMessageId: msgId,
-            extra: {
-                ctwaContext: {
-                    title: '🤖  𝙕𝙓𝘽𝙊𝙏 𝙈𝙐𝙇𝙏𝙄𝘿𝙀𝙑𝙄𝘾𝙀',
-                    description: `Whatsapp-Web Version : ${await conn.getWWebVersion()}`,
-                    thumbnail: thumb.data,
-                    mediaType: 2,
-                    mediaUrl: 'https://youtube.com/watch?v=XB5mB1WuzbM'
-                }
-            }
+            extra: await conn.ctwa()
         })
     }
 }

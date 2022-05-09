@@ -11,6 +11,7 @@ module.exports = {
             await m.reply(global.mess.wait)
             peakpx(text).then(async res => {
                 rand = res[Math.floor(Math.random() * res.length)]
+                if(rand.image == undefined) return m.reply('Wallpaper tidak ditemukan!')
                 await conn.sendFileFromUrl(m.from, rand.image, {ctwa: {type: 'link'}, caption: rand.title, quotedMessageId: msgId})
             })
         }catch(e){

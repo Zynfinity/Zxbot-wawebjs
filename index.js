@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const syntaxerror = require('syntax-error')
 const qrcode = require('qrcode-terminal')
+const chalk = require('chalk')
 const {
     Client,
     LocalAuth
@@ -9,24 +10,35 @@ const {
 const {
     owner
 } = require('./lib/config');
-const toms = require('ms')
+const toms = require('ms');
 const databes = JSON.parse(fs.readFileSync('./lib/json/data.json'))
-const client = new Client({
+async function start(){
+    await console.log(chalk.green('Welcome To ZXBOT'))
+    console.log(chalk.green('Please wait, Starting Bot...'))
+const client = await new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
         headless: true,
         args: [
             '--no-sandbox',
-            '--disable-setuid-sandbox',
+            '--disable-gpu-sandbox',
             '--disable-dev-shm-usage',
             '--disable-features=IsolateOrigins,site-per-process',
-            '--shm-size=8gb', // this solves the issue
           ],
         exitOnPageError: false,
         executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
     }
 });
+return client
+}
+start().then(async client => {
 client.on('change_state', msg => console.log(msg))
+client.on('auth_failure', msg => console.log(msg))
+client.on('disconnected', async dc => {
+    console.log('Bot Disconnected')
+    await client.destroy()
+    start()
+})
 client.initialize().then(async re => {
     await require('./lib/interval')(client)
 })
@@ -39,10 +51,10 @@ client.on('qr', (qr) => {
     });
     console.log('Scan Qr Code');
 });
-client.on('authenticated', msg => console.log(msg))
 client.on('ready', async () => {
     require('./lib/database/database').connectToDatabase()
-    console.log('Client is ready!');
+    console.log('Bot is ready!');
+    console.log('Whatsapp-Web Version : ' + await client.getWWebVersion())
     client.sendMessage(owner, JSON.stringify(client.info, null, 2))
     databes.restarttime = Date.now() + await toms('7h')
     databes.cleartime = Date.now() + await toms('1h')
@@ -95,14 +107,14 @@ client.on('message', async msg => {
     if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response') {
         if (client.msgdata.length > 50) client.msgdata = []
         if (msg.type == 'list_response' || msg.body.startsWith('.')) {
-            coman = await Object.values(global.commands).find((rescmd) => !rescmd.function && !rescmd.disabled && rescmd.cmd.includes(msg.type === 'list_response' ? msg.selectedRowId.split(' ')[0].replace('.', '') : msg.body.split(' ')[0].replace('.', '')))
-            if(coman != undefined){
+            //coman = await Object.values(global.commands).find((rescmd) => !rescmd.function && !rescmd.disabled && rescmd.cmd.includes(msg.type === 'list_response' ? msg.selectedRowId.split(' ')[0].replace('.', '') : msg.body.split(' ')[0].replace('.', '')))
+            //if(coman != undefined){
                 client.msgdata.push({
                     caption: msg.type === 'list_response' ? msg.selectedRowId : msg.body,
                     msgId: msg.id._serialized,
                     sender: msg.id.remote.endsWith('@g.us') ? msg.author : msg.from
                 })
-            }
+            //}
             await require('./lib/handler').handler(msg, client)
         }
     }
@@ -119,6 +131,7 @@ client.on('group_leave', async upt => {
 })
 client.on('incoming_call', async call => {
     await require('./events/call.js')(call, client)
+})
 })
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {

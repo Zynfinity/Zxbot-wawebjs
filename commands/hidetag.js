@@ -1,5 +1,4 @@
 const { sleep } = require("../lib/tools")
-
 module.exports = {
     name: ['hidetag'].map((v) => v + ' <text>'),
     cmd: ['hidetag'],
@@ -26,6 +25,7 @@ module.exports = {
             else if(hasQuotedMsg){
                 quot = await m.getQuotedMessage()
                 down = await quot.downloadMedia()
+                if(down == undefined) return await conn.sendMessage(m.from, m.quoted.body, {mentions: kon})
                 await conn.sendMessage(m.from, down, {sendMediaAsSticker: quotedMsg.type == 'sticker' ? true : false, mentions: kon})
             }
         }catch(e){

@@ -27,13 +27,14 @@ if(many) await m.reply('Jumlah media lebih dari 1, media akan dikirim lewat priv
                     await conn.sendFileFromUrl(many ? m.sender : m.from, igeh.url, {ctwa: {type: 'link'},quotedMessageId: msgId})
                 })
             }else{
-                scrapp.igdl(text).then(async res => {
-                    many = res.length > 1 ? true : false
+                const res = await ig.fetchPost(text)
+const links = res.links
+                    many = res.links.length > 1 ? true : false
                     if(many) await m.reply('Jumlah media lebih dari 1, media akan dikirim lewat private chat (PC)\nSilahkan cek chat dari bot><!')
-                    res.map(async s => {
-                        await conn.sendFileFromUrl(many ? m.sender : m.from, s, {ctwa: {type: 'link'},quotedMessageId: msgId})
+                    conn.sendMessage(many ? m.sender : m.from, await tools.parseResult('INSTAGRAM DOWNLOADER', res, {delete: ['links', 'music']}), {quotedMessageId: msgId})
+                    links.map(async s => {
+                        await conn.sendFileFromUrl(many ? m.sender : m.from, s.url, {ctwa: {type: 'link'},quotedMessageId: msgId})
                     })
-                })
             }
         }catch(e){
             if(m.command == 'igstory') return m.reply('User tidak ditemukan!')

@@ -6,12 +6,15 @@ module.exports = {
     category: 'search',
     desc: ['Mencari sticker berdasarkan kata kunci', '.findsticker <query>'],
     async handler(m, {conn,  msgId, text}){
+        try{
         if(!text) return await m.reply('mau cari sticker apa?')
         m.reply(global.mess.wait)
-        stickersearch(text).then(res => {
+        const res = await stickersearch(text)
             for(let i=0; i<10; i++){
-                conn.sendStickerFromUrl(m.from, res.sticker[i], text, stickerMetadata.stickerAuthor, {quotedMessageId: msgId, ctwa: {type: 'link'}})
+                await conn.sendStickerFromUrl(m.from, res.sticker[i], text, stickerMetadata.stickerAuthor, {quotedMessageId: msgId, ctwa: {type: 'link'}})
             }
-        })
+        }catch(e){
+            global.eror(m.command, e, m)
+        }
     }
 }

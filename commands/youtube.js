@@ -10,9 +10,14 @@ module.exports = {
         try{
             if(!text) return await m.reply('Masukkan link!')
             if(!m.isUrl(text)) return await m.reply(global.mess.errorlink)
-            m.reply(global.mess.wait)
-            down = await scrapp.youtube(m.command == 'ytmp3' ? 'mp3' : 'mp4', text)
+            await m.reply(global.mess.wait)
+            const down = await scrapp.youtube(m.command == 'ytmp3' ? 'mp3' : 'mp4', text)
             if(!down.status) return m.reply(down)
+            if(down.link == undefined){
+                const down2 = await scrapp.y1s(m.command == 'ytmp3' ? 'mp3' : 'mp4', text)
+                if(!down2.status) return m.reply(down2)
+                link2 = down2.dlink
+            }
             teks = m.command == 'ytmp3' ? `*Y T M P 3  D O W N L O A D E R*\n\n` : `*Y T M P 4  D O W N L O A D E R*\n\n`
             teks += `${global.shp} Title : ${down.title}\n`
             teks += `${global.shp} Id : ${down.id}\n`
@@ -25,8 +30,8 @@ module.exports = {
             }
             teks += `\nTunggu sebentar...\n${m.command == 'ytmp3' ? 'Audio' : 'Video'} sedang dikirim`
             const thumb = await MessageMedia.fromUrl(down.thumbnail)
-            await conn.sendFileFromUrl(m.from, down.thumbnail, {ctwa: {type: 'yt', data: await conn.ctwa(down.title, m.command == 'ytmp3' ? `*Y T M P 3  D O W N L O A D E R*` : `*Y T M P 4  D O W N L O A D E R*`, thumb.data, down.url)}, caption: teks, quotedMessageId: msgId})
-            conn.sendFileFromUrl(m.from, down.link, {quotedMessageId: msgId})
+            await conn.sendFileFromUrl(m.from, down.thumbnail, {ctwa: {type: 'yt', data: await conn.ctwa(down.title, m.command == 'ytmp3' ? `Y T M P 3  D O W N L O A D E R` : `Y T M P 4  D O W N L O A D E R`, thumb.data, down.url)}, caption: teks, quotedMessageId: msgId})
+            await conn.sendFileFromUrl(m.from, down.link == undefined ? link2 : down.link, {quotedMessageId: msgId})
         }catch(e){
 global.eror(m.command, e)
 }
