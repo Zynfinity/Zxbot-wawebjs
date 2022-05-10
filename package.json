@@ -38,7 +38,7 @@
     "spotifydl-core": "^0.2.0",
     "syntax-error": "^1.4.0",
     "tiktok-scraper": "git+https://github.com/drawrowfly/tiktok-scraper.git",
-    "whatsapp-web.js": "git+https://github.com/pedroslopez/whatsapp-web.js.git",
+    "whatsapp-web.js": "^1.16.6",
     "yt-search": "^2.10.3",
     "ytdl-core": "^4.11.0",
     "zxy-api": "^1.0.2"

@@ -3,14 +3,13 @@ node_modules
 # package lock
 package-lock.json
 #session
-.wwebjs_auth
+zxbot_data
 #session2
 store
 #media1
 test.js
 test.json
 #media2
-lib/media
 lib/utils
 lib/tmp
 
