@@ -9,7 +9,7 @@ module.exports = {
         id = chats.map(c => c.id._serialized)
         for(let i=0; i<id.length; i++){
             chat = await conn.getChatById(id[i])
-            chat.clearMessages()
+            chat.delete()
             if(i + 1 == id.length) m.reply('Clear Messages Complete')
         }
     }

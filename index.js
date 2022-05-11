@@ -25,6 +25,8 @@ async function start(){
         }),
         puppeteer: {
             headless: true,
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
+            executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
             args: [
                 '--no-sandbox',
                 '--disable-gpu-sandbox',
@@ -34,8 +36,28 @@ async function start(){
             exitOnPageError: false,
         }
     });
-    client.on('change_state', msg => console.log(msg))
-    client.on('auth_failure', msg => console.log(msg))
+    client.on('change_state', async msg => {
+        console.log(msg)
+        async function check(){
+            console.log('Checking Connection')
+            return await client.sendMessage(owner, 'Reconnecting')
+        }
+        if(msg == 'CONNECTED'){
+            client.cektime = Date.now() + await toms('10s')
+            intv = setInterval(async() => {
+                if(Date.now() >= client.cektime){
+                    cek = await check()
+                    console.log(cek)
+                    stop()
+                    client.cektime = Date.now() + await toms('10s')
+                }
+            }, 5000)
+            async function stop(){
+                clearInterval(intv)
+                intv = 0
+            }
+        }
+    })
     client.initialize().then(async re => {
         await require('./lib/interval')(client)
     })
@@ -57,7 +79,6 @@ async function start(){
         databes.cleartime = Date.now() + await toms('1h')
         fs.writeFileSync('./lib/json/data.json', JSON.stringify(databes))
     });
-    client.on('auth_failure', msg => console.log(msg))
     client.on('message', async msg => {
         client.msgdata = client.msgdata ? client.msgdata : []
         if (msg.type == 'chat' || msg.type == 'image' || msg.type == 'video' || msg.type == 'list_response') {

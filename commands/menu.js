@@ -74,10 +74,13 @@ module.exports = {
         }
         menu += `\n_*Note : Ketik .help <command> untuk melihat info command_\n_Berikan jeda 5 detik dalam memakai bot_`
         //const thumb = await MessageMedia.fromFilePath('./lib/media/thumb.jpg')
+        fek = await conn.ctwa()
+        fek.isForwarded = true
+        fek.forwardingScore = 999
         const thumb = await MessageMedia.fromUrl('https://img.freepik.com/free-vector/cute-robot-flying-cartoon-illustration-people-technology-icon-concept_138676-1892.jpg')
         await conn.sendMessage(m.from, menu, {
             quotedMessageId: msgId,
-            extra: await conn.ctwa()
+            extra: fek
         })
     }
 }
