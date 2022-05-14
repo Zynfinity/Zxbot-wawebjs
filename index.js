@@ -19,13 +19,16 @@ const startt = async() => {
 async function start(){
     await console.log(chalk.green('Welcome To ZXBOT'))
     console.log(chalk.green('Please wait, Starting Bot...'))
+    const worker = `./zxbot_data/session/Default/Service Worker`;
+    if (fs.existsSync(worker)) {
+      fs.rmSync(worker, { recursive: true });
+    }
     const client = await new Client({
         authStrategy: new LocalAuth({
             dataPath: `./zxbot_data`
         }),
         puppeteer: {
-            headless: true,
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
+            headless: false,
             executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
             args: [
                 '--no-sandbox',
@@ -36,30 +39,27 @@ async function start(){
             exitOnPageError: false,
         }
     });
+    client.initialize().then(async re => {
+        await require('./lib/interval')(client)
+    })
+    client.contime = false
     client.on('change_state', async msg => {
         console.log(msg)
         async function check(){
             console.log('Checking Connection')
+            client.contime = false
             return await client.sendMessage(owner, 'Reconnecting')
         }
         if(msg == 'CONNECTED'){
-            client.cektime = Date.now() + await toms('10s')
-            intv = setInterval(async() => {
-                if(Date.now() >= client.cektime){
-                    cek = await check()
-                    console.log(cek)
-                    stop()
-                    client.cektime = Date.now() + await toms('10s')
+            if(client.contime) return
+                await sleep(10000)
+                client.contime = true
+                cek = await check()
+                if(cek == ''){
+                    await client.destroy()
+                    startt()
                 }
-            }, 5000)
-            async function stop(){
-                clearInterval(intv)
-                intv = 0
-            }
         }
-    })
-    client.initialize().then(async re => {
-        await require('./lib/interval')(client)
     })
     client.on('qr', (qr) => {
         // Generate and scan this code with your phone
